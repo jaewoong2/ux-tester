@@ -1,14 +1,10 @@
 'use client'
 import Contents from '@/components/Contents'
-import Options from '@/components/Options'
-import Preview from '@/components/Preview'
 
 export default function Home() {
   return (
-    <main className='container mx-auto grid min-h-full grid-cols-[3fr_5fr_5fr] border'>
-      <Options />
+    <main className='container mx-auto flex min-h-full justify-center'>
       <Contents />
-      <Preview />
     </main>
   )
 }

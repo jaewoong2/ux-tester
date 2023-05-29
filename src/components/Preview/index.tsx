@@ -1,8 +1,8 @@
 'use client'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
-const Preview = () => {
-  return <section className='flex w-full items-center justify-center border'>Preview</section>
+const Preview = ({ children }: PropsWithChildren) => {
+  return <section className='absolute left-full top-0 flex w-full max-w-md justify-center p-10'>{children}</section>
 }
 
 export default Preview

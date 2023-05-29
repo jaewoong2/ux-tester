@@ -10,6 +10,7 @@ export type Item = {
     label: string
     type: InputProps['type']
     helper?: string
+    rules?: { label: string; validator: (input: string, rest: any) => boolean }[]
     options: { [key: string]: string }
   }
   options: {

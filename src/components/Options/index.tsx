@@ -13,7 +13,7 @@ const Options = () => {
   if (status !== '설정') return <div />
 
   return (
-    <aside className='flex w-full justify-center p-10'>
+    <aside className='absolute right-full top-0 flex w-full max-w-md justify-center p-10'>
       <div className='flex h-fit w-full flex-col gap-2 rounded-xl border px-5 py-10'>
         <h4 className='font-bold'>{target?.content.title} 옵션 설정</h4>
         {target.options.map((option, index) => (

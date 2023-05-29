@@ -13,40 +13,45 @@ interface Props<T = Item> {
 
 const Selected = ({ items, draggableProps, droppableProps }: Props) => {
   return (
-    <Droppable {...droppableProps}>
-      {(provided, snapshot) => (
-        <div ref={provided.innerRef} {...provided.droppableProps} className='flex flex-col'>
-          {items.map((item, index) => (
-            <Draggable
-              key={droppableProps.droppableId + item.id}
-              draggableId={droppableProps.droppableId + item.id}
-              index={index}
-              {...draggableProps}
-            >
-              {(provided, snapshot) => (
-                <>
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    className={twMerge(
-                      'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl',
-                      snapshot.isDragging ? 'shadow-lg' : ''
-                    )}
-                    style={{ ...provided.draggableProps.style, cursor: 'unset' }}
-                  >
-                    <p {...provided.dragHandleProps} className='px-3'>
-                      <GrDrag />
-                    </p>
-                    <Form label={item.form.label} type={item.form.type} />
-                  </div>
-                </>
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
+    <div className='flex flex-col py-10 pb-20'>
+      <h2 className='p-5 text-lg font-semibold'>회원가입</h2>
+      <div>
+        <Droppable {...droppableProps}>
+          {(provided, snapshot) => (
+            <div ref={provided.innerRef} {...provided.droppableProps} className='flex flex-col'>
+              {items.map((item, index) => (
+                <Draggable
+                  key={droppableProps.droppableId + item.id}
+                  draggableId={droppableProps.droppableId + item.id}
+                  index={index}
+                  {...draggableProps}
+                >
+                  {(provided, snapshot) => (
+                    <>
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        className={twMerge(
+                          'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl',
+                          snapshot.isDragging ? 'shadow-lg' : ''
+                        )}
+                        style={{ ...provided.draggableProps.style, cursor: 'unset' }}
+                      >
+                        <p {...provided.dragHandleProps} className='px-3'>
+                          <GrDrag />
+                        </p>
+                        <Form label={item.form.label} type={item.form.type} helper={item.form.rules} />
+                      </div>
+                    </>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </div>
+    </div>
   )
 }
 

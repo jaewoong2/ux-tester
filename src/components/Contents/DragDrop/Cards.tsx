@@ -17,7 +17,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
-          className='flex w-full flex-nowrap gap-5 overflow-auto bg-slate-50 p-5'
+          className='flex w-full flex-nowrap gap-5 overflow-auto rounded-sm bg-gray-500 p-5'
         >
           {items.map((item, index) => (
             <Draggable

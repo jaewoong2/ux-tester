@@ -9,17 +9,16 @@ import {
   InputRightAddon,
   Select,
 } from '@chakra-ui/react'
-import { FcCheckmark, FcRight } from 'react-icons/fc'
+import { FcLock, FcRight } from 'react-icons/fc'
 import { twMerge } from 'tailwind-merge'
 import Button from './Button'
 import { Item } from '@/types'
-import { FaLock } from 'react-icons/fa'
-import Options from '@/components/Options'
+import SimpleCheckIcon from '@/components/Icons/SimpleCheckIcon'
 
 type Props = {
   label?: string
   type?: InputProps['type']
-  helper?: string
+  helper?: Item['form']['rules']
   variant?: string
   options?: Item['form']['options']
 } & FormControlProps
@@ -60,11 +59,19 @@ const Form = ({ label, type, helper, options, ...props }: Props) => {
             </Select>
           </InputRightAddon>
         )}
-        <InputRightAddon>{options?.password === 'yes' && <FaLock />}</InputRightAddon>
+        {options?.password === 'yes' && (
+          <InputRightAddon>
+            <FcLock />
+          </InputRightAddon>
+        )}
       </InputGroup>
       <span className='mt-2 flex items-center gap-2'>
-        <FcCheckmark className='text-xs' />
-        <p className='text-xs'>{helper ?? '규칙을 정해주세요.'}</p>
+        {helper?.map(({ label, validator }) => (
+          <>
+            <SimpleCheckIcon className='fill-green-500 text-xs' />
+            <p className='text-xs text-green-800'>{label ?? '규칙을 정해주세요.'}</p>
+          </>
+        ))}
       </span>
     </FormControl>
   )
