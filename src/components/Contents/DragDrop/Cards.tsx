@@ -17,7 +17,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
-          className='flex w-full flex-nowrap gap-5 overflow-auto rounded-sm bg-gray-500 p-5'
+          className='flex w-full flex-nowrap gap-5 overflow-auto rounded-sm border p-5'
         >
           {items.map((item, index) => (
             <Draggable
@@ -34,7 +34,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
                   className={twMerge('flex-[0_0_auto] cursor-pointer', snapshot.isDragging ? 'shadow-xl' : '')}
                   style={{ ...provided.draggableProps.style, cursor: 'grap' }}
                 >
-                  <Card title={item.content.title} className='bg-white p-3'>
+                  <Card title={item.content.title} className='bg-slate-100 p-3'>
                     {item.content.description}
                   </Card>
                 </div>

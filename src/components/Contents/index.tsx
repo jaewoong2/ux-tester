@@ -84,14 +84,22 @@ const Contents = () => {
                 {currentIndex === index && <SimpleCircleIcon className=' h-5 w-5 fill-[#7ac142]' />}
                 {currentIndex !== index && <CheckIcon className='h-5 w-5' isSuccess={currentIndex > index} />}
               </div>
-              <Form
-                className='px-4'
-                label={item.form.label}
-                type={item.form.type}
-                options={item.form.options}
-                helper={item.form.rules}
-                index={index}
-              />
+              <form
+                className='w-full'
+                onChange={(e) => {
+                  e.preventDefault()
+                  console.log(e)
+                }}
+              >
+                <Form
+                  className='px-4'
+                  label={item.form.label}
+                  type={item.form.type}
+                  options={item.form.options}
+                  helper={item.form.rules}
+                  index={index}
+                />
+              </form>
             </div>
           ))}
         </>

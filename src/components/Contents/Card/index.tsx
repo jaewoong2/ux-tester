@@ -7,7 +7,7 @@ type Props = {
 
 const Card = ({ children, className, title, ...rest }: PropsWithChildren<Props>) => {
   return (
-    <div className={twMerge('w-full rounded-md border border-dashed p-3', className)} {...rest}>
+    <div className={twMerge('w-full rounded-md p-3', className)} {...rest}>
       <h3 className='text-xl font-bold'>{title}</h3>
       {children}
     </div>

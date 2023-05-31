@@ -7,11 +7,11 @@ import {
   InputProps,
   InputGroup,
   InputRightAddon,
+  Button,
   Select,
 } from '@chakra-ui/react'
-import { FcLock, FcRight } from 'react-icons/fc'
+import { FcLock } from 'react-icons/fc'
 import { twMerge } from 'tailwind-merge'
-import Button from './Button'
 import { Item } from '@/types'
 import SimpleCheckIcon from '@/components/Icons/SimpleCheckIcon'
 
@@ -28,7 +28,7 @@ const Form = ({ label, type, helper, options, ...props }: Props) => {
   if (type === 'button') {
     return (
       <div className='w-full p-4'>
-        <Button className='flex w-full items-center justify-center gap-2 text-sm'>
+        <Button type='submit' className='flex w-full items-center justify-center gap-2 bg-slate-200 text-sm'>
           {options?.['label'] ?? '다음'}
         </Button>
       </div>
@@ -42,24 +42,24 @@ const Form = ({ label, type, helper, options, ...props }: Props) => {
         {type !== 'password' && (
           <Input
             type={type}
+            className='w-full'
             placeholder={options?.placeholder === 'example' ? 'your.example.id' : '이메일을 입력하세요...'}
           />
         )}
         {type === 'password' && <Input type={type} placeholder={'*********'} />}
         {options?.domain === 'domain' && (
-          <InputRightAddon className='flex gap-2 p-3'>
+          <InputRightAddon className='flex w-[40%] gap-2 p-3 pr-0 text-sm'>
             <p>@</p>
-            <Input variant={'unstyled'} placeholder='example.com' />
+            <Input variant={'unstyled'} placeholder='example.com' className='w-[100%]' />
           </InputRightAddon>
         )}
         {options?.domain === 'domain-select' && (
-          <InputRightAddon className='flex gap-2 p-3'>
+          <InputRightAddon className='flex gap-2 p-3 pr-0 text-sm'>
             <p>@</p>
-            <Select variant={'unstyled'}>
+            <Select variant={'unstyled'} className='text-sm'>
               <option>naver.com</option>
               <option>google.com</option>
               <option>kakao.com</option>
-              <option>직접 입력</option>
             </Select>
           </InputRightAddon>
         )}
@@ -67,6 +67,11 @@ const Form = ({ label, type, helper, options, ...props }: Props) => {
           <InputRightAddon>
             <FcLock />
           </InputRightAddon>
+        )}
+        {options?.duplicate === 'yes' && (
+          <Button type='button' size={'md'} className='ml-4 w-fit bg-slate-100 px-6 text-sm'>
+            중복확인
+          </Button>
         )}
       </InputGroup>
       <span className='mt-2 flex items-center gap-2'>
