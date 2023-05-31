@@ -9,10 +9,6 @@ const SIGNUP_SELECTABLE_CARD_EMAIL: Item = {
     rules: [
       {
         label: '동일한 이메일 여부',
-        validator: (email) => {
-          if (email) return true
-          return false
-        },
       },
     ],
     options: {
@@ -27,6 +23,7 @@ const SIGNUP_SELECTABLE_CARD_EMAIL: Item = {
       type: 'radio',
       option: 'duplicate',
       title: '중복 확인 버튼은 필요 할까요?',
+      value: 'yes',
       values: [
         {
           value: 'yes',
@@ -44,6 +41,7 @@ const SIGNUP_SELECTABLE_CARD_EMAIL: Item = {
       type: 'radio',
       option: 'placeholder',
       title: '플레이스홀더 값은 무엇으로 할까요?',
+      value: 'example',
       values: [
         {
           value: 'example',
@@ -61,23 +59,16 @@ const SIGNUP_SELECTABLE_CARD_EMAIL: Item = {
       type: 'radio',
       title: '규칙은 언제 확인 할까요?',
       option: 'rule',
+      value: 'button',
       values: [
         {
           value: 'button',
           key: '0',
-          node: (
-            <p>
-              <span className='font-bold'>다음</span>버튼을 누른 후 규칙 확인
-            </p>
-          ),
+          node: '**다음** 버튼을 누른 후 규칙 확인',
         },
         {
           value: 'input',
-          node: (
-            <p>
-              <span className='font-bold'>입력</span>을 하며 규칙 확인
-            </p>
-          ),
+          node: '**입력**을 하며 규칙 확인',
           key: '1',
         },
       ],
@@ -86,6 +77,7 @@ const SIGNUP_SELECTABLE_CARD_EMAIL: Item = {
       type: 'radio',
       title: '이메일 은 어떻게 표시해야 할까요?',
       option: 'domain',
+      value: 'normal',
       values: [
         {
           value: 'normal',
@@ -94,20 +86,12 @@ const SIGNUP_SELECTABLE_CARD_EMAIL: Item = {
         },
         {
           value: 'domain',
-          node: (
-            <p>
-              <span className='font-bold'>도메인</span>을 입력 할 수 있는 공간을 만든다
-            </p>
-          ),
+          node: '**도메인**을 입력 할 수 있는 공간을 만든다',
           key: '1',
         },
         {
           value: 'domain-select',
-          node: (
-            <p>
-              <span className='font-bold'>도메인</span>을 선택 할 수 있는 공간을 만든다
-            </p>
-          ),
+          node: '**도메인**을 선택 할 수 있는 공간을 만든다',
           key: '2',
         },
       ],
@@ -124,20 +108,12 @@ const SIGNUP_SELECTABLE_CARD_PASSWORD: Item = {
     rules: [
       {
         label: '특수문자',
-        validator(input) {
-          const reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g
-          return reg.test(input)
-        },
       },
       {
         label: '8자 이상',
-        validator(input) {
-          return input.length >= 8
-        },
       },
     ],
     options: {
-      placeholder: 'example',
       rule: 'button',
       password: 'yes',
     },
@@ -145,42 +121,18 @@ const SIGNUP_SELECTABLE_CARD_PASSWORD: Item = {
   options: [
     {
       type: 'radio',
-      option: 'placeholder',
-      title: '플레이스홀더 값은 무엇으로 할까요?',
-      values: [
-        {
-          value: 'example',
-          node: 'example@domain.com',
-          key: '0',
-        },
-        {
-          value: 'input',
-          node: '이메일을 입력 해주세요...',
-          key: '1',
-        },
-      ],
-    },
-    {
-      type: 'radio',
       title: '규칙은 언제 확인 할까요?',
       option: 'rule',
+      value: 'button',
       values: [
         {
           value: 'button',
           key: '0',
-          node: (
-            <p>
-              <span className='font-bold'>다음</span>버튼을 누른 후 규칙 확인
-            </p>
-          ),
+          node: '**다음** 버튼을 누른 후 규칙 확인',
         },
         {
           value: 'input',
-          node: (
-            <p>
-              <span className='font-bold'>입력</span>을 하며 규칙 확인
-            </p>
-          ),
+          node: '**입력**을 하며 규칙 확인',
           key: '1',
         },
       ],
@@ -189,6 +141,7 @@ const SIGNUP_SELECTABLE_CARD_PASSWORD: Item = {
       type: 'radio',
       title: '비밀번호는 보일 수 있도록 할까요?',
       option: 'password',
+      value: 'yes',
       values: [
         {
           value: 'yes',
@@ -214,13 +167,9 @@ const SIGNUP_SELECTABLE_CARD_PASSWORDCHECK: Item = {
     rules: [
       {
         label: '동일한 비밀번호',
-        validator(input, password: string) {
-          return password === input
-        },
       },
     ],
     options: {
-      placeholder: 'example',
       rule: 'button',
       password: 'yes',
     },
@@ -228,42 +177,18 @@ const SIGNUP_SELECTABLE_CARD_PASSWORDCHECK: Item = {
   options: [
     {
       type: 'radio',
-      option: 'placeholder',
-      title: '플레이스홀더 값은 무엇으로 할까요?',
-      values: [
-        {
-          value: 'example',
-          node: 'example@domain.com',
-          key: '0',
-        },
-        {
-          value: 'input',
-          node: '이메일을 입력 해주세요...',
-          key: '1',
-        },
-      ],
-    },
-    {
-      type: 'radio',
       title: '규칙은 언제 확인 할까요?',
+      value: 'button',
       option: 'rule',
       values: [
         {
           value: 'button',
           key: '0',
-          node: (
-            <p>
-              <span className='font-bold'>다음</span>버튼을 누른 후 규칙 확인
-            </p>
-          ),
+          node: '**다음** 버튼을 누른 후 규칙 확인',
         },
         {
           value: 'input',
-          node: (
-            <p>
-              <span className='font-bold'>입력</span>을 하며 규칙 확인
-            </p>
-          ),
+          node: '**입력**을 하며 규칙 확인',
           key: '1',
         },
       ],
@@ -272,6 +197,7 @@ const SIGNUP_SELECTABLE_CARD_PASSWORDCHECK: Item = {
       type: 'radio',
       title: '비밀번호는 보일 수 있도록 할까요?',
       option: 'password',
+      value: 'yes',
       values: [
         {
           value: 'yes',
@@ -302,7 +228,9 @@ const SIGNUP_SELECTABLE_CARD_NEXTBUTTON: Item = {
     {
       type: 'input',
       title: '버튼 라벨 설정',
+      value: '다음',
       option: 'label',
+      placeholder: '더 많은 컨텐츠 보러 가기',
     },
   ],
 }

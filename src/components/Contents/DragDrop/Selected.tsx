@@ -13,10 +13,10 @@ interface Props<T = Item> {
 
 const Selected = ({ items, draggableProps, droppableProps }: Props) => {
   return (
-    <div className='flex flex-col py-10 pb-20'>
+    <div className='flex flex-col pt-10'>
       <h2 className='p-5 text-lg font-semibold'>회원가입</h2>
       <div>
-        <Droppable {...droppableProps}>
+        <Droppable {...droppableProps} key={droppableProps.droppableId}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} {...provided.droppableProps} className='flex flex-col'>
               {items.map((item, index) => (
@@ -27,22 +27,27 @@ const Selected = ({ items, draggableProps, droppableProps }: Props) => {
                   {...draggableProps}
                 >
                   {(provided, snapshot) => (
-                    <>
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        className={twMerge(
-                          'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl',
-                          snapshot.isDragging ? 'shadow-lg' : ''
-                        )}
-                        style={{ ...provided.draggableProps.style, cursor: 'unset' }}
-                      >
-                        <p {...provided.dragHandleProps} className='px-3'>
-                          <GrDrag />
-                        </p>
-                        <Form label={item.form.label} type={item.form.type} helper={item.form.rules} />
-                      </div>
-                    </>
+                    <div
+                      key={item.id}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      className={twMerge(
+                        'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl',
+                        snapshot.isDragging ? 'shadow-lg' : ''
+                      )}
+                      style={{ ...provided.draggableProps.style, cursor: 'unset' }}
+                    >
+                      <p {...provided.dragHandleProps} className='px-3'>
+                        <GrDrag />
+                      </p>
+                      <Form
+                        label={item.form.label}
+                        type={item.form.type}
+                        helper={item.form.rules}
+                        key={item.id}
+                        index={index}
+                      />
+                    </div>
                   )}
                 </Draggable>
               ))}

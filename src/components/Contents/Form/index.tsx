@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   FormControl,
   FormLabel,
@@ -20,35 +20,39 @@ type Props = {
   type?: InputProps['type']
   helper?: Item['form']['rules']
   variant?: string
-  options?: Item['form']['options']
+  options: Item['form']['options']
+  index: number
 } & FormControlProps
 
 const Form = ({ label, type, helper, options, ...props }: Props) => {
-  const [input, setInput] = useState('')
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)
-
   if (type === 'button') {
     return (
       <div className='w-full p-4'>
-        <Button className='flex w-full items-center justify-center gap-2'>
-          다음 <FcRight className='text-xl' />
+        <Button className='flex w-full items-center justify-center gap-2 text-sm'>
+          {options?.['label'] ?? '다음'}
         </Button>
       </div>
     )
   }
+
   return (
     <FormControl {...props} className={twMerge('bg-white py-5 pr-5', props.className)}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
-        <Input type={type} value={input} onChange={handleInputChange} />
+        {type !== 'password' && (
+          <Input
+            type={type}
+            placeholder={options?.placeholder === 'example' ? 'your.example.id' : '이메일을 입력하세요...'}
+          />
+        )}
+        {type === 'password' && <Input type={type} placeholder={'*********'} />}
         {options?.domain === 'domain' && (
           <InputRightAddon className='flex gap-2 p-3'>
             <p>@</p>
-            <Input variant={'unstyled'} />
+            <Input variant={'unstyled'} placeholder='example.com' />
           </InputRightAddon>
         )}
-        {options?.domain === 'normal' && (
+        {options?.domain === 'domain-select' && (
           <InputRightAddon className='flex gap-2 p-3'>
             <p>@</p>
             <Select variant={'unstyled'}>
@@ -66,11 +70,11 @@ const Form = ({ label, type, helper, options, ...props }: Props) => {
         )}
       </InputGroup>
       <span className='mt-2 flex items-center gap-2'>
-        {helper?.map(({ label, validator }) => (
-          <>
+        {helper?.map(({ label }) => (
+          <div key={props.key + label} className='flex items-center gap-1'>
             <SimpleCheckIcon className='fill-green-500 text-xs' />
             <p className='text-xs text-green-800'>{label ?? '규칙을 정해주세요.'}</p>
-          </>
+          </div>
         ))}
       </span>
     </FormControl>

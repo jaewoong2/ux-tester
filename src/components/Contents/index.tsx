@@ -12,8 +12,6 @@ import Form from './Form'
 import { twMerge } from 'tailwind-merge'
 import CheckIcon from '../Icons/CheckIcon'
 import Options from '../Options'
-import { StepIndicator } from '@chakra-ui/react'
-import { FcPlus } from 'react-icons/fc'
 import SimpleCircleIcon from '../Icons/SimpleCircleIcon'
 
 const Contents = () => {
@@ -52,7 +50,7 @@ const Contents = () => {
   }
 
   return (
-    <div className='relative flex w-full max-w-lg flex-col gap-5 p-3'>
+    <div className='relative flex w-full max-w-lg flex-col p-3'>
       <Options />
       {status === '순서' && (
         <>
@@ -70,7 +68,7 @@ const Contents = () => {
             <button
               type='button'
               onClick={() => dispatch(setStatus({ status: '설정' }))}
-              className='w-full rounded-md bg-blue-400 px-5 py-3 text-white hover:bg-blue-300'
+              className='mt-10 w-full rounded-md bg-blue-400 px-5 py-3 text-white hover:bg-blue-300'
             >
               옵션 설정하기
             </button>
@@ -82,14 +80,17 @@ const Contents = () => {
           <h2 className='p-5 text-lg font-semibold'>회원가입</h2>
           {selected.map((item, index) => (
             <div className={twMerge('relative flex items-center overflow-hidden rounded-xl px-2')} key={item.id}>
-              {currentIndex === index && <SimpleCircleIcon className=' fill-green-400' />}
-              {currentIndex !== index && <CheckIcon className='h-5 w-5' isSuccess={currentIndex > index} />}
+              <div className='flex w-9 justify-center px-1'>
+                {currentIndex === index && <SimpleCircleIcon className=' h-5 w-5 fill-[#7ac142]' />}
+                {currentIndex !== index && <CheckIcon className='h-5 w-5' isSuccess={currentIndex > index} />}
+              </div>
               <Form
                 className='px-4'
                 label={item.form.label}
                 type={item.form.type}
                 options={item.form.options}
                 helper={item.form.rules}
+                index={index}
               />
             </div>
           ))}

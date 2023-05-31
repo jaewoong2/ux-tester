@@ -10,16 +10,18 @@ export type Item = {
     label: string
     type: InputProps['type']
     helper?: string
-    rules?: { label: string; validator: (input: string, rest: any) => boolean }[]
+    rules?: { label: string; validator?: (input: string, rest: any) => boolean }[]
     options: { [key: string]: string }
   }
-  options: {
+  options?: {
     type: string
     title: string
     option: string
+    value: string
+    placeholder?: string
     values?: {
       value: string
-      node: React.ReactNode
+      node: string
       key: string | number
     }[]
   }[]

@@ -39,18 +39,20 @@ const signupSlice = createSlice({
       }
       state.currentIndex = state.currentIndex + 1
     },
-
     prevCurrent: (state) => {
       if (state.currentIndex === 0) {
         return
       }
       state.currentIndex = state.currentIndex - 1
     },
+    handleChangeOptions: (state, { payload }: PayloadAction<{ value: string; key: string }>) => {
+      state.selected[state.currentIndex].form.options[payload.key] = payload.value
+    },
   },
 })
 
 const { actions, reducer: signupReducer } = signupSlice
 
-export const { addSelected, swapSelected, setStatus, nextCurrent, prevCurrent } = actions
+export const { addSelected, swapSelected, setStatus, nextCurrent, prevCurrent, handleChangeOptions } = actions
 
 export default signupReducer
