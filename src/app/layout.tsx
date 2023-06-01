@@ -1,5 +1,6 @@
 import { Providers } from '@/lib/Provider'
 import './globals.css'
+import SupabaseProvider from './supabase-provider'
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='kr'>
       <body suppressHydrationWarning={true}>
-        <Providers>{children}</Providers>
+        <SupabaseProvider>
+          <Providers>{children}</Providers>
+        </SupabaseProvider>
       </body>
     </html>
   )

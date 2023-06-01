@@ -5,12 +5,7 @@
     "node": true,
     "jest": true
   },
-  "extends": [
-    "next",
-    "next/core-web-vitals",
-    "prettier",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["next", "next/core-web-vitals", "prettier", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -41,7 +36,7 @@
     "prefer-arrow-callback": "warn",
     "prefer-const": "error",
     "@next/next/no-img-element": "off",
-    "no-console": "error",
+    "no-console": "warn",
     "no-duplicate-case": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-explicit-any": "off",
