@@ -13,6 +13,16 @@ export const createServerSupabaseClient = cache(() =>
   )
 )
 
+export async function getOptions(ItemId: number) {
+  const supabase = createServerSupabaseClient()
+  try {
+    const options = await supabase.from('option').select('*').eq('item_id', ItemId)
+    return options
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export async function getItems() {
   const supabase = createServerSupabaseClient()
   try {

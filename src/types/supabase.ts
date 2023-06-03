@@ -1,5 +1,7 @@
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 
+type JSON = { [key: string]: string }
+
 export interface Database {
   public: {
     Tables: {
@@ -9,8 +11,9 @@ export interface Database {
           description: string | null
           id: number
           key: string | null
-          optionValue: Json | null
+          optionValue: JSON | null
           placeholder: string | null
+          thumbnail: string | null
           title: string | null
           type: string | null
         }
@@ -19,8 +22,9 @@ export interface Database {
           description?: string | null
           id?: number
           key?: string | null
-          optionValue?: Json | null
+          optionValue?: JSON | null
           placeholder?: string | null
+          thumbnail?: string | null
           title?: string | null
           type?: string | null
         }
@@ -29,8 +33,9 @@ export interface Database {
           description?: string | null
           id?: number
           key?: string | null
-          optionValue?: Json | null
+          optionValue?: JSON | null
           placeholder?: string | null
+          thumbnail?: string | null
           title?: string | null
           type?: string | null
         }
@@ -38,27 +43,33 @@ export interface Database {
       option: {
         Row: {
           created_at: string | null
+          description: string | null
           id: number
           item_id: number | null
           key: string | null
+          title: string | null
           type: string | null
-          values: string[] | null
+          values: JSON | null
         }
         Insert: {
           created_at?: string | null
+          description?: string | null
           id?: number
           item_id?: number | null
           key?: string | null
+          title?: string | null
           type?: string | null
-          values?: string[] | null
+          values?: JSON | null
         }
         Update: {
           created_at?: string | null
+          description?: string | null
           id?: number
           item_id?: number | null
           key?: string | null
+          title?: string | null
           type?: string | null
-          values?: string[] | null
+          values?: JSON | null
         }
       }
     }
