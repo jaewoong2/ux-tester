@@ -1,19 +1,19 @@
-import { Item } from '@/types'
+import { PrimaryItem } from '@/types'
 import React from 'react'
 import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
 import Form from '../Form'
 import { GrDrag } from 'react-icons/gr'
 
-interface Props<T = Item> {
-  items: T[]
+interface Props {
+  items: PrimaryItem[]
   droppableProps: Omit<DroppableProps, 'children'>
   draggableProps: Omit<DraggableProps, 'draggableId' | 'index' | 'children'>
 }
 
 const Selected = ({ items, draggableProps, droppableProps }: Props) => {
   return (
-    <div className='flex flex-col pt-10'>
+    <div className='flex flex-col'>
       <h2 className='p-5 text-lg font-semibold'>회원가입</h2>
       <div>
         <Droppable {...droppableProps} key={droppableProps.droppableId}>
@@ -41,9 +41,11 @@ const Selected = ({ items, draggableProps, droppableProps }: Props) => {
                         <GrDrag />
                       </p>
                       <Form
-                        label={item.form.label}
-                        type={item.form.type}
-                        helper={item.form.rules}
+                        label={item.title ?? 'title'}
+                        type={item.type ?? 'text'}
+                        placeholder={item.placeholder ?? 'placeholder'}
+                        helper={[]}
+                        options={{}}
                         key={item.id}
                         index={index}
                       />

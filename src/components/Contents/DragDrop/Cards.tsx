@@ -1,11 +1,11 @@
-import { Item } from '@/types'
+import { PrimaryItem } from '@/types'
 import React from 'react'
 import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
 import Card from '../Card'
 
-interface Props<T = Item> {
-  items: T[]
+interface Props {
+  items: PrimaryItem[]
   droppableProps: Omit<DroppableProps, 'children'>
   draggableProps: Omit<DraggableProps, 'draggableId' | 'index' | 'children'>
 }
@@ -17,7 +17,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
-          className='flex w-full flex-nowrap gap-5 overflow-auto rounded-sm border p-5'
+          className='flex w-full flex-nowrap gap-5 overflow-auto rounded-sm p-5'
         >
           {items.map((item, index) => (
             <Draggable
@@ -34,8 +34,8 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
                   className={twMerge('flex-[0_0_auto] cursor-pointer', snapshot.isDragging ? 'shadow-xl' : '')}
                   style={{ ...provided.draggableProps.style, cursor: 'grap' }}
                 >
-                  <Card title={item.content.title} className='bg-slate-100 p-3'>
-                    {item.content.description}
+                  <Card title={item.title ?? 'Title'} className='bg-slate-100 p-3'>
+                    {item.description}
                   </Card>
                 </div>
               )}
