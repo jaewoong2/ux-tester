@@ -4,19 +4,30 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 
-import Cards from './DragDrop/Cards'
-import Selected from './DragDrop/Selected'
 import EmptyDrop from './DragDrop/EmptyDrop'
-import { addSelected, swapSelected, setStatus } from '@/store/slices/signupSlice'
-import Form from './Form'
+import { addSelected, swapSelected, setStatus, init } from '@/store/slices/signupSlice'
 import { twMerge } from 'tailwind-merge'
 import CheckIcon from '../Icons/CheckIcon'
 import Options from '../Options'
 import SimpleCircleIcon from '../Icons/SimpleCircleIcon'
+import Cards from './DragDrop/Cards'
+import { PrimaryItem } from '@/types'
+import Selected from './DragDrop/Selected'
+import Link from 'next/link'
 
-const Contents = () => {
+type Props = {
+  items: PrimaryItem[] | undefined | null
+}
+
+const Contents = ({ items }: Props) => {
   const { cards, selected, status, currentIndex } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (items) {
+      dispatch(init({ items }))
+    }
+  }, [items, dispatch])
 
   // --- Draggable이 Droppable로 드래그 되었을 때 실행되는 이벤트
   const onDragEnd = useCallback(
@@ -51,6 +62,7 @@ const Contents = () => {
 
   return (
     <div className='relative flex w-full max-w-lg flex-col p-3'>
+      <Link href={'/signup/1'}>hi</Link>
       <Options />
       {status === '순서' && (
         <>
@@ -91,14 +103,14 @@ const Contents = () => {
                   console.log(e)
                 }}
               >
-                <Form
+                {/* <Form
                   className='px-4'
                   label={item.form.label}
                   type={item.form.type}
                   options={item.form.options}
                   helper={item.form.rules}
                   index={index}
-                />
+                /> */}
               </form>
             </div>
           ))}
