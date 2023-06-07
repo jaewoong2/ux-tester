@@ -1,20 +1,15 @@
 'use client'
-import React, { Suspense, useCallback, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import { Button, useDisclosure } from '@chakra-ui/react'
 import { FaArrowLeft } from 'react-icons/fa'
 import Drawer from './Drawer'
 import { useMediaQuery } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { handleChangeOptions, nextCurrent, prevCurrent, setOptionsMap } from '@/store/slices/signupSlice'
+import { handleChangeOptions, nextCurrent, prevCurrent, setOptionsMap, setStatus } from '@/store/slices/signupSlice'
 import markdownToHtml from '@/lib/markdownToHtml'
 import useGetOptions from '../../hooks/useGetOptions'
 import CheckIcon from '@/components/Icons/CheckIcon'
 import Image from 'next/image'
-
-type Props = {
-  handleClickCTA: () => void
-  optionStatus: 'normal' | 'hidden' | 'animate-fade-out-up'
-}
 
 const sleep = () =>
   new Promise((reslove) =>
@@ -23,8 +18,8 @@ const sleep = () =>
     }, 1000)
   )
 
-const OptionBlockContents = ({ handleClickCTA, optionStatus }: Props) => {
-  const { optionsMap, currentIndex, selected, status } = useAppSelector((state) => state.signup)
+const OptionBlockContents = () => {
+  const { optionsMap, currentIndex, selected } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
   const { data: options } = useGetOptions({ itemId: Number(selected[currentIndex]?.id) })
   const [clickedIndex, setClickedIndex] = useState(-1)
@@ -60,12 +55,16 @@ const OptionBlockContents = ({ handleClickCTA, optionStatus }: Props) => {
     [currentIndex, dispatch, optionIndex, options?.length, clickedIndex]
   )
 
-  if (status === '완료') {
+  const handleClickCTA = () => {
+    dispatch(setStatus({ status: '완료' }))
+  }
+
+  if (currentIndex >= selected.length) {
     return (
-      <div className={`h-full w-full ${optionStatus}`}>
+      <div className='h-full w-full'>
         <h2 className='text-xl font-bold'>회원가입 과정을 만드셨어요!</h2>
         <div className='flex w-full scale-x-[-1] items-center justify-center p-10 pt-5'>
-          <Image src={'/thumbs-up.gif'} alt='thumbUp' width='200' height={'200'} />
+          <Image src={'/heart.gif'} alt='thumbUp' width='200' height={'200'} />
           <caption className='sr-only'>
             <a href='https://www.flaticon.com/free-animated-icons/like' title='like animated icons'>
               Like animated icons created by Freepik - Flaticon
@@ -127,17 +126,24 @@ const OptionBlockContents = ({ handleClickCTA, optionStatus }: Props) => {
 const OptionBlock = () => {
   const { status } = useAppSelector((state) => state.signup)
   const [isMobile, drawerLeft] = useMediaQuery(['(max-width: 720px)', '(max-width: 1300px)'])
-  const [optionStatus, setOptionStauts] = useState<'normal' | 'animate-fade-out-up' | 'hidden'>('normal')
+  const [optionStatus, setOptionStauts] = useState<
+    'normal' | 'animate-fade-out-up' | 'hidden' | 'animate-fade-in-down'
+  >('normal')
   const { onOpen, isOpen, onClose, ...rest } = useDisclosure()
 
-  const handleClickCTA = useCallback(() => {
-    setOptionStauts('animate-fade-out-up')
-    onClose()
+  useEffect(() => {
+    if (status === '완료') {
+      setOptionStauts('animate-fade-out-up')
+      onClose()
 
-    setTimeout(() => {
-      setOptionStauts('hidden')
-    }, 500)
-  }, [onClose])
+      setTimeout(() => {
+        setOptionStauts('hidden')
+      }, 500)
+    } else {
+      setOptionStauts('animate-fade-in-down')
+      onOpen()
+    }
+  }, [onClose, onOpen, status])
 
   if (status === '순서') {
     return null
@@ -156,7 +162,7 @@ const OptionBlock = () => {
       {...rest}
     >
       <Suspense fallback={<div>로딩중...</div>}>
-        <OptionBlockContents optionStatus={optionStatus} handleClickCTA={handleClickCTA} />
+        <OptionBlockContents />
       </Suspense>
     </Drawer>
   ) : (
@@ -164,7 +170,7 @@ const OptionBlock = () => {
       className={`absolute right-full top-5 mr-10 flex w-[350px] flex-col gap-16 rounded-xl border bg-white p-10 ${optionStatus}`}
     >
       <Suspense fallback={<div>로딩중...</div>}>
-        <OptionBlockContents optionStatus={optionStatus} handleClickCTA={handleClickCTA} />
+        <OptionBlockContents />
       </Suspense>
     </div>
   )

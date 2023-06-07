@@ -1,59 +1,10 @@
 import React from 'react'
 import Form from '@/components/Contents/Form'
-import CheckIcon from '@/components/Icons/CheckIcon'
-import SimpleCircleIcon from '@/components/Icons/SimpleCircleIcon'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { setIsError, setStatus } from '@/store/slices/signupSlice'
 import { FaArrowLeft } from 'react-icons/fa'
-import validateEmail from '@/lib/validateEmail'
-import validatePassword from '@/lib/validatePassword'
+import useSignupForm from '../../hooks/useSignupForm'
 
 const FinalSetting = () => {
-  const { selected, currentIndex } = useAppSelector((state) => state.signup)
-  const dispatch = useAppDispatch()
-
-  const handlePrevButton = () => {
-    dispatch(setStatus({ status: '설정' }))
-  }
-
-  const handleSubmit: React.ChangeEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    const emailIndex = selected.findIndex((item) => item.itemKey === 'email')
-    const passwordIndex = selected.findIndex((item) => item.itemKey === 'password')
-    const passwordCheckIndex = selected.findIndex((item) => item.itemKey === 'passwordCheck')
-    const email = selected[emailIndex]
-    const password = selected[passwordIndex]
-    const passwordCheck = selected[passwordCheckIndex]
-
-    if (email.optionValue?.rule === 'button') {
-      dispatch(
-        setIsError({
-          value: {
-            rule: validateEmail(email?.currentValue),
-          },
-          index: emailIndex,
-        })
-      )
-    }
-
-    if (password.optionValue?.rule === 'button') {
-      dispatch(setIsError({ value: { rule: validatePassword(password.currentValue) }, index: passwordIndex }))
-    }
-
-    if (passwordCheck.optionValue?.rule === 'button') {
-      dispatch(
-        setIsError({
-          value: { rule: passwordCheck?.currentValue === password?.currentValue },
-          index: passwordCheckIndex,
-        })
-      )
-    }
-
-    if (!email.isError.duplicate || !email.isError.rule || !password.isError.rule || !passwordCheck.isError.rule) {
-      return
-    }
-    window.alert('로그인 성공!')
-  }
+  const { selected, handlePrevButton, handleSubmit } = useSignupForm()
 
   return (
     <>

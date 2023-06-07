@@ -15,15 +15,15 @@ interface Props {
 const Selected = ({ items, draggableProps, droppableProps }: Props) => {
   return (
     <div className='flex flex-col'>
-      <Text className='flex flex-col gap-1 px-3'>
+      <div className='flex flex-col gap-1 px-3'>
         <h2 className='text-lg font-semibold'>회원가입</h2>
-        <p className='flex items-center gap-1 text-sm text-gray-500'>
+        <div className='flex items-center gap-1 text-sm text-gray-500'>
           <span className='aspect-square rounded-full bg-slate-100 p-1'>
             <GrDrag />
           </span>
           을 통해 순서를 바꿀 수 있어요
-        </p>
-      </Text>
+        </div>
+      </div>
       <div>
         <Droppable {...droppableProps} key={droppableProps.droppableId}>
           {(provided) => (
@@ -46,9 +46,9 @@ const Selected = ({ items, draggableProps, droppableProps }: Props) => {
                       )}
                       style={{ ...provided.draggableProps.style, cursor: 'unset' }}
                     >
-                      <p {...provided.dragHandleProps} className='px-3'>
+                      <div {...provided.dragHandleProps} className='px-3'>
                         <GrDrag />
-                      </p>
+                      </div>
                       <Form
                         label={item.title ?? 'title'}
                         type={item.type ?? 'text'}

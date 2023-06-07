@@ -1,6 +1,6 @@
 import { PrimaryItem } from '@/types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-type Status = '순서' | '설정' | '완료'
+type Status = '순서' | '설정' | '완료' | '결과'
 type Item = PrimaryItem & {
   currentValue: string
   isError: {
@@ -71,6 +71,7 @@ const signupSlice = createSlice({
         state.status = payload.status
         return
       }
+      state.status = payload.status
     },
 
     setCurrentIndex: (state, { payload }: PayloadAction<{ index: number }>) => {
@@ -79,7 +80,6 @@ const signupSlice = createSlice({
 
     nextCurrent: (state) => {
       if (state.currentIndex + 1 >= state.selected.length) {
-        state.status = '완료'
         state.currentIndex += 1
         return
       }
