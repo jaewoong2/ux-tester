@@ -1,15 +1,16 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import MainBlock from '../blocks/MainBlock'
 import { getItems } from '@/app/supabase-server'
+import OptionBlock from '../blocks/OptionBlock'
 
-const Main = async ({ children }: PropsWithChildren) => {
+const Main = async () => {
   const item = await getItems()
 
   return (
-    <div className='relative min-w-[512px] max-sm:w-full max-sm:min-w-full'>
+    <>
       <MainBlock items={item?.data} />
-      {children}
-    </div>
+      <OptionBlock />
+    </>
   )
 }
 

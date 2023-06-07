@@ -22,11 +22,11 @@ const MainBlock = ({ items }: Props) => {
   }, [])
 
   return (
-    <div className='relative flex h-full w-full max-w-lg flex-col border bg-white p-3'>
+    <>
       {status === '순서' && <OrderSetting />}
       {status === '설정' && <OptionSetting />}
       {status === '완료' && <FinalSetting />}
-    </div>
+    </>
   )
 }
 
