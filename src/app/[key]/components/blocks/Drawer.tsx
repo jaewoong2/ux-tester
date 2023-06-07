@@ -1,5 +1,5 @@
 'use client'
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren } from 'react'
 import {
   Button,
   DrawerBody,
@@ -7,24 +7,20 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
-  DrawerOverlay,
-  useDisclosure,
   Drawer as ChakraDrawer,
   DrawerProps,
   DrawerContentProps,
+  UseDisclosureProps,
 } from '@chakra-ui/react'
 
 const Drawer = ({
   children,
   contents,
+  onClose,
+  isOpen,
   ...props
-}: PropsWithChildren<Omit<DrawerProps, 'isOpen' | 'onClose'> & { contents: DrawerContentProps }>) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
-  useEffect(() => {
-    onOpen()
-  }, [])
-
+}: PropsWithChildren<Omit<DrawerProps, 'isOpen' | 'onClose'> & { contents: DrawerContentProps }> &
+  Required<UseDisclosureProps>) => {
   return (
     <ChakraDrawer placement='bottom' {...props} onClose={onClose} isOpen={isOpen}>
       <DrawerContent {...contents}>

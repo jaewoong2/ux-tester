@@ -1,6 +1,7 @@
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 
-type JSON = { [key: string]: string }
+export type JSON = { [key: string]: string }
+export type OptionValues = JSON[]
 
 export interface Database {
   public: {
@@ -10,6 +11,7 @@ export interface Database {
           created_at: string | null
           description: string | null
           id: number
+          itemKey: string | null
           key: string | null
           optionValue: JSON | null
           placeholder: string | null
@@ -21,6 +23,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
+          itemKey?: string | null
           key?: string | null
           optionValue?: JSON | null
           placeholder?: string | null
@@ -32,6 +35,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
+          itemKey?: string | null
           key?: string | null
           optionValue?: JSON | null
           placeholder?: string | null
@@ -49,7 +53,7 @@ export interface Database {
           key: string | null
           title: string | null
           type: string | null
-          values: JSON | null
+          values: OptionValues | null
         }
         Insert: {
           created_at?: string | null
@@ -59,7 +63,7 @@ export interface Database {
           key?: string | null
           title?: string | null
           type?: string | null
-          values?: JSON | null
+          values?: OptionValues | null
         }
         Update: {
           created_at?: string | null
@@ -69,7 +73,7 @@ export interface Database {
           key?: string | null
           title?: string | null
           type?: string | null
-          values?: JSON | null
+          values?: OptionValues | null
         }
       }
     }

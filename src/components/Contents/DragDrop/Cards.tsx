@@ -13,7 +13,7 @@ interface Props {
 const Cards = ({ items, draggableProps, droppableProps }: Props) => {
   return (
     <Droppable direction='horizontal' isDropDisabled={true} {...droppableProps}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}

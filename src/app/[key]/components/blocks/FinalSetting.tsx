@@ -8,12 +8,12 @@ import { FaArrowLeft } from 'react-icons/fa'
 import validateEmail from '@/lib/validateEmail'
 import validatePassword from '@/lib/validatePassword'
 
-const OptionSetting = () => {
+const FinalSetting = () => {
   const { selected, currentIndex } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
 
   const handlePrevButton = () => {
-    dispatch(setStatus({ status: '순서' }))
+    dispatch(setStatus({ status: '설정' }))
   }
 
   const handleSubmit: React.ChangeEventHandler<HTMLFormElement> = (e) => {
@@ -22,8 +22,8 @@ const OptionSetting = () => {
     const passwordIndex = selected.findIndex((item) => item.itemKey === 'password')
     const passwordCheckIndex = selected.findIndex((item) => item.itemKey === 'passwordCheck')
     const email = selected[emailIndex]
-    const password = selected[emailIndex]
-    const passwordCheck = selected[emailIndex]
+    const password = selected[passwordIndex]
+    const passwordCheck = selected[passwordCheckIndex]
 
     if (email.optionValue?.rule === 'button') {
       dispatch(
@@ -35,9 +35,11 @@ const OptionSetting = () => {
         })
       )
     }
+
     if (password.optionValue?.rule === 'button') {
       dispatch(setIsError({ value: { rule: validatePassword(password.currentValue) }, index: passwordIndex }))
     }
+
     if (passwordCheck.optionValue?.rule === 'button') {
       dispatch(
         setIsError({
@@ -46,6 +48,11 @@ const OptionSetting = () => {
         })
       )
     }
+
+    if (!email.isError.duplicate || !email.isError.rule || !password.isError.rule || !passwordCheck.isError.rule) {
+      return
+    }
+    window.alert('로그인 성공!')
   }
 
   return (
@@ -57,10 +64,6 @@ const OptionSetting = () => {
       <form className='w-full' id='signup' onSubmit={handleSubmit}>
         {selected.map((item, index) => (
           <div className={'relative flex items-center overflow-hidden rounded-xl px-2'} key={item.id}>
-            <div className='flex w-9 items-center justify-center px-1'>
-              {currentIndex === index && <SimpleCircleIcon className='h-5 w-5 fill-[#7ac142]' />}
-              {currentIndex !== index && <CheckIcon className='h-5 w-5' isSuccess={currentIndex > index} />}
-            </div>
             <Form
               className='px-4'
               label={item.title ?? ''}
@@ -76,4 +79,4 @@ const OptionSetting = () => {
   )
 }
 
-export default OptionSetting
+export default FinalSetting

@@ -4,6 +4,7 @@ import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beau
 import { twMerge } from 'tailwind-merge'
 import Form from '../Form'
 import { GrDrag } from 'react-icons/gr'
+import { Text } from '@chakra-ui/react'
 
 interface Props {
   items: PrimaryItem[]
@@ -14,10 +15,18 @@ interface Props {
 const Selected = ({ items, draggableProps, droppableProps }: Props) => {
   return (
     <div className='flex flex-col'>
-      <h2 className='p-5 text-lg font-semibold'>회원가입</h2>
+      <Text className='flex flex-col gap-1 px-3'>
+        <h2 className='text-lg font-semibold'>회원가입</h2>
+        <p className='flex items-center gap-1 text-sm text-gray-500'>
+          <span className='aspect-square rounded-full bg-slate-100 p-1'>
+            <GrDrag />
+          </span>
+          을 통해 순서를 바꿀 수 있어요
+        </p>
+      </Text>
       <div>
         <Droppable {...droppableProps} key={droppableProps.droppableId}>
-          {(provided, snapshot) => (
+          {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps} className='flex flex-col'>
               {items.map((item, index) => (
                 <Draggable
@@ -32,7 +41,7 @@ const Selected = ({ items, draggableProps, droppableProps }: Props) => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       className={twMerge(
-                        'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl',
+                        'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl bg-white',
                         snapshot.isDragging ? 'shadow-lg' : ''
                       )}
                       style={{ ...provided.draggableProps.style, cursor: 'unset' }}
@@ -44,7 +53,6 @@ const Selected = ({ items, draggableProps, droppableProps }: Props) => {
                         label={item.title ?? 'title'}
                         type={item.type ?? 'text'}
                         placeholder={item.placeholder ?? 'placeholder'}
-                        helper={[]}
                         options={{}}
                         key={item.id}
                         index={index}

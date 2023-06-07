@@ -1,8 +1,7 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
-import { useRouter } from 'next/navigation'
 
 import type { SupabaseClient } from '@supabase/auth-helpers-nextjs'
 import type { Database } from '@/types/supabase'
@@ -15,19 +14,6 @@ const Context = createContext<SupabaseContext | undefined>(undefined)
 
 export default function SupabaseProvider({ children }: { children: React.ReactNode }) {
   const [supabase] = useState(() => createPagesBrowserClient())
-  const router = useRouter()
-
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(() => {
-      router.refresh()
-    })
-
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [router, supabase])
 
   return (
     <Context.Provider value={{ supabase }}>

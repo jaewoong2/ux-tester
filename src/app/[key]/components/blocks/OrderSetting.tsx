@@ -4,8 +4,8 @@ import EmptyDrop from '@/components/Contents/DragDrop/EmptyDrop'
 import Selected from '@/components/Contents/DragDrop/Selected'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { addSelected, setStatus, swapSelected } from '@/store/slices/signupSlice'
-import { Button } from '@chakra-ui/react'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import { Button } from '@chakra-ui/react'
 
 const OrderSetting = () => {
   const { cards, selected } = useAppSelector((state) => state.signup)

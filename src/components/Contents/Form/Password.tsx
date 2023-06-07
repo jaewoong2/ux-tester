@@ -1,29 +1,122 @@
-import React, { useState } from 'react'
-import { FormControl, FormLabel, FormHelperText, FormErrorMessage, FormControlProps, Input } from '@chakra-ui/react'
-import { FcCheckmark } from 'react-icons/fc'
+import useDebounce from '@/app/[key]/hooks/useDebounce'
+import useDispatchForm from '@/app/[key]/hooks/useDispatchForm'
+import useInput from '@/app/[key]/hooks/useInput'
+import SimpleCheckIcon from '@/components/Icons/SimpleCheckIcon'
+import validatePassword from '@/lib/validatePassword'
+import { useAppSelector } from '@/store/hooks'
+import { PrimaryItem } from '@/types'
+import { MinusIcon } from '@chakra-ui/icons'
+import { Input, InputGroup, InputRightAddon } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { FcLock, FcUnlock } from 'react-icons/fc'
+import { twMerge } from 'tailwind-merge'
 
+type OptionDB = {
+  rule: 'button' | 'input'
+  placeholder: 'email' | 'example'
+  next: 'signup' | 'contents'
+  duplicate: 'yes' | 'no'
+  email: 'normal' | 'domain' | 'domain-select'
+  password: 'yes' | 'no'
+}
 type Props = {
-  variant?: string
-} & FormControlProps
+  options?: PrimaryItem['optionValue'] & Partial<OptionDB>
+  isPasswordCheck?: boolean
+  index: number
+}
 
-const Password = (props: Props) => {
-  const [input, setInput] = useState('')
+const Password = ({ options, index, isPasswordCheck }: Props) => {
+  const { selected } = useAppSelector((state) => state.signup)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)
+  const passwordItem = selected.find((item) => item.itemKey === 'password')
 
-  const isError = input === ''
+  const [, setFormValue, isError, setFormError] = useDispatchForm(index)
+  const [isLock, setIsLock] = useState(true)
+  const [passwrod, setPassword] = useInput()
+  const debouncedValue = useDebounce(passwrod)
+  const [errorMessage, setErrorMessage] = useState({
+    normal: '8자 이상',
+    success: '8자 이상',
+    error: '비밀번호가 8자 보다 짧아요',
+  })
+
+  const handleLockButtonClick = () => {
+    setIsLock((prev) => !prev)
+  }
+
+  const handleChangePassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.target.value.trim() === '') {
+      setFormError({ rule: validatePassword(debouncedValue) })
+    }
+
+    setPassword(e.target.value)
+  }
+
+  useEffect(() => {
+    if (isPasswordCheck) {
+      if (options?.rule === 'input') {
+        setFormError({ rule: debouncedValue === passwordItem?.currentValue })
+      }
+    } else {
+      if (options?.rule === 'input') {
+        setFormError({ rule: validatePassword(debouncedValue) })
+      }
+    }
+
+    setFormValue(debouncedValue)
+  }, [debouncedValue, isPasswordCheck, options?.rule, passwordItem?.currentValue, setFormError, setFormValue])
+
+  useEffect(() => {
+    if (isPasswordCheck) {
+      setErrorMessage({
+        normal: '동일한 비밀번호',
+        success: '동일한 비밀번호',
+        error: '한번더 확인 해주세요',
+      })
+    }
+  }, [isPasswordCheck])
 
   return (
-    <FormControl isInvalid={isError} {...props}>
-      <FormLabel>비밀번호</FormLabel>
-      <Input type='password' value={input} onChange={handleInputChange} />
-      <FormHelperText>
-        <span className='flex items-center gap-2'>
-          <FcCheckmark className='text-xs' />
-          <p className='text-xs'>규칙을 정해주세요.</p>
-        </span>
-      </FormHelperText>
-    </FormControl>
+    <div className='w-full'>
+      <InputGroup className='w-full'>
+        <Input
+          value={passwrod}
+          onChange={handleChangePassword}
+          required
+          type={isLock ? 'password' : 'text'}
+          placeholder={isLock ? '*********' : 'abcd1234'}
+        />
+        {options?.password === 'yes' && (
+          <InputRightAddon className='cursor-pointer' onClick={handleLockButtonClick}>
+            {isLock ? <FcLock /> : <FcUnlock />}
+          </InputRightAddon>
+        )}
+      </InputGroup>
+      <div className='flex items-center gap-2 pt-1 text-xs'>
+        {debouncedValue && (
+          <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+            {isError.rule === null && (
+              <>
+                <SimpleCheckIcon className='fill-gray-600' />
+                <span className={'text-gray-600'}>{errorMessage.normal}</span>
+              </>
+            )}
+            {isError.rule && (
+              <>
+                <SimpleCheckIcon className='fill-green-400' />
+                <span className={'text-green-400'}>{errorMessage.success}</span>
+              </>
+            )}
+            {isError.rule === false && (
+              <>
+                <MinusIcon color={'red.400'} />
+                <span className={'text-red-400'}>{errorMessage.error}</span>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
 

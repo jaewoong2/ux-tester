@@ -1,12 +1,22 @@
 import { PrimaryItem } from '@/types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 type Status = '순서' | '설정' | '완료'
+type Item = PrimaryItem & {
+  currentValue: string
+  isError: {
+    rule?: boolean | null
+    duplicate?: boolean | null
+  }
+}
 
 interface SignupState {
-  cards: PrimaryItem[]
-  selected: PrimaryItem[]
+  cards: Item[]
+  selected: Item[]
   status: Status
   currentIndex: number
+  optionsMap: {
+    [key: string]: number
+  }
 }
 
 const initialState: SignupState = {
@@ -14,6 +24,7 @@ const initialState: SignupState = {
   selected: [],
   status: '순서',
   currentIndex: 0,
+  optionsMap: {},
 }
 
 const signupSlice = createSlice({
@@ -21,7 +32,13 @@ const signupSlice = createSlice({
   initialState,
   reducers: {
     init: (state, { payload }: PayloadAction<{ items: PrimaryItem[] }>) => {
-      state.cards = payload.items
+      state.cards = payload.items.map((card) => {
+        return {
+          ...card,
+          isError: { rule: null, duplicate: null },
+          currentValue: '',
+        }
+      })
     },
     addSelected: (state, { payload }: PayloadAction<{ sourceIndex: number }>) => {
       state.selected = [...state.selected, state.cards[payload.sourceIndex]]
@@ -48,7 +65,12 @@ const signupSlice = createSlice({
       state.selected = nextSelected
     },
     setStatus: (state, { payload }: PayloadAction<{ status: Status }>) => {
-      state.status = payload.status
+      if (payload.status !== '완료') {
+        state.currentIndex = 0
+        state.optionsMap = {}
+        state.status = payload.status
+        return
+      }
     },
 
     setCurrentIndex: (state, { payload }: PayloadAction<{ index: number }>) => {
@@ -57,6 +79,8 @@ const signupSlice = createSlice({
 
     nextCurrent: (state) => {
       if (state.currentIndex + 1 >= state.selected.length) {
+        state.status = '완료'
+        state.currentIndex += 1
         return
       }
       state.currentIndex = state.currentIndex + 1
@@ -67,14 +91,48 @@ const signupSlice = createSlice({
       }
       state.currentIndex = state.currentIndex - 1
     },
-    // handleChangeOptions: (state, { payload }: PayloadAction<{ value: string; key: string }>) => {
-    //   state.selected[state.currentIndex].form.options[payload.key] = payload.value
-    // },
+
+    setOptionsMap: (state, { payload }: PayloadAction<{ selectedIndex: number; optionIndex: number }>) => {
+      state.optionsMap[payload.selectedIndex] = payload.optionIndex
+    },
+
+    setIsError: (state, { payload }: PayloadAction<{ index: number; value: Item['isError'] }>) => {
+      if ('rule' in payload.value) {
+        state.selected[payload.index].isError.rule = payload.value.rule
+      }
+
+      if ('duplicate' in payload.value) {
+        state.selected[payload.index].isError.duplicate = payload.value.duplicate
+      }
+    },
+
+    handleChangeFormValue: (state, { payload }: PayloadAction<{ index: number; value: string }>) => {
+      state.selected[payload.index].currentValue = payload.value
+    },
+
+    handleChangeOptions: (state, { payload }: PayloadAction<{ value: string; key: string }>) => {
+      const option = state.selected[state.currentIndex].optionValue
+      if (option) {
+        option[payload.key] = payload.value
+      }
+    },
   },
 })
 
 const { actions, reducer: signupReducer } = signupSlice
 
-export const { addSelected, swapSelected, setStatus, nextCurrent, prevCurrent, init, setCurrentIndex } = actions
+export const {
+  handleChangeOptions,
+  addSelected,
+  swapSelected,
+  handleChangeFormValue,
+  setStatus,
+  nextCurrent,
+  prevCurrent,
+  init,
+  setIsError,
+  setCurrentIndex,
+  setOptionsMap,
+} = actions
 
 export default signupReducer
