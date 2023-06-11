@@ -1,11 +1,48 @@
-export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
-
 export type JSON = { [key: string]: string }
 export type OptionValues = JSON[]
 
 export interface Database {
   public: {
     Tables: {
+      answer: {
+        Row: {
+          answer: string | null
+          answerTitle: string | null
+          created_at: string | null
+          description: string | null
+          id: number
+          itemKey: string | null
+          optionKey: string | null
+          optionTitle: string | null
+          score: number | null
+          title: string | null
+        }
+        Insert: {
+          answer?: string | null
+          answerTitle?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          itemKey?: string | null
+          optionKey?: string | null
+          optionTitle?: string | null
+          score?: number | null
+          title?: string | null
+        }
+        Update: {
+          answer?: string | null
+          answerTitle?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          itemKey?: string | null
+          optionKey?: string | null
+          optionTitle?: string | null
+          score?: number | null
+          title?: string | null
+        }
+        Relationships: []
+      }
       item: {
         Row: {
           created_at: string | null
@@ -75,6 +112,27 @@ export interface Database {
           type?: string | null
           values?: OptionValues | null
         }
+      }
+      result: {
+        Row: {
+          id: number
+          json: string | null
+          result: string | null
+          uuid: string | null
+        }
+        Insert: {
+          id?: number
+          json?: string | null
+          result?: string | null
+          uuid?: string | null
+        }
+        Update: {
+          id?: number
+          json?: string | null
+          result?: string | null
+          uuid?: string | null
+        }
+        Relationships: []
       }
     }
     Views: {
