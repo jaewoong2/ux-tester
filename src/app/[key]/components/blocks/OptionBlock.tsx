@@ -65,11 +65,11 @@ const OptionBlockContents = () => {
         <h2 className='text-xl font-bold'>회원가입 과정을 만드셨어요!</h2>
         <div className='flex w-full scale-x-[-1] items-center justify-center p-10 pt-5'>
           <Image src={'/heart.gif'} alt='thumbUp' width='200' height={'200'} />
-          <caption className='sr-only'>
+          <span className='sr-only'>
             <a href='https://www.flaticon.com/free-animated-icons/like' title='like animated icons'>
               Like animated icons created by Freepik - Flaticon
             </a>
-          </caption>
+          </span>
         </div>
         <div className='flex animate-fade-in-left flex-col'>
           <Button className='w-full bg-blue-500 text-white' colorScheme='twitter' onClick={handleClickCTA}>

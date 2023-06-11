@@ -1,6 +1,5 @@
 import useDebounce from '@/app/[key]/hooks/useDebounce'
 import useDispatchForm from '@/app/[key]/hooks/useDispatchForm'
-import useInput from '@/app/[key]/hooks/useInput'
 import SimpleCheckIcon from '@/components/Icons/SimpleCheckIcon'
 import validateEmail from '@/lib/validateEmail'
 import { PrimaryItem } from '@/types'
@@ -27,30 +26,31 @@ type Props = {
 
 const Email = ({ placeholder, options, index }: Props) => {
   const [, setFormValue, isError, setFormError] = useDispatchForm(index)
-  const [value, setValue] = useInput()
-  const [email, setEmail] = useInput(options?.email?.includes('domain') ? 'google.com' : '')
-  const debouncedValue = useDebounce(value + (options?.email?.includes('domain') ? '@' : '') + email)
+  const [value, setValue] = useState<null | string>(null)
+  const [email, setEmail] = useState<null | string>(null)
+  const isOptionHasDomain = options?.email?.includes('domain')
+  const debouncedValue = useDebounce(
+    value && (isOptionHasDomain ? email : true) ? value + (isOptionHasDomain ? '@' : '') + email : null,
+    200
+  )
 
   const handleChangeValue: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (e.target.value === '') {
-      setFormError({ rule: null, duplicate: null })
-    }
     setValue(e.target.value)
   }
 
   const handleChangeEmail: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = (e) => {
-    if (e.target.value.trim() === '') {
-      setFormError({ rule: null, duplicate: null })
-    }
     setEmail(e.target.value)
   }
 
   const handleClickDuplicateButton = () => {
     if (options?.duplicate === 'no') return
+    if (!debouncedValue) return
     setFormError({ duplicate: validateEmail(debouncedValue) })
   }
 
   useEffect(() => {
+    if (!debouncedValue) return
+
     if (options?.rule === 'input') {
       setFormError({ rule: validateEmail(debouncedValue) })
     }
@@ -69,7 +69,7 @@ const Email = ({ placeholder, options, index }: Props) => {
           type={options?.email !== 'normal' ? 'text' : 'email'}
           className='w-full'
           placeholder={placeholder}
-          value={value}
+          value={value ?? ''}
           onChange={handleChangeValue}
         />
         {options?.email === 'domain' && (
@@ -80,7 +80,7 @@ const Email = ({ placeholder, options, index }: Props) => {
               variant={'unstyled'}
               placeholder='example.com'
               className='w-[100%]'
-              value={email}
+              value={email ?? ''}
               onChange={handleChangeEmail}
             />
           </InputRightAddon>
@@ -88,7 +88,14 @@ const Email = ({ placeholder, options, index }: Props) => {
         {options?.email === 'domain-select' && (
           <InputRightAddon className='flex cursor-pointer gap-2 p-3 pr-0 text-sm'>
             <p>@</p>
-            <Select required variant={'unstyled'} className='text-sm' value={email} onChange={handleChangeEmail}>
+            <Select
+              required
+              variant={'unstyled'}
+              className='text-sm'
+              placeholder='선택'
+              value={email ?? ''}
+              onChange={handleChangeEmail}
+            >
               <option value={'naver.com'}>naver.com</option>
               <option value={'google.com'}>google.com</option>
               <option value={'kakao.com'}>kakao.com</option>
@@ -107,50 +114,46 @@ const Email = ({ placeholder, options, index }: Props) => {
         )}
       </InputGroup>
       <div className='flex items-center gap-2 pt-1 text-xs'>
-        {debouncedValue && (
-          <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
-            {isError.rule === null && (
-              <>
-                <SimpleCheckIcon className='fill-gray-600' />
-                <span className={'text-gray-600'}>이메일 형식 확인</span>
-              </>
-            )}
-            {isError.rule && (
-              <>
-                <SimpleCheckIcon className='fill-green-400' />
-                <span className={'text-green-400'}>이메일 형식이 맞아요</span>
-              </>
-            )}
-            {isError.rule === false && (
-              <>
-                <MinusIcon color={'red.400'} />
-                <span className={'text-red-400'}>이메일 형식이 맞지 않아요</span>
-              </>
-            )}
-          </div>
-        )}
-        {debouncedValue && (
-          <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
-            {isError.duplicate === null && (
-              <>
-                <SimpleCheckIcon className='fill-gray-600' />
-                <span className={'text-gray-600'}>중복 아이디</span>
-              </>
-            )}
-            {isError.duplicate && (
-              <>
-                <SimpleCheckIcon className='fill-green-400' />
-                <span className={'text-green-400'}>중복된 아이디가 없어요</span>
-              </>
-            )}
-            {isError.duplicate === false && (
-              <>
-                <MinusIcon color={'red.400'} />
-                <span className={'text-red-400'}>중복 아이디가 있어요</span>
-              </>
-            )}
-          </div>
-        )}
+        <div>
+          {(debouncedValue === null || isError.rule === null) && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <SimpleCheckIcon className='fill-gray-600' />
+              <span className={'text-gray-600'}>이메일 형식 확인</span>
+            </div>
+          )}
+          {debouncedValue !== null && isError.rule && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <SimpleCheckIcon className='fill-green-400' />
+              <span className={'text-green-400'}>이메일 형식이 맞아요</span>
+            </div>
+          )}
+          {debouncedValue !== null && isError.rule === false && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <MinusIcon color={'red.400'} />
+              <span className={'text-red-400'}>이메일 형식이 맞지 않아요</span>
+            </div>
+          )}
+        </div>
+        <div>
+          {(debouncedValue === null || isError.duplicate === null) && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <SimpleCheckIcon className='fill-gray-600' />
+              <span className={'text-gray-600'}>중복 아이디</span>
+            </div>
+          )}
+          {debouncedValue !== null && isError.duplicate && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <SimpleCheckIcon className='fill-green-400' />
+              <span className={'text-green-400'}>중복된 아이디가 없어요</span>
+            </div>
+          )}
+          {debouncedValue !== null && isError.duplicate === false && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <MinusIcon color={'red.400'} />
+              <span className={'text-red-400'}>중복 아이디가 있어요</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

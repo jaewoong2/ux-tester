@@ -1,6 +1,5 @@
 import useDebounce from '@/app/[key]/hooks/useDebounce'
 import useDispatchForm from '@/app/[key]/hooks/useDispatchForm'
-import useInput from '@/app/[key]/hooks/useInput'
 import SimpleCheckIcon from '@/components/Icons/SimpleCheckIcon'
 import validatePassword from '@/lib/validatePassword'
 import { useAppSelector } from '@/store/hooks'
@@ -27,18 +26,17 @@ type Props = {
 
 const Password = ({ options, index, isPasswordCheck }: Props) => {
   const { selected } = useAppSelector((state) => state.signup)
-
-  const passwordItem = selected.find((item) => item.itemKey === 'password')
-
   const [, setFormValue, isError, setFormError] = useDispatchForm(index)
   const [isLock, setIsLock] = useState(true)
-  const [passwrod, setPassword] = useInput()
-  const debouncedValue = useDebounce(passwrod)
+  const [password, setPassword] = useState<null | string>(null)
+  const debouncedValue = useDebounce(password, 200)
   const [errorMessage, setErrorMessage] = useState({
     normal: '8자 이상',
     success: '8자 이상',
     error: '비밀번호가 8자 보다 짧아요',
   })
+
+  const $password = selected.find((item) => item.itemKey === 'password')
 
   const handleLockButtonClick = () => {
     setIsLock((prev) => !prev)
@@ -53,18 +51,19 @@ const Password = ({ options, index, isPasswordCheck }: Props) => {
   }
 
   useEffect(() => {
+    if (!debouncedValue) return
+
     if (isPasswordCheck) {
       if (options?.rule === 'input') {
-        setFormError({ rule: debouncedValue === passwordItem?.currentValue })
+        setFormError({ rule: debouncedValue === $password?.currentValue })
       }
     } else {
       if (options?.rule === 'input') {
         setFormError({ rule: validatePassword(debouncedValue) })
       }
     }
-
     setFormValue(debouncedValue)
-  }, [debouncedValue, isPasswordCheck, options?.rule, passwordItem?.currentValue, setFormError, setFormValue])
+  }, [debouncedValue, isPasswordCheck, options?.rule, $password?.currentValue, setFormError, setFormValue])
 
   useEffect(() => {
     if (isPasswordCheck) {
@@ -80,7 +79,7 @@ const Password = ({ options, index, isPasswordCheck }: Props) => {
     <div className='w-full'>
       <InputGroup className='w-full'>
         <Input
-          value={passwrod}
+          value={password ?? ''}
           onChange={handleChangePassword}
           required
           type={isLock ? 'password' : 'text'}
@@ -93,28 +92,26 @@ const Password = ({ options, index, isPasswordCheck }: Props) => {
         )}
       </InputGroup>
       <div className='flex items-center gap-2 pt-1 text-xs'>
-        {debouncedValue && (
-          <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
-            {isError.rule === null && (
-              <>
-                <SimpleCheckIcon className='fill-gray-600' />
-                <span className={'text-gray-600'}>{errorMessage.normal}</span>
-              </>
-            )}
-            {isError.rule && (
-              <>
-                <SimpleCheckIcon className='fill-green-400' />
-                <span className={'text-green-400'}>{errorMessage.success}</span>
-              </>
-            )}
-            {isError.rule === false && (
-              <>
-                <MinusIcon color={'red.400'} />
-                <span className={'text-red-400'}>{errorMessage.error}</span>
-              </>
-            )}
-          </div>
-        )}
+        <div>
+          {isError.rule === null && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <SimpleCheckIcon className='fill-gray-600' />
+              <span className={'text-gray-600'}>{errorMessage.normal}</span>
+            </div>
+          )}
+          {debouncedValue !== null && isError.rule && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <SimpleCheckIcon className='fill-green-400' />
+              <span className={'text-green-400'}>{errorMessage.success}</span>
+            </div>
+          )}
+          {debouncedValue !== null && isError.rule === false && (
+            <div className={twMerge('flex animate-fade-in-down items-center gap-1')}>
+              <MinusIcon color={'red.400'} />
+              <span className={'text-red-400'}>{errorMessage.error}</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

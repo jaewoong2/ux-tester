@@ -8,6 +8,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { Button } from '@chakra-ui/react'
 
 const OrderSetting = () => {
+  const [enabled, setEnabled] = useState(false)
   const { cards, selected } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
 
@@ -27,7 +28,6 @@ const OrderSetting = () => {
   )
 
   // --- requestAnimationFrame 초기화
-  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true))

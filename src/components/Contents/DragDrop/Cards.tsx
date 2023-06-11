@@ -1,5 +1,5 @@
 import { PrimaryItem } from '@/types'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
 import Card from '../Card'
@@ -23,11 +23,10 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
 
   useEffect(() => {
     const listener = () => {
-      const currentWidth = wrapper.current?.scrollWidth ?? 0
+      const currentWidth = wrapper.current?.clientWidth ?? 0
+      const currentScrollWidth = wrapper.current?.scrollWidth ?? 0
       const currentLeft = wrapper.current?.scrollLeft ?? 0
-
-      console.log(currentWidth, currentLeft)
-      setIsNextButtonVisible(currentWidth > currentLeft)
+      setIsNextButtonVisible(currentWidth + currentLeft < currentScrollWidth)
       setIsPrevButtonVisible(currentLeft > 0)
     }
 
