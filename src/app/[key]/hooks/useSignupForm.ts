@@ -4,29 +4,27 @@ import validatePassword from '@/lib/validatePassword'
 
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { setStatus, setIsError } from '@/store/slices/signupSlice'
+import { useRouter } from 'next/navigation'
+import usePostResult from './usePostResult'
 
 const useSignupForm = () => {
+  const navigator = useRouter()
   const { selected } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
-
-  const emailIndex = selected.findIndex((item) => item.itemKey === 'email')
-  const passwordIndex = selected.findIndex((item) => item.itemKey === 'password')
-  const passwordCheckIndex = selected.findIndex((item) => item.itemKey === 'passwordCheck')
-  const email = selected[emailIndex]
-  const password = selected[passwordIndex]
-  const passwordCheck = selected[passwordCheckIndex]
+  const { data, trigger } = usePostResult()
 
   const handlePrevButton = () => {
     dispatch(setStatus({ status: '설정' }))
   }
 
-  const isFormHasError =
-    email.isError.duplicate === false ||
-    email.isError.rule === false ||
-    password.isError.rule === false ||
-    passwordCheck.isError.rule === false
-
   const handleErrorCheck = useCallback(() => {
+    const emailIndex = selected.findIndex((item) => item.itemKey === 'email')
+    const passwordIndex = selected.findIndex((item) => item.itemKey === 'password')
+    const passwordCheckIndex = selected.findIndex((item) => item.itemKey === 'passwordCheck')
+    const email = selected[emailIndex]
+    const password = selected[passwordIndex]
+    const passwordCheck = selected[passwordCheckIndex]
+
     if (email.optionValue?.rule === 'button') {
       dispatch(
         setIsError({
@@ -50,27 +48,29 @@ const useSignupForm = () => {
         })
       )
     }
-  }, [
-    dispatch,
-    email?.currentValue,
-    email.optionValue?.rule,
-    emailIndex,
-    password.currentValue,
-    password.optionValue?.rule,
-    passwordCheck?.currentValue,
-    passwordCheck.optionValue?.rule,
-    passwordCheckIndex,
-    passwordIndex,
-  ])
+
+    return (
+      email.isError.duplicate !== true ||
+      email.isError.rule !== true ||
+      password.isError.rule !== true ||
+      passwordCheck.isError.rule !== true
+    )
+  }, [dispatch, selected])
 
   const handleSubmit: React.ChangeEventHandler<HTMLFormElement> = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault()
-      handleErrorCheck()
-      if (isFormHasError) return
-      dispatch(setStatus({ status: '결과' }))
+      if (!handleErrorCheck()) {
+        dispatch(setStatus({ status: '결과' }))
+        const data = selected.map(({ optionValue, itemKey }) => ({
+          optionValue,
+          itemKey,
+        }))
+        const response = await trigger(data)
+        navigator.push(`signup/${response?.uuid}`)
+      }
     },
-    [dispatch, handleErrorCheck, isFormHasError]
+    [handleErrorCheck, dispatch, selected, trigger, navigator]
   )
 
   return {
