@@ -1,3 +1,4 @@
+import isResultJson, { ResultJson } from '@/lib/isResult'
 import { Database } from '@/types/supabase'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
@@ -21,6 +22,54 @@ export const createServerSupabaseClient = cache((cache?: RequestInit['cache']) =
     }
   )
 )
+export async function getJsonByUuid(uuid?: string) {
+  const supabase = createServerSupabaseClient()
+  try {
+    if (!uuid) {
+      throw new Error('uuid is not defined')
+    }
+    const response = await supabase.from('result').select('json').eq('uuid', uuid)
+    if (!response.data) {
+      throw new Error('No data found')
+    }
+
+    return response
+  } catch (err) {
+    throw new Error('Error')
+  }
+}
+
+export async function getAnswer(uuid?: string) {
+  const supabase = createServerSupabaseClient()
+  try {
+    if (!uuid) {
+      throw new Error('uuid is not defined')
+    }
+    const { data } = await supabase.from('result').select('json').eq('uuid', uuid)
+    if (!data) {
+      throw new Error('No data found')
+    }
+
+    const responsesPromises = data
+      .filter((value) => value.json)
+      .flatMap((value) => {
+        const json = JSON.parse(value.json ?? '')
+        return json.filter(isResultJson).flatMap((value: ResultJson) =>
+          Object.keys(value.optionValue).map((key) => {
+            return { itemKey: value.itemKey, optionKey: key, answer: value.optionValue[key] }
+          })
+        )
+      })
+
+    const responses = responsesPromises.map(({ itemKey, optionKey, answer }) => {
+      return supabase.from('answer').select('*').eq('itemKey', itemKey).eq('optionKey', optionKey).eq('answer', answer)
+    })
+
+    return await Promise.all(responses)
+  } catch (err) {
+    throw new Error('Error')
+  }
+}
 
 export async function getOptions(ItemId: number) {
   const supabase = createServerSupabaseClient()
