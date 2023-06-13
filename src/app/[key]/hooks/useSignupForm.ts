@@ -11,7 +11,7 @@ const useSignupForm = () => {
   const navigator = useRouter()
   const { selected } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
-  const { data, trigger } = usePostResult()
+  const { trigger } = usePostResult()
 
   const handlePrevButton = () => {
     dispatch(setStatus({ status: '설정' }))

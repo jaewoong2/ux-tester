@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from '@/components/Contents/Form'
+import Form from '@/app/[key]/components/Contents/Form'
 import { FaArrowLeft } from 'react-icons/fa'
 import useSignupForm from '../../hooks/useSignupForm'
 

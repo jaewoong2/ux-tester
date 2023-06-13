@@ -1,3 +1,4 @@
+export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 export type JSON = { [key: string]: string }
 export type OptionValues = JSON[]
 
@@ -131,6 +132,30 @@ export interface Database {
           json?: string | null
           result?: string | null
           uuid?: string | null
+        }
+        Relationships: []
+      }
+      user: {
+        Row: {
+          created_at: string | null
+          id: number
+          nickname: string | null
+          userId: string | null
+          uuid: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          nickname?: string | null
+          userId?: string | null
+          uuid?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          nickname?: string | null
+          uuid?: string | null
+          userId?: string | null
         }
         Relationships: []
       }

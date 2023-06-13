@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { handleChangeOptions, nextCurrent, prevCurrent, setOptionsMap, setStatus } from '@/store/slices/signupSlice'
 import markdownToHtml from '@/lib/markdownToHtml'
 import useGetOptions from '../../hooks/useGetOptions'
-import CheckIcon from '@/components/Icons/CheckIcon'
+import CheckIcon from '@/app/[key]/components/Icons/CheckIcon'
 import Image from 'next/image'
 
 const sleep = () =>

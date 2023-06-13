@@ -10,6 +10,7 @@ type Item = PrimaryItem & {
 }
 
 interface SignupState {
+  nickname: string
   cards: Item[]
   selected: Item[]
   status: Status
@@ -20,6 +21,7 @@ interface SignupState {
 }
 
 const initialState: SignupState = {
+  nickname: '',
   cards: [],
   selected: [],
   status: '순서',
@@ -40,6 +42,11 @@ const signupSlice = createSlice({
         }
       })
     },
+
+    setNickName: (state, { payload }: PayloadAction<{ nickname: string }>) => {
+      state.nickname = payload.nickname
+    },
+
     addSelected: (state, { payload }: PayloadAction<{ sourceIndex: number }>) => {
       state.selected = [...state.selected, state.cards[payload.sourceIndex]]
       state.cards = state.cards.filter((_, i) => i !== payload.sourceIndex)

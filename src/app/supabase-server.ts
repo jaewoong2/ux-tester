@@ -4,6 +4,14 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { cache } from 'react'
 
+function sleep(ms?: number) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true)
+    }, ms ?? 500000)
+  })
+}
+
 export const createServerSupabaseClient = cache((cache?: RequestInit['cache']) =>
   createServerComponentClient<Database>(
     { cookies },
@@ -22,6 +30,7 @@ export const createServerSupabaseClient = cache((cache?: RequestInit['cache']) =
     }
   )
 )
+
 export async function getJsonByUuid(uuid?: string) {
   const supabase = createServerSupabaseClient()
   try {
@@ -29,6 +38,9 @@ export async function getJsonByUuid(uuid?: string) {
       throw new Error('uuid is not defined')
     }
     const response = await supabase.from('result').select('json').eq('uuid', uuid)
+
+    await sleep()
+
     if (!response.data) {
       throw new Error('No data found')
     }
@@ -45,7 +57,9 @@ export async function getAnswer(uuid?: string) {
     if (!uuid) {
       throw new Error('uuid is not defined')
     }
+
     const { data } = await supabase.from('result').select('json').eq('uuid', uuid)
+
     if (!data) {
       throw new Error('No data found')
     }

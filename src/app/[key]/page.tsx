@@ -1,11 +1,15 @@
 import React from 'react'
-import Main from './components/contents/Main'
+import MainBlock from './components/blocks/MainBlock'
+import OptionBlock from './components/blocks/OptionBlock'
+import { getItems } from '../supabase-server'
 
 const Page = async () => {
+  const item = await getItems()
+
   return (
     <>
-      {/* @ts-expect-error Async Server Component */}
-      <Main />
+      <MainBlock items={item?.data} />
+      <OptionBlock />
     </>
   )
 }
