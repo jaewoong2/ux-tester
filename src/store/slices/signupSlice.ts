@@ -139,6 +139,7 @@ export const {
   init,
   setIsError,
   setCurrentIndex,
+  setNickName,
   setOptionsMap,
 } = actions
 

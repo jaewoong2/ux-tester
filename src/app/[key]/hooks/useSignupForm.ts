@@ -9,7 +9,7 @@ import usePostResult from './usePostResult'
 
 const useSignupForm = () => {
   const navigator = useRouter()
-  const { selected } = useAppSelector((state) => state.signup)
+  const { selected, nickname } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
   const { trigger } = usePostResult()
 
@@ -66,11 +66,11 @@ const useSignupForm = () => {
           optionValue,
           itemKey,
         }))
-        const response = await trigger(data)
-        navigator.push(`signup/${response?.uuid}`)
+        const response = await trigger({ json: data, nickname: nickname })
+        navigator.push(`signup/${response?.uuid}_${response?.userId}`)
       }
     },
-    [handleErrorCheck, dispatch, selected, trigger, navigator]
+    [handleErrorCheck, dispatch, selected, trigger, navigator, nickname]
   )
 
   return {

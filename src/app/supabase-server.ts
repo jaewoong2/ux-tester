@@ -8,7 +8,7 @@ function sleep(ms?: number) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(true)
-    }, ms ?? 500000)
+    }, ms ?? 500)
   })
 }
 
@@ -30,6 +30,26 @@ export const createServerSupabaseClient = cache((cache?: RequestInit['cache']) =
     }
   )
 )
+
+export async function getNickname(userId?: string) {
+  const supabase = createServerSupabaseClient()
+  try {
+    if (!userId) {
+      throw new Error('uuid is not defined')
+    }
+    const response = await supabase.from('user').select('*').eq('userId', userId).single()
+
+    await sleep()
+
+    if (!response.data) {
+      throw new Error('No data found')
+    }
+
+    return response
+  } catch (err) {
+    throw new Error('Error')
+  }
+}
 
 export async function getJsonByUuid(uuid?: string) {
   const supabase = createServerSupabaseClient()
