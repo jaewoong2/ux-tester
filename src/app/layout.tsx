@@ -13,7 +13,7 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang='kr'>
-      <body suppressHydrationWarning={true} className='bg-slate-50'>
+      <body suppressHydrationWarning={true} className='relative bg-slate-50'>
         <Providers>{children}</Providers>
       </body>
     </html>
