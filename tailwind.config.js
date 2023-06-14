@@ -8,6 +8,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        trend: '-5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3)',
+        'trend-inset': 'inset -5px -5px 9px rgba(255,255,255,0.45), inset 5px 5px 9px rgba(94,104,121,0.3)',
+      },
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
@@ -37,10 +42,12 @@ module.exports = {
           '0%': {
             opacity: '1',
             transform: 'translateY(0px)',
+            display: 'block',
           },
           '100%': {
             opacity: '0',
             transform: 'translateY(-10px)',
+            display: 'none',
           },
         },
       },
