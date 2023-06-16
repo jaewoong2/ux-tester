@@ -5,6 +5,8 @@ import { twMerge } from 'tailwind-merge'
 import Card from '../Card'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import useScrollButton from '@/app/[key]/hooks/useScrollButton'
+import SimpleCheckIcon from '../../Icons/SimpleCheckIcon'
+import { Button } from '@chakra-ui/react'
 
 interface Props {
   items: PrimaryItem[]
@@ -17,11 +19,11 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
     useScrollButton<HTMLDivElement>()
 
   return (
-    <div className='relative'>
+    <div className='relative w-full border-t-2 border-black'>
       <Droppable direction='horizontal' isDropDisabled={true} {...droppableProps}>
         {(provided) => {
           return (
-            <div ref={wrapper} className='relative w-full gap-5 overflow-auto rounded-sm p-5'>
+            <div ref={wrapper} className='w-full gap-5 overflow-auto rounded-sm py-5'>
               <div
                 id='dnd-card'
                 ref={provided.innerRef}
@@ -43,8 +45,22 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
                         className={twMerge('flex-[0_0_auto] cursor-pointer', snapshot.isDragging ? 'shadow-xl' : '')}
                         style={{ ...provided.draggableProps.style, cursor: 'grap' }}
                       >
-                        <Card title={item.title ?? 'Title'} className='bg-slate-100 p-3'>
+                        <Card
+                          title={item.title ?? 'Title'}
+                          className={twMerge(
+                            'relative border-2 border-black bg-white p-3 shadow-md',
+                            snapshot.isDragging
+                              ? 'animate-wiggle border-blue-500 bg-blue-50 shadow-xl animate-infinite'
+                              : ''
+                          )}
+                        >
                           {item.description}
+                          <button
+                            type='button'
+                            className='absolute -right-4 -top-4 aspect-square rounded-full border-2 border-black bg-white p-1 text-black'
+                          >
+                            <SimpleCheckIcon className='h-4 w-4' />
+                          </button>
                         </Card>
                       </div>
                     )}

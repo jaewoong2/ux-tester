@@ -9,7 +9,7 @@ const Card = ({ children, className, title, ...rest }: PropsWithChildren<Props>)
   return (
     <div className={twMerge('w-full rounded-md p-3', className)} {...rest}>
       <h3 className='text-xl font-bold'>{title}</h3>
-      {children}
+      <span className='text-sm text-gray-600'>{children}</span>
     </div>
   )
 }

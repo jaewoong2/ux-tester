@@ -6,13 +6,14 @@ import OrderSetting from './OrderSetting'
 import OptionSetting from './OptionSetting'
 import FinalSetting from './FinalSetting'
 import { PrimaryItem } from '@/types'
+import { notFound } from 'next/navigation'
 
 type Props = {
   items: PrimaryItem[] | undefined | null
 }
 
 const MainBlock = ({ items }: Props) => {
-  const { status } = useAppSelector((state) => state.signup)
+  const { status, nickname } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -20,6 +21,10 @@ const MainBlock = ({ items }: Props) => {
       dispatch(init({ items }))
     }
   }, [])
+
+  // if (!nickname) {
+  //   notFound()
+  // }
 
   return (
     <>

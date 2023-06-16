@@ -8,9 +8,9 @@ const SimpleCheckIcon = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
       strokeWidth='0'
       version='1'
       viewBox='0 0 48 48'
+      width={'1rem'}
+      height={'1rem'}
       enableBackground='new 0 0 48 48'
-      height='1em'
-      width='1em'
       xmlns='http://www.w3.org/2000/svg'
       {...props}
     >

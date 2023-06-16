@@ -1,6 +1,7 @@
 'use client'
 import { useAppDispatch } from '@/store/hooks'
 import { setNickName } from '@/store/slices/signupSlice'
+import { Button } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -14,18 +15,25 @@ const fetcher: MutationFetcher<{ message: string; status: number }, { nickname: 
   )
 
 const Home = () => {
-  const { trigger, reset, data } = useSWRMutation('api/nickname', fetcher)
+  const { trigger, reset, data, isMutating: isLoading } = useSWRMutation('api/nickname', fetcher)
 
   const dispatch = useAppDispatch()
   const navigator = useRouter()
   const $input = useRef<null | HTMLInputElement>(null)
 
+  const handleDispatchNickName = () => {
+    if (!$input.current) return
+    dispatch(
+      setNickName({
+        nickname: $input.current.value,
+      })
+    )
+    navigator.push('/signup')
+  }
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-    if ($input.current) {
-      e.preventDefault()
-      dispatch(setNickName({ nickname: $input.current.value }))
-      navigator.push('/signup')
-    }
+    e.preventDefault()
+    handleDispatchNickName()
   }
 
   const handleFocusOut: React.FocusEventHandler<HTMLInputElement> = (e) => {
@@ -35,42 +43,10 @@ const Home = () => {
   }
 
   return (
-    <div className='h-full w-full max-w-md border shadow-xl'>
-      <div className='mx-auto mt-5 flex w-[90%] flex-col gap-5 rounded-lg border-2 border-black bg-[#dde1e7] p-5'>
-        <div className='h-14 w-full pr-10'>
-          <div className='flex h-14 w-full items-center justify-end gap-5 rounded-xl p-5 shadow-trend'>
-            <button className='flex h-9 w-9 items-center justify-center rounded-full font-bold text-slate-500 shadow-trend-inset'>
-              U
-            </button>
-            <button className='flex h-9 w-9 items-center justify-center rounded-full font-bold text-slate-500 shadow-trend'>
-              X
-            </button>
-          </div>
-        </div>
-        <div className='h-14 w-full pl-10'>
-          <div className='flex h-14 w-full items-center justify-end rounded-xl pr-2 shadow-trend-inset'>
-            <span className='PyeongChangPeace-Bold text-2xl font-bold drop-shadow-md'>회원가입 유-엑스 능력평가</span>
-          </div>
-        </div>
-        <div className='h-14 w-full pr-10'>
-          <div className='flex h-14 w-full items-center gap-5 rounded-xl p-5 shadow-trend'>
-            <button className='flex h-9 w-9 items-center justify-center rounded-full font-bold text-slate-500 shadow-trend-inset'>
-              x
-            </button>
-            <button className='flex h-9 w-9 items-center justify-center rounded-full font-bold text-slate-500 shadow-trend'>
-              +
-            </button>
-            <button className='flex h-9 w-9 items-center justify-center rounded-full font-bold text-slate-500 shadow-trend-inset'>
-              -
-            </button>
-          </div>
-        </div>
+    <div className='relative mx-auto h-full w-full max-w-md border bg-white shadow-xl'>
+      <div className='z-0 w-full'>
+        <Image src={'/bg.png'} width={496} height={1024} alt='background-image' className='w-full' />
       </div>
-      {/* <div className='px-5'>
-        <div className='PyeongChangPeace-Bold flex w-full justify-center bg-black py-5 text-2xl font-bold text-white'>
-          나만의 회원가입 만들기
-        </div>
-      </div> */}
       <form className='flex flex-col gap-10 p-10' onSubmit={handleSubmit}>
         <div className='flex flex-col'>
           <label className='p-2 text-sm font-semibold'>닉네임을 정해주세요</label>
@@ -98,21 +74,27 @@ const Home = () => {
             )}
           </div>
         </div>
-        <div className='flex w-full items-center justify-center'>
-          <button
+      </form>
+      <div className='absolute top-64 flex w-full items-center justify-center p-10'>
+        <Link
+          onClick={handleDispatchNickName}
+          className={twMerge('h-full w-full text-xl font-bold', !data && 'cursor-not-allowed')}
+          href={'/signup'}
+        >
+          <Button
             type='submit'
+            colorScheme='twitter'
             disabled={!data}
+            isDisabled={!data}
+            isLoading={isLoading}
             className={twMerge(
-              'h-full w-full border-2 border-black bg-blue-500 p-6 text-sm text-white transition-colors hover:bg-blue-400',
-              data ? 'animate-fade-in-down ' : 'animate-fade-out-up opacity-0'
+              'h-full w-full rounded-xl bg-blue-500 p-4 text-sm text-white shadow-md transition-colors hover:bg-blue-400 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-100 disabled:hover:bg-gray-400'
             )}
           >
-            <Link className='text-xl font-bold' href={'/signup'}>
-              만들러 가자
-            </Link>
-          </button>
-        </div>
-      </form>
+            테스트 하러가기
+          </Button>
+        </Link>
+      </div>
     </div>
   )
 }

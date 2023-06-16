@@ -15,7 +15,7 @@ const Selected = ({ items, draggableProps, droppableProps }: Props) => {
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col gap-1 px-3'>
-        <h2 className='text-lg font-semibold'>회원가입</h2>
+        <h2 className='text-lg font-semibold'>회원가입 순서 정하기</h2>
         <div className='flex items-center gap-1 text-sm text-gray-500'>
           <span className='aspect-square rounded-full bg-slate-100 p-1'>
             <GrDrag />

@@ -82,11 +82,15 @@ const Password = ({ options, index, isPasswordCheck }: Props) => {
           value={password ?? ''}
           onChange={handleChangePassword}
           required
+          className='border-2 border-black py-5 placeholder:text-xl'
           type={isLock ? 'password' : 'text'}
-          placeholder={isLock ? '*********' : 'abcd1234'}
+          placeholder={isLock ? '········' : 'abcd1234'}
         />
         {options?.password === 'yes' && (
-          <InputRightAddon className='cursor-pointer' onClick={handleLockButtonClick}>
+          <InputRightAddon
+            className='cursor-pointer border-2 border-l-0 border-black py-5'
+            onClick={handleLockButtonClick}
+          >
             {isLock ? <FcLock /> : <FcUnlock />}
           </InputRightAddon>
         )}

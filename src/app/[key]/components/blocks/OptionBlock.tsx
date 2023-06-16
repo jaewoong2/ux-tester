@@ -10,6 +10,8 @@ import markdownToHtml from '@/lib/markdownToHtml'
 import useGetOptions from '../../hooks/useGetOptions'
 import CheckIcon from '@/app/[key]/components/Icons/CheckIcon'
 import Image from 'next/image'
+import { twMerge } from 'tailwind-merge'
+import useBottomDrawer from '../../hooks/useBottomDrawer'
 
 const sleep = () =>
   new Promise((reslove) =>
@@ -109,7 +111,7 @@ const OptionBlockContents = () => {
                 })}
                 type='button'
                 colorScheme='twitter'
-                className='flex min-h-[3rem] w-full justify-start gap-2 whitespace-break-spaces bg-blue-500 text-left text-sm font-normal text-white'
+                className='flex min-h-[3rem] w-full justify-start gap-2 whitespace-break-spaces border-2 border-black bg-blue-500 text-left text-sm font-normal text-white'
               >
                 {clickedIndex === index && <CheckIcon variant='white' isSuccess={true} className='blue h-5 w-5' />}
                 <span>{index + 1}.</span>
@@ -124,47 +126,46 @@ const OptionBlockContents = () => {
 }
 
 const OptionBlock = () => {
-  const { status } = useAppSelector((state) => state.signup)
-  const [isMobile, drawerLeft] = useMediaQuery(['(max-width: 720px)', '(max-width: 1300px)'])
+  const { status, selected, currentIndex } = useAppSelector((state) => state.signup)
+  const [, drawerLeft] = useMediaQuery(['(max-width: 720px)', '(max-width: 1300px)'])
   const [optionStatus, setOptionStauts] = useState<
     'normal' | 'animate-fade-out-up' | 'hidden' | 'animate-fade-in-down'
   >('normal')
-  const { onOpen, isOpen, onClose, ...rest } = useDisclosure()
+  const { handleDragEnd, handleDragStart, isOpen } = useBottomDrawer()
 
   useEffect(() => {
     if (status === '완료') {
       setOptionStauts('animate-fade-out-up')
-      onClose()
 
       setTimeout(() => {
         setOptionStauts('hidden')
       }, 500)
     } else {
       setOptionStauts('animate-fade-in-down')
-      onOpen()
     }
-  }, [onClose, onOpen, status])
+  }, [status])
 
   if (status === '순서') {
     return null
   }
 
   return drawerLeft ? (
-    <Drawer
-      placement={!isMobile ? 'left' : 'bottom'}
-      contents={{}}
-      size={'sm'}
-      onOpen={onOpen}
-      defaultIsOpen={true}
-      id={'drawer'}
-      isOpen={isOpen}
-      onClose={onClose}
-      {...rest}
+    <div
+      className={twMerge(
+        'absolute bottom-0 left-0 w-full rounded-t-2xl bg-white bg-opacity-50 p-10 shadow-[0px_-2px_3px_rgba(0,0,0,0.3)] backdrop-blur-md',
+        currentIndex >= selected.length ? 'bg-opacity-100' : '',
+        optionStatus,
+        isOpen ? '' : 'h-[50px] overflow-hidden',
+        'flex flex-col gap-16 border-t'
+      )}
     >
+      <div draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        드래그미
+      </div>
       <Suspense fallback={<div>로딩중...</div>}>
         <OptionBlockContents />
       </Suspense>
-    </Drawer>
+    </div>
   ) : (
     <div
       className={`absolute right-full top-5 mr-10 flex w-[350px] flex-col gap-16 rounded-xl border bg-white p-10 ${optionStatus}`}

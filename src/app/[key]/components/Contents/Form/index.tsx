@@ -32,7 +32,7 @@ const Form = ({ label, type, options, itemKey, index, ...props }: Props) => {
           form='signup'
           type='submit'
           colorScheme='gray'
-          className='flex w-full items-center justify-center gap-2 bg-slate-200 text-sm'
+          className='flex w-full items-center justify-center gap-2 border-2 border-black bg-slate-200 py-5 text-sm'
         >
           {options?.next === 'contents' ? <p>콘텐츠 보러가기</p> : <p>회원가입 하기</p> ?? '다음'}
         </Button>

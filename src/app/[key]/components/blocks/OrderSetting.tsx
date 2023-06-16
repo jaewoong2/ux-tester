@@ -47,12 +47,18 @@ const OrderSetting = () => {
   }
 
   return (
-    <>
+    <div className='relative flex h-full w-full flex-col justify-between'>
       <DragDropContext onDragEnd={onDragEnd}>
         {/* Cards 영역 */}
+        <div className=''>
+          <Selected
+            items={selected}
+            draggableProps={{}}
+            droppableProps={{ droppableId: 'selected', type: 'selected' }}
+          />
+          {cards.length > 0 && <EmptyDrop />}
+        </div>
         {cards.length > 0 && <Cards items={cards} draggableProps={{}} droppableProps={{ droppableId: 'card' }} />}
-        <Selected items={selected} draggableProps={{}} droppableProps={{ droppableId: 'selected', type: 'selected' }} />
-        {cards.length > 0 && <EmptyDrop />}
       </DragDropContext>
       {cards.length === 0 && (
         <Button
@@ -64,7 +70,7 @@ const OrderSetting = () => {
           옵션 설정하기
         </Button>
       )}
-    </>
+    </div>
   )
 }
 

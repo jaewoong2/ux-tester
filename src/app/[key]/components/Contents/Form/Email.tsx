@@ -67,13 +67,13 @@ const Email = ({ placeholder, options, index }: Props) => {
         <Input
           required
           type={options?.email !== 'normal' ? 'text' : 'email'}
-          className='w-full'
+          className='w-full border-2 border-black py-5 hover:border-black'
           placeholder={placeholder}
           value={value ?? ''}
           onChange={handleChangeValue}
         />
         {options?.email === 'domain' && (
-          <InputRightAddon className='flex w-[40%] gap-2 p-3 pr-0 text-sm'>
+          <InputRightAddon className='flex w-[40%] gap-2 border-2 border-l-0 border-black p-3 py-5 pr-0 text-sm'>
             <p>@</p>
             <Input
               required
@@ -86,16 +86,9 @@ const Email = ({ placeholder, options, index }: Props) => {
           </InputRightAddon>
         )}
         {options?.email === 'domain-select' && (
-          <InputRightAddon className='flex cursor-pointer gap-2 p-3 pr-0 text-sm'>
+          <InputRightAddon className='flex cursor-pointer gap-2 border-2 border-l-0 border-black p-3 py-5 pr-0 text-sm'>
             <p>@</p>
-            <Select
-              required
-              variant={'unstyled'}
-              className='text-sm'
-              placeholder='선택'
-              value={email ?? ''}
-              onChange={handleChangeEmail}
-            >
+            <Select required variant={'unstyled'} placeholder='선택' value={email ?? ''} onChange={handleChangeEmail}>
               <option value={'naver.com'}>naver.com</option>
               <option value={'google.com'}>google.com</option>
               <option value={'kakao.com'}>kakao.com</option>
@@ -106,7 +99,7 @@ const Email = ({ placeholder, options, index }: Props) => {
           <Button
             type='button'
             size={'md'}
-            className='ml-4 w-fit bg-slate-100 px-6 text-sm'
+            className='ml-4 w-fit border-2 border-black bg-slate-100 px-6 py-5 text-sm'
             onClick={handleClickDuplicateButton}
           >
             중복확인
