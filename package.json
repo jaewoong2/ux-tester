@@ -51,9 +51,11 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
+    "postcss-custom-properties-fallback": "^1.0.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
     "react-redux": "^8.0.5",
+    "react-spring-bottom-sheet": "^3.4.1",
     "tailwind-merge": "^1.12.0",
     "tailwindcss-animated": "^1.0.1"
   }

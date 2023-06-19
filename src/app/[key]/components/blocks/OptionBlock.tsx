@@ -1,8 +1,7 @@
 'use client'
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
-import { Button, useDisclosure } from '@chakra-ui/react'
+import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { Button } from '@chakra-ui/react'
 import { FaArrowLeft } from 'react-icons/fa'
-import Drawer from './Drawer'
 import { useMediaQuery } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { handleChangeOptions, nextCurrent, prevCurrent, setOptionsMap, setStatus } from '@/store/slices/signupSlice'
@@ -10,8 +9,9 @@ import markdownToHtml from '@/lib/markdownToHtml'
 import useGetOptions from '../../hooks/useGetOptions'
 import CheckIcon from '@/app/[key]/components/Icons/CheckIcon'
 import Image from 'next/image'
-import { twMerge } from 'tailwind-merge'
-import useBottomDrawer from '../../hooks/useBottomDrawer'
+import { BottomSheet } from 'react-spring-bottom-sheet'
+import 'react-spring-bottom-sheet/dist/style.css'
+import { RefHandles } from 'react-spring-bottom-sheet/dist/types'
 
 const sleep = () =>
   new Promise((reslove) =>
@@ -63,10 +63,10 @@ const OptionBlockContents = () => {
 
   if (currentIndex >= selected.length) {
     return (
-      <div className='h-full w-full'>
+      <div className='h-full w-full p-4'>
         <h2 className='text-xl font-bold'>회원가입 과정을 만드셨어요!</h2>
-        <div className='flex w-full scale-x-[-1] items-center justify-center p-10 pt-5'>
-          <Image src={'/heart.gif'} alt='thumbUp' width='200' height={'200'} />
+        <div className='flex w-full scale-x-[-1] items-center justify-center p-8 pt-5'>
+          <Image src={'/heart.gif'} alt='thumbUp' width='140' height={'140'} />
           <span className='sr-only'>
             <a href='https://www.flaticon.com/free-animated-icons/like' title='like animated icons'>
               Like animated icons created by Freepik - Flaticon
@@ -84,7 +84,7 @@ const OptionBlockContents = () => {
   }
 
   return (
-    <>
+    <div className='flex h-full w-full flex-col gap-10 p-5'>
       <div className={'flex w-full flex-col gap-5 '}>
         <div className='flex w-full items-center justify-between'>
           <button type='button' onClick={handleClickButton(-1)}>
@@ -99,7 +99,7 @@ const OptionBlockContents = () => {
           <p className='text-sm text-gray-600'>{target?.description}</p>
         </div>
       </div>
-      <section className='w-full '>
+      <section className='w-full'>
         <div className='flex w-full flex-col gap-2'>
           {target?.values?.map((value: any, index: number) => (
             <div key={value.key}>
@@ -111,7 +111,7 @@ const OptionBlockContents = () => {
                 })}
                 type='button'
                 colorScheme='twitter'
-                className='flex min-h-[3rem] w-full justify-start gap-2 whitespace-break-spaces border-2 border-black bg-blue-500 text-left text-sm font-normal text-white'
+                className='flex min-h-[3rem] w-full justify-start gap-2 whitespace-break-spaces bg-blue-500 text-left text-sm font-normal text-white'
               >
                 {clickedIndex === index && <CheckIcon variant='white' isSuccess={true} className='blue h-5 w-5' />}
                 <span>{index + 1}.</span>
@@ -121,17 +121,19 @@ const OptionBlockContents = () => {
           ))}
         </div>
       </section>
-    </>
+    </div>
   )
 }
-
 const OptionBlock = () => {
-  const { status, selected, currentIndex } = useAppSelector((state) => state.signup)
-  const [, drawerLeft] = useMediaQuery(['(max-width: 720px)', '(max-width: 1300px)'])
+  const [isMobile] = useMediaQuery('(max-height: 700px)', {
+    ssr: true,
+    fallback: false, // return false on the server, and re-evaluate on the client side
+  })
+  const { status } = useAppSelector((state) => state.signup)
   const [optionStatus, setOptionStauts] = useState<
     'normal' | 'animate-fade-out-up' | 'hidden' | 'animate-fade-in-down'
   >('normal')
-  const { handleDragEnd, handleDragStart, isOpen } = useBottomDrawer()
+  const ref = useRef<RefHandles>(null)
 
   useEffect(() => {
     if (status === '완료') {
@@ -145,35 +147,37 @@ const OptionBlock = () => {
     }
   }, [status])
 
+  useEffect(() => {
+    if (ref.current?.height === 1) {
+      ref.current.snapTo((state) => state.snapPoints[2])
+    }
+
+    console.log(ref.current)
+  }, [ref])
+
   if (status === '순서') {
     return null
   }
-
-  return drawerLeft ? (
-    <div
-      className={twMerge(
-        'absolute bottom-0 left-0 w-full rounded-t-2xl bg-white bg-opacity-50 p-10 shadow-[0px_-2px_3px_rgba(0,0,0,0.3)] backdrop-blur-md',
-        currentIndex >= selected.length ? 'bg-opacity-100' : '',
-        optionStatus,
-        isOpen ? '' : 'h-[50px] overflow-hidden',
-        'flex flex-col gap-16 border-t'
-      )}
-    >
-      <div draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        드래그미
-      </div>
-      <Suspense fallback={<div>로딩중...</div>}>
-        <OptionBlockContents />
-      </Suspense>
-    </div>
-  ) : (
-    <div
-      className={`absolute right-full top-5 mr-10 flex w-[350px] flex-col gap-16 rounded-xl border bg-white p-10 ${optionStatus}`}
+  return (
+    <BottomSheet
+      open
+      ref={ref}
+      className={`mx-auto h-fit w-full ${optionStatus}`}
+      blocking={false}
+      expandOnContentDrag
+      scrollLocking
+      defaultSnap={({ maxHeight }) => (isMobile ? maxHeight * 0.5 : maxHeight * 0.4)}
+      snapPoints={({ maxHeight }) => [isMobile ? maxHeight * 0.5 : maxHeight * 0.4, 0.5, 40]}
+      onSpringEnd={() => {
+        if (ref.current && ref.current.height <= 1) {
+          ref.current?.snapTo(40)
+        }
+      }}
     >
       <Suspense fallback={<div>로딩중...</div>}>
         <OptionBlockContents />
       </Suspense>
-    </div>
+    </BottomSheet>
   )
 }
 
