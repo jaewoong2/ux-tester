@@ -49,11 +49,11 @@ const OptionSetting = () => {
   }
 
   return (
-    <>
-      <span className='pl-5'>
+    <div className='h-full w-full'>
+      <span className='flex items-center pl-5'>
         <FaArrowLeft className=' text-xl' onClick={handlePrevButton} cursor={'pointer'} />
+        <h2 className='p-5 text-lg font-semibold'>회원가입</h2>
       </span>
-      <h2 className='p-5 text-lg font-semibold'>회원가입</h2>
       <form className='w-full' id='signup' onSubmit={handleSubmit}>
         {selected.map((item, index) => (
           <div className={'relative flex items-center overflow-hidden rounded-xl px-2'} key={item.id}>
@@ -72,7 +72,7 @@ const OptionSetting = () => {
           </div>
         ))}
       </form>
-    </>
+    </div>
   )
 }
 
