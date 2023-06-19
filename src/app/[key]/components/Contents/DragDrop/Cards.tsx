@@ -1,12 +1,13 @@
 import { PrimaryItem } from '@/types'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
 import Card from '../Card'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import useScrollButton from '@/app/[key]/hooks/useScrollButton'
 import SimpleCheckIcon from '../../Icons/SimpleCheckIcon'
-import { Button } from '@chakra-ui/react'
+import { useAppDispatch } from '@/store/hooks'
+import { addSelected } from '@/store/slices/signupSlice'
 
 interface Props {
   items: PrimaryItem[]
@@ -17,6 +18,11 @@ interface Props {
 const Cards = ({ items, draggableProps, droppableProps }: Props) => {
   const { handleClickScrollButton, isNextButtonVisible, isPrevButtonVisible, wrapper } =
     useScrollButton<HTMLDivElement>()
+  const dispatch = useAppDispatch()
+
+  const handleCheckClick = (index: number) => {
+    dispatch(addSelected({ sourceIndex: index }))
+  }
 
   return (
     <div className='relative w-full border-t-2 border-black'>
@@ -57,6 +63,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
                           {item.description}
                           <button
                             type='button'
+                            onClick={() => handleCheckClick(index)}
                             className='absolute -right-4 -top-4 aspect-square rounded-full border-2 border-black bg-white p-1 text-black'
                           >
                             <SimpleCheckIcon className='h-4 w-4' />
