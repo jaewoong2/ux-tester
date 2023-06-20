@@ -28,7 +28,7 @@ const ResultCard = ({ answer, description, isGood, subTitle, title }: Props) => 
         </div>
         <div className=''>
           {isGood ? (
-            <Image src={'/good.png'} width={90} height={90} alt='잘했어요' />
+            <Image src={'/good.png'} width={50} height={50} alt='잘했어요' />
           ) : (
             <Image src={'/bad.png'} width={40} height={40} alt='아쉬워요' />
           )}
