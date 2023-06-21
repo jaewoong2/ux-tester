@@ -10,8 +10,13 @@ import useGetOptions from '../../hooks/useGetOptions'
 import CheckIcon from '@/app/[key]/components/Icons/CheckIcon'
 import Image from 'next/image'
 import { BottomSheet } from 'react-spring-bottom-sheet'
-import 'react-spring-bottom-sheet/dist/style.css'
 import { RefHandles } from 'react-spring-bottom-sheet/dist/types'
+import { twMerge } from 'tailwind-merge'
+
+import 'react-spring-bottom-sheet/dist/style.css'
+import usePostResult from '../../hooks/usePostResult'
+import { useRouter } from 'next/navigation'
+import Loading from '../atoms/Loading'
 
 const sleep = () =>
   new Promise((reslove) =>
@@ -21,11 +26,13 @@ const sleep = () =>
   )
 
 const OptionBlockContents = () => {
-  const { optionsMap, currentIndex, selected } = useAppSelector((state) => state.signup)
+  const { optionsMap, currentIndex, selected, nickname } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
   const { data: options } = useGetOptions({ itemId: Number(selected[currentIndex]?.id) })
   const [clickedIndex, setClickedIndex] = useState(-1)
+  const { trigger } = usePostResult()
 
+  const navigator = useRouter()
   const optionIndex = currentIndex in optionsMap ? optionsMap[currentIndex] : 0
   const target = options?.[optionIndex]
 
@@ -57,8 +64,14 @@ const OptionBlockContents = () => {
     [currentIndex, dispatch, optionIndex, options?.length, clickedIndex]
   )
 
-  const handleClickCTA = () => {
-    dispatch(setStatus({ status: '완료' }))
+  const handleClickCTA = async () => {
+    try {
+      const response = await trigger({ json: selected, nickname: nickname })
+      navigator.push(`signup/${response?.uuid}_${response?.userId}`)
+      dispatch(setStatus({ status: '결과' }))
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   if (currentIndex >= selected.length) {
@@ -94,15 +107,20 @@ const OptionBlockContents = () => {
             {optionIndex + 1}/{options?.length}
           </p>
         </div>
-        <div>
-          <h2 className='text-xl font-bold'>{target?.title}</h2>
-          <p className='text-sm text-gray-600'>{target?.description}</p>
+        <div className='flex w-full items-center justify-between'>
+          <div>
+            <h2 className='text-xl font-bold'>{target?.title}</h2>
+            <p className='text-sm text-gray-600'>{target?.description}</p>
+          </div>
+          {target?.icon && (
+            <Image src={target?.icon} width={60} height={40} className='h-auto w-auto max-w-[60px]' alt='icon' />
+          )}
         </div>
       </div>
       <section className='w-full'>
-        <div className='flex w-full flex-col gap-2'>
+        <div className='flex w-full flex-col justify-center gap-2'>
           {target?.values?.map((value: any, index: number) => (
-            <div key={value.key}>
+            <div key={value.key} className='w-full'>
               <Button
                 id={`${index}`}
                 onClick={handleClickButton(1, {
@@ -111,11 +129,15 @@ const OptionBlockContents = () => {
                 })}
                 type='button'
                 colorScheme='twitter'
-                className='flex min-h-[3rem] w-full justify-start gap-2 whitespace-break-spaces bg-blue-500 text-left text-sm font-normal text-white'
+                className={twMerge(
+                  'flex h-full min-h-[3rem] w-full justify-start gap-2',
+                  'whitespace-break-spaces bg-blue-500 text-left text-sm font-normal text-white'
+                )}
               >
-                {clickedIndex === index && <CheckIcon variant='white' isSuccess={true} className='blue h-5 w-5' />}
-                <span>{index + 1}.</span>
-                {markdownToHtml(value.content)}
+                <div className='flex items-center gap-2'>
+                  {clickedIndex === index && <CheckIcon variant='white' isSuccess={true} className='blue h-5 w-5' />}
+                  {markdownToHtml(value.content)}
+                </div>
               </Button>
             </div>
           ))}
@@ -136,7 +158,7 @@ const OptionBlock = () => {
   const ref = useRef<RefHandles>(null)
 
   useEffect(() => {
-    if (status === '완료') {
+    if (status === '결과') {
       setOptionStauts('animate-fade-out-up')
 
       setTimeout(() => {
@@ -148,16 +170,17 @@ const OptionBlock = () => {
   }, [status])
 
   useEffect(() => {
-    if (ref.current?.height === 1) {
+    if (!ref.current) return
+
+    if (ref.current?.height <= 1) {
       ref.current.snapTo((state) => state.snapPoints[2])
     }
-
-    console.log(ref.current)
   }, [ref])
 
-  if (status === '순서') {
+  if (status === '순서' || status === '완료') {
     return null
   }
+
   return (
     <BottomSheet
       open
@@ -174,7 +197,7 @@ const OptionBlock = () => {
         }
       }}
     >
-      <Suspense fallback={<div>로딩중...</div>}>
+      <Suspense fallback={<Loading />}>
         <OptionBlockContents />
       </Suspense>
     </BottomSheet>
