@@ -1,18 +1,11 @@
 import React from 'react'
-import Image from 'next/image'
+import Spinner from './components/Icons/Spinner'
 
 const Loading = () => {
   return (
-    <div className='flex h-full w-full flex-col gap-10'>
-      <div className='flex w-full justify-center'>
-        <Image src={'/star.gif'} alt='회원가입완료 이미지' width={250} height={100} />
-      </div>
-      <div className='flex w-full flex-col items-center p-10'>
-        <div className='w-fit animate-fade-right'>
-          <div className='text-md text-blue-400'>테스트가 완료 되었어요😀</div>
-          <div className='text-lg font-semibold text-gray-700'>환영해요!</div>
-        </div>
-      </div>
+    <div className='flex h-full w-full flex-col items-center justify-center gap-2'>
+      <Spinner className='animate-spin text-2xl animate-duration-[2000]' />
+      <span className='text-sm font-bold'>폼 만드는 중</span>
     </div>
   )
 }
