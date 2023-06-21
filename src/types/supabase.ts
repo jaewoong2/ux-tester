@@ -91,6 +91,7 @@ export interface Database {
           key: string | null
           title: string | null
           type: string | null
+          icon: string | null
           values: OptionValues | null
         }
         Insert: {
@@ -99,6 +100,7 @@ export interface Database {
           id?: number
           item_id?: number | null
           key?: string | null
+          icon: string | null
           title?: string | null
           type?: string | null
           values?: OptionValues | null
@@ -109,6 +111,7 @@ export interface Database {
           id?: number
           item_id?: number | null
           key?: string | null
+          icon: string | null
           title?: string | null
           type?: string | null
           values?: OptionValues | null

@@ -28,9 +28,15 @@ const ResultCard = ({ answer, description, isGood, subTitle, title }: Props) => 
         </div>
         <div className=''>
           {isGood ? (
-            <Image src={'/good.png'} width={50} height={50} alt='잘했어요' />
+            <div className='flex flex-col items-center justify-center gap-1'>
+              <Image src={'/good.png'} width={50} height={50} alt='잘했어요' />
+              <span className='text-xs font-bold text-gray-500'>정답 이에요</span>
+            </div>
           ) : (
-            <Image src={'/bad.png'} width={40} height={40} alt='아쉬워요' />
+            <div className='flex flex-col items-center justify-center gap-1'>
+              <Image src={'/bad.png'} width={40} height={40} alt='아쉬워요' />
+              <span className='text-xs font-bold text-gray-500'>아쉬워요</span>
+            </div>
           )}
         </div>
       </div>

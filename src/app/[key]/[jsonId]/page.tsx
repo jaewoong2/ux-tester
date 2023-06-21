@@ -22,13 +22,13 @@ const Page = async ({ params }: Props) => {
   const jsonData = json.data.flatMap((v) => JSON.parse(v.json ?? ''))
 
   return (
-    <section className='h-full overflow-scroll'>
+    <section className='flex h-full flex-col justify-center overflow-scroll'>
       <ResultTitle
         nickname={nickname.data.nickname ?? ''}
         orderScore={getOrderScore(jsonData.map(({ itemKey }) => itemKey))}
         optionScore={answers.map((v) => (v?.score ? v?.score * 5 : 0)).reduce((a, b) => a + b)}
       />
-      <ResultCards answers={answers} />
+      <ResultCards selected={jsonData} answers={answers} />
     </section>
   )
 }

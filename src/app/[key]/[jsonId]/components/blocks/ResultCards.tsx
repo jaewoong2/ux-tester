@@ -6,17 +6,47 @@ import useScrollButton from '@/app/[key]/hooks/useScrollButton'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import { CgLink } from 'react-icons/cg'
 import KakaoIcon from '@/app/[key]/components/Icons/KakaoIcon'
+import { Button } from '@chakra-ui/react'
+import { useAppDispatch } from '@/store/hooks'
+import { setSelected, setStatus } from '@/store/slices/signupSlice'
+import Link from 'next/link'
+import { PrimaryItem } from '@/types'
 
 type Props = {
   answers: (Database['public']['Tables']['answer']['Row'] | null)[]
+  selected: (PrimaryItem & {
+    currentValue: string
+    isError: {
+      rule?: boolean | null
+      duplicate?: boolean | null
+    }
+  })[]
 }
 
-const ResultCards = ({ answers }: Props) => {
+const ResultCards = ({ answers, selected }: Props) => {
   const { handleClickScrollButton, isNextButtonVisible, isPrevButtonVisible, wrapper } =
     useScrollButton<HTMLDivElement>()
 
+  const dispatch = useAppDispatch()
+
+  const handleClickCTA = () => {
+    dispatch(setStatus({ status: '완료' }))
+    dispatch(setSelected({ selected: selected }))
+  }
+
   return (
-    <div className='relative flex w-full flex-col'>
+    <div className='relative flex w-full flex-col gap-4'>
+      <div className='flex w-full items-center justify-center p-4'>
+        <Link href={'/signup'} onClick={handleClickCTA} className='w-full'>
+          <Button
+            colorScheme='blackAlpha'
+            className='w-full bg-gray-800 bg-opacity-70 p-8 text-white'
+            onClick={handleClickCTA}
+          >
+            내가 만든 회원가입 보러가기
+          </Button>
+        </Link>
+      </div>
       <div className='flex w-full flex-col items-center justify-center gap-2'>
         <h1 className='text-sm font-semibold'>공유하기</h1>
         <div className='flex gap-2'>

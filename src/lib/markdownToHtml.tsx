@@ -4,11 +4,17 @@ export default function markdownToHtml(str: string) {
 
   if (value.length > 1) {
     return (
-      <div className='flex'>
-        {value
-          .splice(1)
-          .map((text, index) => (index % 2 === 0 ? <strong key={text}>{text}</strong> : <p key={text}>{text}</p>))}
-      </div>
+      <span className='flex'>
+        {value.splice(1).map((text, index) =>
+          index % 2 === 0 ? (
+            <span className='w-fit font-bold' key={text}>
+              {text}
+            </span>
+          ) : (
+            <span key={text}>{text}</span>
+          )
+        )}
+      </span>
     )
   }
 

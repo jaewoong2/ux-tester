@@ -9,7 +9,7 @@ const Loading = ({ nickname }: { nickname?: string | null }) => {
       </div>
       <div className='flex w-full flex-col items-center p-10'>
         <div className='w-fit animate-fade-right'>
-          <div className='text-md text-blue-400'>회원가입이 완료 되었어요😀</div>
+          <div className='text-md text-blue-400'>테스트가 완료 되었어요😀</div>
           <div className='text-lg font-semibold text-gray-700'>{nickname}님 환영해요!</div>
         </div>
       </div>

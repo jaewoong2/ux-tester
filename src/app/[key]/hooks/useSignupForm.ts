@@ -1,18 +1,17 @@
 import React, { useCallback } from 'react'
 import validateEmail from '@/lib/validateEmail'
 import validatePassword from '@/lib/validatePassword'
+import { useToast } from '@chakra-ui/react'
 
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { setStatus, setIsError } from '@/store/slices/signupSlice'
 import { useRouter } from 'next/navigation'
-import usePostResult from './usePostResult'
 
 const useSignupForm = () => {
-  const navigator = useRouter()
-  const { selected, nickname } = useAppSelector((state) => state.signup)
+  const navigation = useRouter()
+  const { selected } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
-  const { trigger } = usePostResult()
-
+  const toast = useToast()
   const handlePrevButton = () => {
     dispatch(setStatus({ status: '설정' }))
   }
@@ -61,16 +60,18 @@ const useSignupForm = () => {
     async (e) => {
       e.preventDefault()
       if (!handleErrorCheck()) {
-        dispatch(setStatus({ status: '결과' }))
-        const data = selected.map(({ optionValue, itemKey }) => ({
-          optionValue,
-          itemKey,
-        }))
-        const response = await trigger({ json: data, nickname: nickname })
-        navigator.push(`signup/${response?.uuid}_${response?.userId}`)
+        dispatch(setStatus({ status: '완료' }))
+        navigation.back()
+        toast({
+          title: '회원가입 완료',
+          description: '회원가입이 완료 되었어요 :)',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        })
       }
     },
-    [handleErrorCheck, dispatch, selected, trigger, navigator, nickname]
+    [handleErrorCheck, dispatch, toast]
   )
 
   return {

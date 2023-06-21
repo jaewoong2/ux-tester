@@ -47,10 +47,15 @@ const signupSlice = createSlice({
       state.nickname = payload.nickname
     },
 
+    setSelected: (state, { payload }: PayloadAction<{ selected: Item[] }>) => {
+      state.selected = payload.selected
+    },
+
     addSelected: (state, { payload }: PayloadAction<{ sourceIndex: number }>) => {
       state.selected = [...state.selected, state.cards[payload.sourceIndex]]
       state.cards = state.cards.filter((_, i) => i !== payload.sourceIndex)
     },
+
     swapSelected: (state, { payload }: PayloadAction<{ sourceIndex: number; destinationIndex: number }>) => {
       const { sourceIndex, destinationIndex } = payload
 
@@ -136,6 +141,7 @@ export const {
   setStatus,
   nextCurrent,
   prevCurrent,
+  setSelected,
   init,
   setIsError,
   setCurrentIndex,
