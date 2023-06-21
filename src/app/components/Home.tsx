@@ -49,11 +49,10 @@ const Home = () => {
   const handleTrigger = useCallback(async () => {
     try {
       if (!deboucnedNickanme) return
-
       if (nickname === deboucnedNickanme) {
         await trigger({ nickname: deboucnedNickanme })
+        setStatus('success')
       }
-      setStatus('success')
     } catch (err) {
       reset()
       setStatus('error')
