@@ -25,6 +25,8 @@ const sleep = () =>
     }, 1000)
   )
 
+const heart = 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/heart.gif'
+
 const OptionBlockContents = () => {
   const { optionsMap, currentIndex, selected, nickname } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
@@ -79,7 +81,7 @@ const OptionBlockContents = () => {
       <div className='h-full w-full p-4'>
         <h2 className='text-xl font-bold'>회원가입 과정을 만드셨어요!</h2>
         <div className='flex w-full scale-x-[-1] items-center justify-center p-8 pt-5'>
-          <Image src={'/heart.gif'} alt='thumbUp' width='140' height={'140'} />
+          <Image src={heart} alt='thumbUp' width='140' height={'140'} />
           <span className='sr-only'>
             <a href='https://www.flaticon.com/free-animated-icons/like' title='like animated icons'>
               Like animated icons created by Freepik - Flaticon
