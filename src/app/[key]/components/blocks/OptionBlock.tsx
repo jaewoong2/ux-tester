@@ -17,7 +17,6 @@ import 'react-spring-bottom-sheet/dist/style.css'
 import usePostResult from '../../hooks/usePostResult'
 import { useRouter } from 'next/navigation'
 import Loading from '../atoms/Loading'
-import styled from '@emotion/styled'
 
 const sleep = () =>
   new Promise((reslove) =>
