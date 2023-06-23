@@ -17,6 +17,7 @@ import 'react-spring-bottom-sheet/dist/style.css'
 import usePostResult from '../../hooks/usePostResult'
 import { useRouter } from 'next/navigation'
 import Loading from '../atoms/Loading'
+import styled from '@emotion/styled'
 
 const sleep = () =>
   new Promise((reslove) =>
@@ -68,7 +69,7 @@ const OptionBlockContents = () => {
 
   const handleClickCTA = async () => {
     try {
-      const response = await trigger({ json: selected, nickname: nickname })
+      const response = await trigger({ json: selected.map(({ currentValue, ...rest }) => rest), nickname: nickname })
       navigator.push(`signup/${response?.uuid}_${response?.userId}`)
       dispatch(setStatus({ status: '결과' }))
     } catch (err) {
