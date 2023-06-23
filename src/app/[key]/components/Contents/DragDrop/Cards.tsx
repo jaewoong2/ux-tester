@@ -54,7 +54,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
                         <Card
                           title={item.title ?? 'Title'}
                           className={twMerge(
-                            'relative border-2 border-black bg-white p-3 shadow-md',
+                            'relative border-2 border-black bg-slate-50 p-3 shadow-md',
                             snapshot.isDragging
                               ? 'animate-wiggle border-blue-500 bg-blue-50 shadow-xl animate-infinite'
                               : ''
@@ -64,7 +64,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
                           <button
                             type='button'
                             onClick={() => handleCheckClick(index)}
-                            className='absolute -right-4 -top-4 aspect-square rounded-full border-2 border-black bg-white p-1 text-black'
+                            className='absolute -right-4 -top-4 aspect-square rounded-full border-2 border-black bg-slate-50 p-1 text-black'
                           >
                             <SimpleCheckIcon className='h-4 w-4' />
                           </button>
@@ -84,7 +84,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
           <button
             type='button'
             onClick={() => handleClickScrollButton(-100)}
-            className='flex h-8 w-8 items-center justify-center rounded-full border bg-white p-0 text-xl shadow-md hover:bg-slate-100'
+            className='flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-0 text-xl shadow-md hover:bg-slate-100'
           >
             <ChevronLeftIcon />
           </button>
@@ -95,7 +95,7 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
           <button
             type='button'
             onClick={() => handleClickScrollButton(100)}
-            className='flex h-8 w-8 items-center justify-center rounded-full border bg-white p-0 text-xl shadow-md hover:bg-slate-100'
+            className='flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-0 text-xl shadow-md hover:bg-slate-100'
           >
             <ChevronRightIcon />
           </button>

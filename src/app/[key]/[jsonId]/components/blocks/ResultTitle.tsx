@@ -1,8 +1,8 @@
 'use client'
-import useIncreseNumber from '@/app/[key]/hooks/useIncreseNumber'
-
-import Image from 'next/image'
 import React from 'react'
+import Image from 'next/image'
+
+import useIncreseNumber from '@/app/[key]/hooks/useIncreseNumber'
 
 type Props = {
   optionScore: number
@@ -23,7 +23,7 @@ const getArticles = (score: number) => {
   if (score >= 30) {
     return {
       image: '/penguin.png',
-      imageCaption: '은메달을 받아 만족하는 펭귄',
+      imageCaption: '은메달 이지만, 자신과 비슷한 색이라 신난 펭귄',
       description: '당신은 UX 중수 잘했어요!',
       medal: '🥈',
     }
@@ -48,7 +48,7 @@ const ResultTitle = ({ optionScore, orderScore, nickname }: Props) => {
       <h1 className='animate-fade-right p-5 pb-0 text-lg font-bold'>{nickname}님의 점수 에요</h1>
       <div className='flex animate-fade-right px-5 text-sm font-semibold text-gray-500'>{description}</div>
       <figure className='flex w-full flex-col items-center justify-center'>
-        <Image src={image} width={300} height={300} alt='hero' className='drop-shadow-lg' />
+        <Image src={image} width={250} height={250} alt='hero' className='drop-shadow-lg' />
         <figcaption>
           <span className='SUITE-Regular text-sm text-gray-600'>{nickname} 님은</span>
           <div className='rounded-xl bg-blue-50 p-2 px-4'>
@@ -72,7 +72,7 @@ const ResultTitle = ({ optionScore, orderScore, nickname }: Props) => {
           </div>
           <div className='relative flex items-start justify-center p-5'>
             <span className='absolute top-0 text-xs'>잘했어요</span>
-            <div className='h-fit w-fit rounded-full shadow-2xl'>
+            <div className='h-fit w-fit rounded-full shadow-2xl hover:animate-wiggle'>
               <div className='animate-wiggle text-3xl font-semibold text-gray-600 drop-shadow-xl animate-thrice'>
                 {medal}
               </div>

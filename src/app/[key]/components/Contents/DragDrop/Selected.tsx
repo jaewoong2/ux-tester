@@ -40,7 +40,7 @@ const Selected = ({ items, draggableProps, droppableProps }: Props) => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       className={twMerge(
-                        'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl bg-white',
+                        'flex flex-[0_0_auto] cursor-pointer items-center overflow-hidden rounded-xl bg-slate-50',
                         snapshot.isDragging ? 'shadow-lg' : ''
                       )}
                       style={{ ...provided.draggableProps.style, cursor: 'unset' }}

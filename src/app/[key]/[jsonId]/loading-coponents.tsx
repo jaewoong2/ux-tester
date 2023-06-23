@@ -5,7 +5,7 @@ const Loading = ({ nickname }: { nickname?: string | null }) => {
   return (
     <div className='flex h-full w-full flex-col gap-10'>
       <div className='flex w-full justify-center'>
-        <Image src={'/star.gif'} alt='회원가입완료 이미지' width={250} height={100} />
+        <Image src={'/star.gif'} alt='회원가입완료 이미지' width={250} height={100} className='h-auto w-auto' />
       </div>
       <div className='flex w-full flex-col items-center p-10'>
         <div className='w-fit animate-fade-right'>

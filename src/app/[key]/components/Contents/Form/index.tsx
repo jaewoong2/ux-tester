@@ -41,7 +41,7 @@ const Form = ({ label, type, options, itemKey, index, ...props }: Props) => {
   }
 
   return (
-    <FormControl {...props} className={twMerge('bg-white py-5 pr-5', props.className)}>
+    <FormControl {...props} className={twMerge('bg-slate-50 py-5 pr-5', props.className)}>
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         {type !== 'password' && (

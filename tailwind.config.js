@@ -13,9 +13,12 @@ module.exports = {
         'trend-inset': 'inset -5px -5px 9px rgba(255,255,255,0.45), inset 5px 5px 9px rgba(94,104,121,0.3)  ',
       },
 
+      backgroundColor: {},
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-blue': 'linear-gradient(120deg, #a1c4fdaf 0%, #c2e9fbaf 100%)',
       },
       keyframes: {
         'fade-in-left': {
