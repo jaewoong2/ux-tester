@@ -27,7 +27,7 @@ const MainBlock = ({ items, nickname }: Props) => {
     }
   }, [nickname, items, dispatch])
 
-  if (!state.nickname) {
+  if (!nickname && !state.nickname) {
     notFound()
   }
 
