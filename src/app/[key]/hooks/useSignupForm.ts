@@ -71,7 +71,7 @@ const useSignupForm = () => {
         })
       }
     },
-    [handleErrorCheck, dispatch, toast]
+    [handleErrorCheck, dispatch, navigation, toast]
   )
 
   return {
