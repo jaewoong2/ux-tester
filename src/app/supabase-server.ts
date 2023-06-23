@@ -37,7 +37,7 @@ export async function getNickname(userId?: string) {
     if (!userId) {
       throw new Error('uuid is not defined')
     }
-    const response = await supabase.from('user').select('*').eq('userId', userId).single()
+    const response = await supabase.from('user').select('*').or(`nickname.eq.${userId},userId.eq.${userId}`)
 
     await sleep()
 
@@ -45,9 +45,20 @@ export async function getNickname(userId?: string) {
       throw new Error('No data found')
     }
 
-    return response
+    if (response.data?.length === 0) {
+      throw new Error('No data found')
+    }
+
+    if (response.data?.length > 1) {
+      throw new Error('Unknown Error')
+    }
+
+    return {
+      ...response,
+      data: response.data[0],
+    }
   } catch (err) {
-    throw new Error('Error')
+    console.error(err)
   }
 }
 
