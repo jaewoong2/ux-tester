@@ -29,13 +29,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<ResponseB
 
   const supabase = createRouteHandlerClient<Database>({ cookies })
   const data = await supabase.from('result').select('uuid').filter('json', 'eq', stringifiedJSON)
+  const userId = uuidv4(10)
 
   if (data.data && data.data.length > 0) {
-    return NextResponse.json({ uuid: data.data[0].uuid })
+    return NextResponse.json({ uuid: data.data[0].uuid, userId })
   }
 
   const uuid = uuidv4(20)
-  const userId = uuidv4(10)
 
   await supabase.from('result').insert({ json: stringifiedJSON, result: '', uuid: `${uuid}` })
   await supabase.from('user').insert({ userId: `${userId}`, uuid: uuid, nickname: nickname })
