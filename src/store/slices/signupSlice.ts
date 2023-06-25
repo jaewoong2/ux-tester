@@ -33,6 +33,15 @@ const signupSlice = createSlice({
   name: 'signup',
   initialState,
   reducers: {
+    reset(state) {
+      state.nickname = ''
+      state.cards = []
+      state.selected = []
+      state.status = '순서'
+      state.currentIndex = 0
+      state.optionsMap = {}
+    },
+
     init: (state, { payload }: PayloadAction<{ items: PrimaryItem[] }>) => {
       state.cards = payload.items.map((card) => {
         return {
@@ -147,6 +156,7 @@ export const {
   setCurrentIndex,
   setNickName,
   setOptionsMap,
+  reset,
 } = actions
 
 export default signupReducer
