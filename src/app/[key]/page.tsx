@@ -14,7 +14,7 @@ const Page = async ({ searchParams }: Props) => {
   const item = await getItems()
   const nickname = await getNickname(searchParams.nickname)
 
-  if (searchParams.nickname && nickname?.data) {
+  if (searchParams.nickname && nickname) {
     return (
       <div className='flex h-full w-full flex-col items-center justify-center'>
         <div className='flex flex-col items-start'>
