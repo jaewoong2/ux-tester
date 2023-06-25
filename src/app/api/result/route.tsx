@@ -32,6 +32,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ResponseB
   const userId = uuidv4(10)
 
   if (data.data && data.data.length > 0) {
+    await supabase.from('user').insert({ userId: `${userId}`, uuid: data.data[0].uuid, nickname: nickname })
     return NextResponse.json({ uuid: data.data[0].uuid, userId })
   }
 
