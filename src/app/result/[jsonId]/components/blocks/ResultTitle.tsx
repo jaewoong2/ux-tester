@@ -47,8 +47,8 @@ const ResultTitle = ({ optionScore, orderScore, nickname }: Props) => {
     <>
       <h1 className='animate-fade-right p-5 pb-0 text-lg font-bold'>{nickname}님의 점수 에요</h1>
       <div className='flex animate-fade-right px-5 text-sm font-semibold text-gray-500'>{description}</div>
-      <figure className='flex w-full flex-col items-center justify-center'>
-        <Image src={image} width={250} height={250} alt='hero' className='drop-shadow-lg' />
+      <figure className='flex w-full flex-col items-center justify-center p-5 py-8'>
+        <Image src={image} width={225} height={225} alt='hero' className='h-auto w-auto drop-shadow-lg' />
         <figcaption>
           <span className='SUITE-Regular text-sm text-gray-600'>{nickname} 님은</span>
           <div className='rounded-xl bg-blue-50 p-2 px-4'>

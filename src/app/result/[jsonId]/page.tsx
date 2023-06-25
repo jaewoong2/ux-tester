@@ -6,7 +6,6 @@ import ResultTitle from './components/blocks/ResultTitle'
 
 type Props = {
   params?: {
-    key: string
     jsonId: string
   }
 }
@@ -17,7 +16,6 @@ const Page = async ({ params }: Props) => {
   const json = await getJsonByUuid(jsonId)
   const result = await getAnswer(jsonId)
   const nickname = await getNickname(userId)
-
   const answers = result.flatMap((v) => v.data)
   const jsonData = json.data.flatMap((v) => JSON.parse(v.json ?? ''))
 
@@ -28,9 +26,14 @@ const Page = async ({ params }: Props) => {
           <ResultTitle
             nickname={nickname?.data.nickname ?? ''}
             orderScore={getOrderScore(jsonData.map(({ itemKey }) => itemKey))}
-            optionScore={answers.map((v) => (v?.score ? v?.score * 5 : 0)).reduce((a, b) => a + b)}
+            optionScore={answers.map((v) => (v?.score ? v?.score * 6.25 : 0)).reduce((a, b) => a + b)}
           />
-          <ResultCards nickname={nickname?.data.nickname ?? ''} selected={jsonData} answers={answers} />
+          <ResultCards
+            nickname={nickname?.data.nickname ?? ''}
+            selected={jsonData}
+            answers={answers}
+            order={jsonData.map(({ itemKey }) => itemKey)}
+          />
         </>
       )}
     </section>
