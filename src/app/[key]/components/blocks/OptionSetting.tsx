@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from '@/app/[key]/components/Contents/Form'
+import Form from '@/app/[key]/components/contents/Form'
 import CheckIcon from '@/app/[key]/components/Icons/CheckIcon'
 import SimpleCircleIcon from '@/app/[key]/components/Icons/SimpleCircleIcon'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'

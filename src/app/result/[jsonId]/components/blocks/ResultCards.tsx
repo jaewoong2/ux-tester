@@ -126,7 +126,7 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
             <button
               type='button'
               onClick={() => handleClickScrollButton(-320)}
-              className='z-10 flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-0 text-xl shadow-md hover:bg-slate-100'
+              className='z-[12] flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-0 text-xl shadow-md hover:bg-slate-100'
             >
               <ChevronLeftIcon />
             </button>
@@ -137,7 +137,7 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
             <button
               type='button'
               onClick={() => handleClickScrollButton(320)}
-              className='z-10 flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-0 text-xl shadow-md hover:bg-slate-100'
+              className='z-[12] flex h-8 w-8 items-center justify-center rounded-full border bg-slate-50 p-0 text-xl shadow-md hover:bg-slate-100'
             >
               <ChevronRightIcon />
             </button>

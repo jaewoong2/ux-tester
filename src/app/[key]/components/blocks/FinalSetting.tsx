@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from '@/app/[key]/components/Contents/Form'
+import Form from '@/app/[key]/components/contents/Form'
 import useSignupForm from '../../hooks/useSignupForm'
 import { useRouter } from 'next/navigation'
 import { Button } from '@chakra-ui/react'

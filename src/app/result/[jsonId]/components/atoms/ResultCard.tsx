@@ -52,7 +52,7 @@ const ResultCard = ({ answer, description, isGood, subTitle, title }: Props) => 
           <div className='relative z-10 w-full text-white'>{answer}</div>
         </div>
         <div className='relative z-[11] flex w-full items-start justify-center gap-2 border-b border-gray-500 bg-gray-800 p-3 text-sm'>
-          <div className='flex aspect-square h-[32px] w-[32px] items-center justify-center rounded-md bg-red-50 text-xs italic'>
+          <div className='flex aspect-square h-[32px] w-[32px] items-center justify-center rounded-md bg-blue-100 text-xs italic'>
             GPT
           </div>
           <div className='w-full text-sm text-white'>{description}</div>
