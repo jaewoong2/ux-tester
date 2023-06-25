@@ -1,5 +1,6 @@
 import { Providers } from '@/lib/Provider'
 import './globals.css'
+import Layout from './components/Layout'
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='kr'>
       <body suppressHydrationWarning={true} className='relative bg-slate-200'>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   )
