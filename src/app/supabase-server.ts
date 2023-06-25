@@ -70,7 +70,7 @@ export async function getJsonByUuid(uuid?: string) {
     }
     const response = await supabase.from('result').select('json').eq('uuid', uuid)
 
-    await sleep()
+    await sleep(3000)
 
     if (!response.data) {
       throw new Error('No data found')

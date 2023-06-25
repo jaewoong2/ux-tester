@@ -50,12 +50,18 @@ const Home = () => {
   }, [handleTrigger])
 
   return (
-    <div className='relative mx-auto h-full w-full max-w-[512px] bg-slate-50 shadow-lg'>
+    <div className='relative mx-auto h-full w-full max-w-[512px] border-x-2 border-black bg-slate-50'>
       <div className='relative z-0 w-full'>
         <div className='PyeongChangPeace-Bold absolute z-10 flex h-full w-full items-center justify-center text-center text-2xl text-blue-400'>
           나만의 <br /> 회원가입 UX 테스트
         </div>
-        <Image src={'/paper2.png'} width={496} height={1024} alt='background-image' className='w-full drop-shadow-md' />
+        <Image
+          src={'/paper2.png'}
+          width={496}
+          height={1024}
+          alt='background-image'
+          className='h-auto w-auto w-full drop-shadow-md'
+        />
       </div>
       <form className='flex flex-col gap-5 p-10 pb-4'>
         <div className='flex flex-col'>

@@ -49,7 +49,7 @@ const Form = ({ label, type, options, itemKey, index, ...props }: Props) => {
             index={index}
             type={type}
             options={options}
-            placeholder={options?.placeholder === 'example' ? 'your.example.id' : '이메일을 입력하세요...'}
+            placeholder={options?.placeholder === 'example' ? 'example@domain.com' : '이메일을 입력하세요...'}
           />
         )}
         {type === 'password' && (
