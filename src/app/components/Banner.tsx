@@ -1,3 +1,4 @@
+import { IMAGE } from '@/constants'
 import Image from 'next/image'
 import React, { PropsWithChildren } from 'react'
 
@@ -8,7 +9,7 @@ const Banner = ({ children }: PropsWithChildren) => {
         {children}
       </div>
       <Image
-        src={'/paper2.png'}
+        src={IMAGE.banner}
         width={520}
         height={1024}
         alt='background-image'

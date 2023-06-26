@@ -3,13 +3,14 @@ import markdownToHtml from '@/lib/markdownToHtml'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { handleChangeOptions, prevCurrent, setOptionsMap, nextCurrent, setStatus } from '@/store/slices/signupSlice'
 import { Button } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { FaArrowLeft } from 'react-icons/fa'
 import { twMerge } from 'tailwind-merge'
 import useGetOptions from '../../hooks/useGetOptions'
 import usePostResult from '../../hooks/usePostResult'
 import Image from 'next/image'
 import CheckIcon from '../Icons/CheckIcon'
+import { useRouter } from 'next/navigation'
+import { IMAGE } from '@/constants'
 
 const sleep = () =>
   new Promise((reslove) =>
@@ -17,8 +18,6 @@ const sleep = () =>
       reslove(true)
     }, 1000)
   )
-
-const heart = 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/heart.gif'
 
 const OptionBlockContents = () => {
   const { optionsMap, currentIndex, selected, nickname } = useAppSelector((state) => state.signup)
@@ -75,7 +74,7 @@ const OptionBlockContents = () => {
         <h2 className='text-xl font-bold'>회원가입 과정을 만드셨어요!</h2>
         <div className='flex w-full scale-x-[-1] items-center justify-center p-8 pt-5'>
           <div className='aspect-square h-auto w-[140px]'>
-            <Image src={heart} alt='thumbUp' width='140' height='140' className='h-auto w-auto' />
+            <Image src={IMAGE.heart} alt='thumbUp' width='140' height='140' className='h-auto w-auto' />
           </div>
           <span className='sr-only'>
             <a href='https://www.flaticon.com/free-animated-icons/like' title='like animated icons'>

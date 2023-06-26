@@ -1,3 +1,4 @@
+import { IMAGE } from '@/constants'
 import Image from 'next/image'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -33,12 +34,12 @@ const ResultCard = ({ answer, description, isGood, subTitle, title }: Props) => 
         <div className={`${isGood === null ? 'hidden' : ''}`}>
           {isGood ? (
             <div className='flex flex-col items-center justify-center gap-1'>
-              <Image src={'/good.png'} width={50} height={50} alt='잘했어요' className='h-auto w-auto' />
+              <Image src={IMAGE.good} width={50} height={50} alt='잘했어요' className='h-auto w-auto' />
               <span className='text-xs font-bold text-gray-500'>정답 이에요</span>
             </div>
           ) : (
             <div className='flex flex-col items-center justify-center gap-1'>
-              <Image src={'/bad.png'} width={40} height={40} alt='아쉬워요' className='h-auto w-auto' />
+              <Image src={IMAGE.bad} width={40} height={40} alt='아쉬워요' className='h-auto w-auto' />
               <span className='text-xs font-bold text-gray-500'>아쉬워요</span>
             </div>
           )}
