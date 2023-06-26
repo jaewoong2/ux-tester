@@ -1,12 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
+import { IMAGE } from '@/constants'
 
 const Loading = ({ nickname }: { nickname?: string | null }) => {
   return (
     <div className='flex h-full w-full flex-col gap-10'>
       <div className='flex w-full justify-center'>
         <Image
-          src={'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/star.gif'}
+          src={IMAGE.star}
           alt='회원가입완료 이미지'
           width={250}
           height={100}
