@@ -14,26 +14,11 @@ import { setNickName, setSelected, setStatus } from '@/store/slices/signupSlice'
 import { PrimaryItem } from '@/types'
 
 import ResultCard from '../atoms/ResultCard'
-
-const ORDER_DESCRIPTION =
-  '사용자들이 회원가입 과정에서 일반적으로 기대하는 순서는 "이메일" → "비밀번호" → "비밀번호 확인" → "회원 가입 버튼"입니다. 이러한 순서는 각 단계가 직관적으로 이어지도록 하고, 사용자가 이 과정에서 혼동되거나 불편을 느끼지 않도록 합니다.'
-
-function getOrderName(order: string[]) {
-  return order.map((text) => {
-    switch (text) {
-      case 'passwordCheck':
-        return '"비밀번호 확인"'
-      case 'password':
-        return '"비밀번호"'
-      case 'nextButton':
-        return '"회원가입 버튼"'
-      case 'email':
-        return '"이메일"'
-      default:
-        return '알 수 없는 이름'
-    }
-  })
-}
+import { ORDER_DESCRIPTION, getOrderName } from '../../utils'
+import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
+import { usePathname } from 'next/navigation'
+import { useToast } from '@chakra-ui/react'
+import { BASEURL } from '@/constants'
 
 type Props = {
   answers: (Database['public']['Tables']['answer']['Row'] | null)[]
@@ -49,8 +34,12 @@ type Props = {
 }
 
 const ResultCards = ({ answers, selected, nickname, order }: Props) => {
+  const pathname = usePathname()
   const { handleClickScrollButton, isNextButtonVisible, isPrevButtonVisible, wrapper } =
     useScrollButton<HTMLDivElement>()
+
+  const copy = useCopyToClipboard()
+  const toast = useToast()
 
   const orders = useMemo(() => getOrderName(order).join('→'), [order])
 
@@ -68,6 +57,16 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
     dispatch(setNickName({ nickname: '' }))
   }
 
+  const handleShareButton = () => {
+    copy(BASEURL + pathname)
+    toast({
+      title: '복사 성공',
+      icon: null,
+      status: 'success',
+      isClosable: true,
+    })
+  }
+
   return (
     <div className='relative flex w-full flex-col gap-4'>
       <div className='flex w-full flex-col items-center justify-center p-4'>
@@ -83,7 +82,10 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
       <div className='flex w-full flex-col items-center justify-center gap-2'>
         <h1 className='text-sm font-semibold'>공유하기</h1>
         <div className='flex gap-2'>
-          <button className='w-fit rounded-full bg-slate-100 p-2 shadow-md transition-transform hover:-translate-y-1'>
+          <button
+            className='w-fit rounded-full bg-slate-100 p-2 shadow-md transition-transform hover:-translate-y-1'
+            onClick={handleShareButton}
+          >
             <CgLink className='h-6 w-6 text-blue-400' />
           </button>
           <button className='w-fit rounded-full bg-yellow-300 p-2 shadow-md transition-transform hover:-translate-y-1'>

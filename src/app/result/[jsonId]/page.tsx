@@ -3,10 +3,31 @@ import getOrderScore from '@/lib/getOrderScore'
 import React from 'react'
 import ResultCards from './components/blocks/ResultCards'
 import ResultTitle from './components/blocks/ResultTitle'
+import { Metadata } from 'next'
+import { getArticles } from './utils'
 
 type Props = {
   params?: {
     jsonId: string
+  }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const [jsonId] = params?.jsonId ? params?.jsonId.split('_') : ['', '']
+
+  const json = await getJsonByUuid(jsonId)
+  const result = await getAnswer(jsonId)
+  const answers = result.flatMap((v) => v.data)
+  const jsonData = json.data.flatMap((v) => JSON.parse(v.json ?? ''))
+
+  const totalScore =
+    getOrderScore(jsonData.map(({ itemKey }) => itemKey)) +
+    answers.map((v) => (v?.score ? v?.score * 6.25 : 0)).reduce((a, b) => a + b)
+
+  return {
+    openGraph: {
+      images: getArticles(totalScore).image,
+    },
   }
 }
 

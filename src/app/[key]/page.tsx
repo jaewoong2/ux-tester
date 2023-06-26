@@ -3,11 +3,17 @@ import MainBlock from './components/blocks/MainBlock'
 import OptionBlock from './components/blocks/OptionBlock'
 import { getItems, getNickname } from '../supabase-server'
 import Link from 'next/link'
+import { METADATA } from '@/constants'
 
 type Props = {
   searchParams: {
     nickname?: string
   }
+}
+
+export const metadata = {
+  ...METADATA,
+  title: '나의 회원가입 UX 테스트 | 순서 정하기',
 }
 
 const Page = async ({ searchParams }: Props) => {

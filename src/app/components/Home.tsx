@@ -20,7 +20,9 @@ const Home = () => {
   return (
     <div className='flex h-full w-full flex-col'>
       <Banner>
-        나만의 <br /> 회원가입 UX 테스트
+        <div className='PyeongChangPeace-Bold text-3xl'>
+          나만의 <br /> 회원가입 UX 테스트
+        </div>
       </Banner>
       <NicknameForm />
     </div>

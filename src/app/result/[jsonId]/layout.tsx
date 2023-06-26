@@ -2,6 +2,12 @@ import React, { PropsWithChildren, Suspense } from 'react'
 import Loading from './loading-coponents'
 import { getNickname } from '@/app/supabase-server'
 import { notFound } from 'next/navigation'
+import { METADATA } from '@/constants'
+
+export const metadata = {
+  ...METADATA,
+  title: '나의 회원가입 UX 테스트 | 결과',
+}
 
 type Props = {
   params?: {
