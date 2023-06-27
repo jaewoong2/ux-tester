@@ -11,7 +11,7 @@ export const IMAGE = {
   heart: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/heart.gif',
   banner: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/banner.png',
   good: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/good.png',
-  star: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/star.png',
+  star: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/star.gif',
 }
 
 export const METADATA: Metadata = {
