@@ -1,5 +1,5 @@
 'use client'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { CgLink } from 'react-icons/cg'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
@@ -17,7 +17,7 @@ import ResultCard from '../atoms/ResultCard'
 import { ORDER_DESCRIPTION, getOrderName } from '../../utils'
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
 import { usePathname } from 'next/navigation'
-import { useToast } from '@chakra-ui/react'
+import { Tooltip, useToast } from '@chakra-ui/react'
 import { BASEURL } from '@/constants'
 
 type Props = {
@@ -39,7 +39,7 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
     useScrollButton<HTMLDivElement>()
 
   const copy = useCopyToClipboard()
-  const toast = useToast()
+  const [copySuccess, setCopySuccess] = useState(false)
 
   const orders = useMemo(() => getOrderName(order).join('→'), [order])
 
@@ -59,12 +59,7 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
 
   const handleShareButton = () => {
     copy(BASEURL + pathname)
-    toast({
-      title: '복사 성공',
-      icon: null,
-      status: 'success',
-      isClosable: true,
-    })
+    setCopySuccess(true)
   }
 
   return (
@@ -82,12 +77,30 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
       <div className='flex w-full flex-col items-center justify-center gap-2'>
         <h1 className='text-sm font-semibold'>공유하기</h1>
         <div className='flex gap-2'>
-          <button
-            className='w-fit rounded-full bg-slate-100 p-2 shadow-md transition-transform hover:-translate-y-1'
-            onClick={handleShareButton}
+          <Tooltip
+            label='복사 완료'
+            fontSize='sm'
+            hasArrow
+            isOpen={copySuccess}
+            bg='gray.300'
+            color='black'
+            className='z-[12] px-4 py-2 font-bold'
+            direction='rtl'
+            placement='top'
+            onOpen={() => {
+              setTimeout(() => {
+                setCopySuccess(false)
+              }, 1000)
+            }}
+            borderRadius={'12px'}
           >
-            <CgLink className='h-6 w-6 text-blue-400' />
-          </button>
+            <button
+              className='w-fit rounded-full bg-slate-100 p-2 shadow-md transition-transform hover:-translate-y-1'
+              onClick={handleShareButton}
+            >
+              <CgLink className='h-6 w-6 text-blue-400' />
+            </button>
+          </Tooltip>
           <button className='w-fit rounded-full bg-yellow-300 p-2 shadow-md transition-transform hover:-translate-y-1'>
             <KakaoIcon className='h-6 w-6 text-blue-400' />
           </button>
