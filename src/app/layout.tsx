@@ -14,8 +14,8 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang='kr'>
-      <body suppressHydrationWarning={true} className='relative bg-slate-200'>
+    <html lang='kr' className='h-full overflow-scroll'>
+      <body suppressHydrationWarning={true} className='relative max-h-full overflow-scroll bg-slate-200'>
         <Providers>
           <Layout>{children}</Layout>
         </Providers>

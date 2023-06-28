@@ -9,7 +9,7 @@ type Props = Omit<ReturnType<typeof useNickname>, 'handleClick' | 'handleChange'
 const CTAButton = ({ data, nickname, status, isLoading }: Props) => {
   return (
     <Link
-      className={twMerge('w-full text-xl font-bold', !data && 'cursor-not-allowed')}
+      className={twMerge('w-fit text-xl font-bold', !data && 'cursor-not-allowed')}
       href={status === 'success' ? `signup?nickname=${nickname}` : '#'}
     >
       <Button
@@ -19,7 +19,7 @@ const CTAButton = ({ data, nickname, status, isLoading }: Props) => {
         isDisabled={status !== 'success'}
         isLoading={isLoading}
         className={twMerge(
-          'w-full rounded-xl bg-blue-500 p-6 text-sm text-white shadow-md transition-colors hover:bg-blue-400 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-100 disabled:hover:bg-gray-400'
+          'rounded-sm bg-transparent p-4 text-sm text-gray-600 transition-colors hover:bg-transparent disabled:cursor-not-allowed disabled:bg-transparent disabled:opacity-100 disabled:hover:bg-transparent'
         )}
       >
         테스트 하러가기
