@@ -22,7 +22,15 @@ const ResultTitle = ({ optionScore, orderScore, nickname }: Props) => {
       <h1 className='animate-fade-right p-5 pb-0 text-lg font-bold'>{nickname}님의 점수 에요</h1>
       <div className='flex animate-fade-right px-5 text-sm font-semibold text-gray-500'>{description}</div>
       <figure className='flex w-full flex-col items-center justify-center gap-6 p-5 py-8'>
-        <Image src={image} width={155} height={155} alt='hero' className='h-auto w-auto drop-shadow-lg' />
+        <Image
+          src={image}
+          width={155}
+          height={155}
+          alt='hero'
+          className='h-auto w-auto drop-shadow-lg'
+          placeholder='blur'
+          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Ww8AAn8BfiZXqxQAAAAASUVORK5CYII='
+        />
         <figcaption>
           <span className='SUITE-Regular text-sm text-gray-600'>{nickname} 님은</span>
           <div className='rounded-xl bg-blue-50 p-2 px-4'>

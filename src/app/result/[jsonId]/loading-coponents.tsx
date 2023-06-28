@@ -12,6 +12,8 @@ const Loading = ({ nickname }: { nickname?: string | null }) => {
           width={250}
           height={100}
           className='h-auto w-auto bg-slate-50'
+          placeholder='blur'
+          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Ww8AAn8BfiZXqxQAAAAASUVORK5CYII='
         />
       </div>
       <div className='flex w-full flex-col items-center p-10'>

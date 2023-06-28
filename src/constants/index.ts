@@ -9,9 +9,13 @@ export const IMAGE = {
   bad: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/bad.png',
   munji: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/munji.png',
   heart: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/heart.gif',
-  banner: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/banner.png',
+  banner: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/background.png',
   good: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/good.png',
   star: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/star.gif',
+  favicon: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/favicon.png',
+  thumbnail: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/thumbnail.png',
+  og: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/og.png',
+  main2: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/main2.png',
 }
 
 export const METADATA: Metadata = {

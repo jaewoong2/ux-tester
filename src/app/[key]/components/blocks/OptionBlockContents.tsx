@@ -74,7 +74,15 @@ const OptionBlockContents = () => {
         <h2 className='text-xl font-bold'>회원가입 과정을 만드셨어요!</h2>
         <div className='flex w-full scale-x-[-1] items-center justify-center p-8 pt-5'>
           <div className='aspect-square h-auto w-[140px]'>
-            <Image src={IMAGE.heart} alt='thumbUp' width='140' height='140' className='h-auto w-auto' />
+            <Image
+              src={IMAGE.heart}
+              alt='thumbUp'
+              width='140'
+              height='140'
+              className='h-auto w-auto'
+              placeholder='blur'
+              blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Ww8AAn8BfiZXqxQAAAAASUVORK5CYII='
+            />
           </div>
           <span className='sr-only'>
             <a href='https://www.flaticon.com/free-animated-icons/like' title='like animated icons'>

@@ -20,9 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const answers = result.flatMap((v) => v.data)
   const jsonData = json.data.flatMap((v) => JSON.parse(v.json ?? ''))
 
+  if (!json || !result || answers.length === 0 || jsonData.length === 0) return {}
+
   const totalScore =
-    getOrderScore(jsonData.map(({ itemKey }) => itemKey)) +
-    answers.map((v) => (v?.score ? v?.score * 6.25 : 0)).reduce((a, b) => a + b)
+    getOrderScore(jsonData?.map(({ itemKey }) => itemKey)) +
+    answers?.map((v) => (v?.score ? v?.score * 6.25 : 0))?.reduce((a, b) => a + b)
 
   return {
     openGraph: {
@@ -41,13 +43,13 @@ const Page = async ({ params }: Props) => {
   const jsonData = json.data.flatMap((v) => JSON.parse(v.json ?? ''))
 
   return (
-    <section className='flex h-full flex-col justify-center overflow-scroll bg-slate-50'>
+    <section className='flex h-full flex-col justify-center bg-slate-50'>
       {nickname?.status === 200 && (
         <>
           <ResultTitle
             nickname={nickname?.data.nickname ?? ''}
             orderScore={getOrderScore(jsonData.map(({ itemKey }) => itemKey))}
-            optionScore={answers.map((v) => (v?.score ? v?.score * 6.25 : 0)).reduce((a, b) => a + b)}
+            optionScore={answers.map((v) => (v?.score ? v?.score * 6.25 : 0))?.reduce((a, b) => a + b)}
           />
           <ResultCards
             nickname={nickname?.data.nickname ?? ''}
