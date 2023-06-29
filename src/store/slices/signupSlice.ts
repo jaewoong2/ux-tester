@@ -1,5 +1,6 @@
-import { PrimaryItem } from '@/types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PrimaryItem } from '../../types'
+
 type Status = '순서' | '설정' | '완료' | '결과'
 type Item = PrimaryItem & {
   currentValue: string

@@ -2,23 +2,23 @@
 import React, { useMemo, useState } from 'react'
 import { CgLink } from 'react-icons/cg'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
+import { Tooltip } from '@chakra-ui/react'
+import { usePathname } from 'next/navigation'
 
 import { FcInfo } from 'react-icons/fc'
 import Link from 'next/link'
 
-import { Database } from '@/types/supabase'
-import useScrollButton from '@/app/[key]/hooks/useScrollButton'
-import KakaoIcon from '@/app/[key]/components/Icons/KakaoIcon'
-import { useAppDispatch } from '@/store/hooks'
-import { setNickName, setSelected, setStatus } from '@/store/slices/signupSlice'
-import { PrimaryItem } from '@/types'
+import { Database } from '../../../../../types/supabase'
+import useScrollButton from '../../../../../app/[key]/hooks/useScrollButton'
+import KakaoIcon from '../../../../../app/[key]/components/Icons/KakaoIcon'
+import { useAppDispatch } from '../../../../../store/hooks'
+import { setNickName, setSelected, setStatus } from '../../../../../store/slices/signupSlice'
+import { PrimaryItem } from '../../../../../types'
 
 import ResultCard from '../atoms/ResultCard'
 import { ORDER_DESCRIPTION, getOrderName } from '../../utils'
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
-import { usePathname } from 'next/navigation'
-import { Tooltip, useToast } from '@chakra-ui/react'
-import { BASEURL } from '@/constants'
+import { BASEURL } from '../../../../../constants'
 
 type Props = {
   answers: (Database['public']['Tables']['answer']['Row'] | null)[]

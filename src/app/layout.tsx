@@ -1,8 +1,9 @@
-import { Providers } from '@/lib/Provider'
-import './globals.css'
-import Layout from './components/Layout'
 import { Metadata } from 'next'
-import { METADATA } from '@/constants'
+import Layout from './components/Layout'
+import { Providers } from '../lib/Provider'
+import { METADATA } from '../constants'
+
+import './globals.css'
 
 export const metadata: Metadata = {
   ...METADATA,

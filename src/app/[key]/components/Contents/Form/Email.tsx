@@ -1,12 +1,14 @@
-import useDebounce from '@/app/[key]/hooks/useDebounce'
-import useDispatchForm from '@/app/[key]/hooks/useDispatchForm'
-import SimpleCheckIcon from '@/app/[key]/components/Icons/SimpleCheckIcon'
-import validateEmail from '@/lib/validateEmail'
-import { PrimaryItem } from '@/types'
+import React, { useEffect, useState } from 'react'
 import { MinusIcon } from '@chakra-ui/icons'
 import { Button, Input, InputGroup, InputProps, InputRightAddon, Select } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+
 import { twMerge } from 'tailwind-merge'
+
+import useDebounce from '../../../../../app/[key]/hooks/useDebounce'
+import useDispatchForm from '../../../../../app/[key]/hooks/useDispatchForm'
+import SimpleCheckIcon from '../../../../../app/[key]/components/Icons/SimpleCheckIcon'
+import validateEmail from '../../../../../lib/validateEmail'
+import { PrimaryItem } from '../../../../../types'
 
 type OptionDB = {
   rule: 'button' | 'input'

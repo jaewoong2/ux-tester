@@ -1,7 +1,8 @@
-import { IMAGE } from '@/constants'
 import Image from 'next/image'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { IMAGE } from '../../../../..//constants'
 
 type Props = {
   title?: string | null

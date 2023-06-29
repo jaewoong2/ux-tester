@@ -1,9 +1,10 @@
-import { Database } from '@/types/supabase'
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { NextRequest, NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
-import { PrimaryItem } from '@/types'
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
+
+import { PrimaryItem } from '../../../types'
+import { Database } from '../../../types/supabase'
 
 export const runtime = 'edge'
 

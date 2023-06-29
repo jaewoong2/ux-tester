@@ -1,16 +1,23 @@
 import React, { useCallback, useState } from 'react'
-import markdownToHtml from '@/lib/markdownToHtml'
-import { useAppSelector, useAppDispatch } from '@/store/hooks'
-import { handleChangeOptions, prevCurrent, setOptionsMap, nextCurrent, setStatus } from '@/store/slices/signupSlice'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Button } from '@chakra-ui/react'
-import { FaArrowLeft } from 'react-icons/fa'
 import { twMerge } from 'tailwind-merge'
+import { FaArrowLeft } from 'react-icons/fa'
+
+import markdownToHtml from '../../../../lib/markdownToHtml'
+import { useAppSelector, useAppDispatch } from '../../../../store/hooks'
+import {
+  handleChangeOptions,
+  prevCurrent,
+  setOptionsMap,
+  nextCurrent,
+  setStatus,
+} from '../../../../store/slices/signupSlice'
 import useGetOptions from '../../hooks/useGetOptions'
 import usePostResult from '../../hooks/usePostResult'
-import Image from 'next/image'
 import CheckIcon from '../Icons/CheckIcon'
-import { useRouter } from 'next/navigation'
-import { IMAGE } from '@/constants'
+import { IMAGE } from '../../../../constants'
 
 const sleep = () =>
   new Promise((reslove) =>

@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react'
-import validateEmail from '@/lib/validateEmail'
-import validatePassword from '@/lib/validatePassword'
+import { useRouter } from 'next/navigation'
+
 import { useToast } from '@chakra-ui/react'
 
-import { useAppSelector, useAppDispatch } from '@/store/hooks'
-import { setStatus, setIsError } from '@/store/slices/signupSlice'
-import { useRouter } from 'next/navigation'
+import validateEmail from '../../../lib/validateEmail'
+import validatePassword from '../../../lib/validatePassword'
+
+import { useAppSelector, useAppDispatch } from '../../../store/hooks'
+import { setStatus, setIsError } from '../../../store/slices/signupSlice'
 
 const useSignupForm = () => {
   const navigation = useRouter()

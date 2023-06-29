@@ -1,8 +1,9 @@
 import React, { PropsWithChildren, Suspense } from 'react'
-import Loading from './loading-coponents'
-import { getNickname } from '@/app/supabase-server'
 import { notFound } from 'next/navigation'
-import { METADATA } from '@/constants'
+
+import Loading from './loading-coponents'
+import { getNickname } from '../../../app/supabase-server'
+import { METADATA } from '../../../constants'
 
 export const metadata = {
   ...METADATA,

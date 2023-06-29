@@ -1,5 +1,5 @@
-import { PrimaryItem } from '@/types'
 import useSWRMutation, { MutationFetcher } from 'swr/mutation'
+import { PrimaryItem } from '../../../types'
 
 type ResultJson = Pick<PrimaryItem, 'optionValue' | 'itemKey'>
 

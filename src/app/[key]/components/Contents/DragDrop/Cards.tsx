@@ -1,13 +1,14 @@
-import { PrimaryItem } from '@/types'
 import React from 'react'
 import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
-import Card from '../Card'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
-import useScrollButton from '@/app/[key]/hooks/useScrollButton'
+
+import Card from '../Card'
 import SimpleCheckIcon from '../../Icons/SimpleCheckIcon'
-import { useAppDispatch } from '@/store/hooks'
-import { addSelected } from '@/store/slices/signupSlice'
+import { PrimaryItem } from '../../../../../types'
+import useScrollButton from '../../../../../app/[key]/hooks/useScrollButton'
+import { useAppDispatch } from '../../../../../store/hooks'
+import { addSelected } from '../../../../../store/slices/signupSlice'
 
 interface Props {
   items: PrimaryItem[]

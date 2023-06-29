@@ -1,8 +1,9 @@
-import { Button } from '@chakra-ui/react'
-import Link from 'next/link'
 import React from 'react'
-import useNickname from '../hooks/useNickname'
+import Link from 'next/link'
+import { Button } from '@chakra-ui/react'
 import { twMerge } from 'tailwind-merge'
+
+import useNickname from '../hooks/useNickname'
 
 type Props = Omit<ReturnType<typeof useNickname>, 'handleClick' | 'handleChange'>
 

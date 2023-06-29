@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import React, { PropsWithChildren } from 'react'
-import { IMAGE } from '@/constants'
 import { HamburgerIcon } from '@chakra-ui/icons'
+
 import NicknameForm from './NicknameForm'
+import { IMAGE } from '../../constants'
 
 const Banner = ({ children }: PropsWithChildren) => {
   return (

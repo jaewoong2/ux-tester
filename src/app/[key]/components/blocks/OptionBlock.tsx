@@ -1,14 +1,15 @@
 'use client'
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from '@chakra-ui/react'
-import { useAppSelector } from '@/store/hooks'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import { RefHandles } from 'react-spring-bottom-sheet/dist/types'
+import styled from '@emotion/styled'
+
+import Loading from '../atoms/Loading'
+import { useAppSelector } from '../../../../store/hooks'
+import OptionBlockContents from './OptionBlockContents'
 
 import 'react-spring-bottom-sheet/dist/style.css'
-import Loading from '../atoms/Loading'
-import styled from '@emotion/styled'
-import OptionBlockContents from './OptionBlockContents'
 
 const OptionBlock = () => {
   const [isMobile] = useMediaQuery('(max-height: 700px)', {

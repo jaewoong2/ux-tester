@@ -1,9 +1,10 @@
 'use client'
-import { IMAGE } from '@/constants'
-import { Button } from '@chakra-ui/react'
+import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import { Button } from '@chakra-ui/react'
+
+import { IMAGE } from '../constants'
 
 const ErrorComponent = () => {
   const navigator = useRouter()

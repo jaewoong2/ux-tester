@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
-import { useAppDispatch } from '@/store/hooks'
-import { reset } from '@/store/slices/signupSlice'
+import { useAppDispatch } from '../../store/hooks'
+import { reset } from '../../store/slices/signupSlice'
 import Banner from './Banner'
 
 const Home = () => {

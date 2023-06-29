@@ -1,6 +1,6 @@
-import { Database } from '@/types/supabase'
-import { PostgrestSingleResponse } from '@supabase/supabase-js'
 import useSWR, { Fetcher } from 'swr'
+import { PostgrestSingleResponse } from '@supabase/supabase-js'
+import { Database } from '../../../types/supabase'
 
 type Props = {
   itemId?: number | null

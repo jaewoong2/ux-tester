@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { IMAGE } from '@/constants'
+import { IMAGE } from '../../../constants'
 
 const Loading = ({ nickname }: { nickname?: string | null }) => {
   return (

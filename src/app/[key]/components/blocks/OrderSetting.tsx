@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import Cards from '@/app/[key]/components/contents/DragDrop/Cards'
-import EmptyDrop from '@/app/[key]/components/contents/DragDrop/EmptyDrop'
-import Selected from '@/app/[key]/components/contents/DragDrop/Selected'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { addSelected, setStatus, swapSelected } from '@/store/slices/signupSlice'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { Button } from '@chakra-ui/react'
+
+import Cards from '../../../../app/[key]/components/contents/DragDrop/Cards'
+import EmptyDrop from '../../../../app/[key]/components/contents/DragDrop/EmptyDrop'
+import Selected from '../../../../app/[key]/components/contents/DragDrop/Selected'
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
+import { addSelected, setStatus, swapSelected } from '../../../../store/slices/signupSlice'
 
 const OrderSetting = () => {
   const [enabled, setEnabled] = useState(false)

@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-import useIncreseNumber from '@/app/[key]/hooks/useIncreseNumber'
+import useIncreseNumber from '../../../../../app/[key]/hooks/useIncreseNumber'
 import { getArticles } from '../../utils'
 
 type Props = {

@@ -1,6 +1,6 @@
 import React from 'react'
 import useNickname from '../hooks/useNickname'
-import { Input, Spinner } from '@chakra-ui/react'
+import { Spinner } from '@chakra-ui/react'
 import { twMerge } from 'tailwind-merge'
 import CTAButton from './CTAButton'
 

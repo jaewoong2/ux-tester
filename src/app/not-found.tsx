@@ -1,6 +1,7 @@
-import { IMAGE } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { IMAGE } from '../constants'
 
 const NotFound = () => {
   return (

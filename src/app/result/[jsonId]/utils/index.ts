@@ -1,4 +1,4 @@
-import { IMAGE } from '@/constants'
+import { IMAGE } from '../../../../constants'
 
 export const getArticles = (score: number) => {
   if (score >= 65) {

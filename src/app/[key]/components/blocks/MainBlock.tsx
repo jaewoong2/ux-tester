@@ -1,12 +1,14 @@
 'use client'
 import React, { useEffect } from 'react'
-import { useAppSelector, useAppDispatch } from '@/store/hooks'
-import { init, setNickName } from '@/store/slices/signupSlice'
+import { notFound } from 'next/navigation'
+
 import OrderSetting from './OrderSetting'
 import OptionSetting from './OptionSetting'
 import FinalSetting from './FinalSetting'
-import { PrimaryItem } from '@/types'
-import { notFound } from 'next/navigation'
+
+import { useAppSelector, useAppDispatch } from '../../../../store/hooks'
+import { init, setNickName } from '../../../../store/slices/signupSlice'
+import { PrimaryItem } from '../../../../types'
 
 type Props = {
   items: PrimaryItem[] | undefined | null

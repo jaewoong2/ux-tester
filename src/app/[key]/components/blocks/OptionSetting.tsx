@@ -1,12 +1,13 @@
 import React from 'react'
-import Form from '@/app/[key]/components/contents/Form'
-import CheckIcon from '@/app/[key]/components/Icons/CheckIcon'
-import SimpleCircleIcon from '@/app/[key]/components/Icons/SimpleCircleIcon'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { setIsError, setStatus } from '@/store/slices/signupSlice'
 import { FaArrowLeft } from 'react-icons/fa'
-import validateEmail from '@/lib/validateEmail'
-import validatePassword from '@/lib/validatePassword'
+
+import Form from '../../../../app/[key]/components/contents/Form'
+import CheckIcon from '../../../../app/[key]/components/Icons/CheckIcon'
+import SimpleCircleIcon from '../../../../app/[key]/components/Icons/SimpleCircleIcon'
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
+import { setIsError, setStatus } from '../../../../store/slices/signupSlice'
+import validateEmail from '../../../../lib/validateEmail'
+import validatePassword from '../../../../lib/validatePassword'
 
 const OptionSetting = () => {
   const { selected, currentIndex } = useAppSelector((state) => state.signup)

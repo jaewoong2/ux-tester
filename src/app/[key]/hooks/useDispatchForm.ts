@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { handleChangeFormValue, setIsError } from '@/store/slices/signupSlice'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { handleChangeFormValue, setIsError } from '../../../store/slices/signupSlice'
 
 type Callback = (prev: string) => string
 type ErrorCallback = (prev: { rule?: boolean | null; duplicate?: boolean | null }) => {

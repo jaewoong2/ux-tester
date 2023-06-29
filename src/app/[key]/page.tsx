@@ -1,9 +1,10 @@
 import React from 'react'
+import Link from 'next/link'
+
 import MainBlock from './components/blocks/MainBlock'
 import OptionBlock from './components/blocks/OptionBlock'
 import { getItems, getNickname } from '../supabase-server'
-import Link from 'next/link'
-import { METADATA } from '@/constants'
+import { METADATA } from '../../constants'
 
 type Props = {
   searchParams: {
