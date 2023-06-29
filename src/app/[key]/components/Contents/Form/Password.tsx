@@ -1,14 +1,15 @@
-import useDebounce from '@/app/[key]/hooks/useDebounce'
-import useDispatchForm from '@/app/[key]/hooks/useDispatchForm'
-import SimpleCheckIcon from '@/app/[key]/components/Icons/SimpleCheckIcon'
-import validatePassword from '@/lib/validatePassword'
-import { useAppSelector } from '@/store/hooks'
-import { PrimaryItem } from '@/types'
+import React, { useEffect, useState } from 'react'
 import { MinusIcon } from '@chakra-ui/icons'
 import { Input, InputGroup, InputRightAddon } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
 import { FcLock, FcUnlock } from 'react-icons/fc'
 import { twMerge } from 'tailwind-merge'
+
+import useDebounce from '../../../hooks/useDebounce'
+import useDispatchForm from '../../../hooks/useDispatchForm'
+import SimpleCheckIcon from '../../../components/Icons/SimpleCheckIcon'
+import validatePassword from '../../../../../lib/validatePassword'
+import { useAppSelector } from '../../../../../store/hooks'
+import { PrimaryItem } from '../../../../../types'
 
 type OptionDB = {
   rule: 'button' | 'input'

@@ -4,9 +4,9 @@ import { Button, Input, InputGroup, InputProps, InputRightAddon, Select } from '
 
 import { twMerge } from 'tailwind-merge'
 
-import useDebounce from '../../../../../app/[key]/hooks/useDebounce'
-import useDispatchForm from '../../../../../app/[key]/hooks/useDispatchForm'
-import SimpleCheckIcon from '../../../../../app/[key]/components/Icons/SimpleCheckIcon'
+import useDebounce from '../../../hooks/useDebounce'
+import useDispatchForm from '../../../hooks/useDispatchForm'
+import SimpleCheckIcon from '../../../components/Icons/SimpleCheckIcon'
 import validateEmail from '../../../../../lib/validateEmail'
 import { PrimaryItem } from '../../../../../types'
 

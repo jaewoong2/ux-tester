@@ -1,9 +1,9 @@
 import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 
-import Form from '../../../../app/[key]/components/contents/Form'
-import CheckIcon from '../../../../app/[key]/components/Icons/CheckIcon'
-import SimpleCircleIcon from '../../../../app/[key]/components/Icons/SimpleCircleIcon'
+import Form from '../../components/contents/Form'
+import CheckIcon from '../../components/Icons/CheckIcon'
+import SimpleCircleIcon from '../../components/Icons/SimpleCircleIcon'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import { setIsError, setStatus } from '../../../../store/slices/signupSlice'
 import validateEmail from '../../../../lib/validateEmail'

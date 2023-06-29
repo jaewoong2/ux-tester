@@ -6,7 +6,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import Card from '../Card'
 import SimpleCheckIcon from '../../Icons/SimpleCheckIcon'
 import { PrimaryItem } from '../../../../../types'
-import useScrollButton from '../../../../../app/[key]/hooks/useScrollButton'
+import useScrollButton from '../../../hooks/useScrollButton'
 import { useAppDispatch } from '../../../../../store/hooks'
 import { addSelected } from '../../../../../store/slices/signupSlice'
 
