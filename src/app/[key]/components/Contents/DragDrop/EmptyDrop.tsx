@@ -1,6 +1,6 @@
 import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
-import Empty from '../Empty'
+import Empty from '../Empty/index'
 
 const EmptyDrop = () => {
   return (

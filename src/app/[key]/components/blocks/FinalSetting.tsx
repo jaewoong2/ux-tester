@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@chakra-ui/react'
 
-import Form from '../../components/contents/Form'
+import Form from '../../components/contents/Form/index'
 import useSignupForm from '../../hooks/useSignupForm'
 
 const FinalSetting = () => {

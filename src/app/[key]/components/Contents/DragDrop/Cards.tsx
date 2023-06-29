@@ -3,7 +3,7 @@ import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beau
 import { twMerge } from 'tailwind-merge'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
-import Card from '../Card'
+import Card from '../Card/index'
 import SimpleCheckIcon from '../../Icons/SimpleCheckIcon'
 import { PrimaryItem } from '../../../../../types'
 import useScrollButton from '../../../hooks/useScrollButton'

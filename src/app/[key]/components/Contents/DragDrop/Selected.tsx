@@ -2,7 +2,8 @@ import { PrimaryItem } from '@/types'
 import React from 'react'
 import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beautiful-dnd'
 import { twMerge } from 'tailwind-merge'
-import Form from '../Form'
+
+import Form from '../Form/index'
 import { GrDrag } from 'react-icons/gr'
 
 interface Props {

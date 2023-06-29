@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 
-import Form from '../../components/contents/Form'
+import Form from '../../components/contents/Form/index'
 import CheckIcon from '../../components/Icons/CheckIcon'
 import SimpleCircleIcon from '../../components/Icons/SimpleCircleIcon'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
