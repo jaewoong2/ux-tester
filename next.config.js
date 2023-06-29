@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    runtime: 'edge',
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
