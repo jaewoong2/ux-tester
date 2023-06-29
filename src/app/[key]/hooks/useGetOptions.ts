@@ -8,8 +8,7 @@ type Props = {
 
 type Data = PostgrestSingleResponse<Database['public']['Tables']['option']['Row'][]>
 
-const fetcher: Fetcher<Data, string> = (url) =>
-  fetch(url, { method: 'GET', cache: 'no-cache' }).then((res) => res.json())
+const fetcher: Fetcher<Data, string> = (url) => fetch(url, { method: 'GET' }).then((res) => res.json())
 
 const useGetOptions = ({ itemId }: Props) => {
   const { data, ...rest } = useSWR(`api/options?itemId=${itemId}`, fetcher, { suspense: true })

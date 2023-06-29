@@ -6,7 +6,7 @@ type ResultJson = Pick<PrimaryItem, 'optionValue' | 'itemKey'>
 const fetcher: MutationFetcher<{ uuid: string; userId: string }, { json: ResultJson[]; nickname: string }, string> = (
   url,
   { arg }
-) => fetch(url, { method: 'POST', cache: 'no-cache', body: JSON.stringify(arg) }).then((res) => res.json())
+) => fetch(url, { method: 'POST', body: JSON.stringify(arg) }).then((res) => res.json())
 
 const usePostResult = () => {
   const { data, ...rest } = useSWRMutation('api/result', fetcher)

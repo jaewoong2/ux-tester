@@ -6,9 +6,7 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { PrimaryItem } from '../../../types'
 import { Database } from '../../../types/supabase'
 
-export const config = {
-  runtime: 'edge',
-}
+export const runtime = 'edge'
 
 type RequestData = { json: Pick<PrimaryItem, 'optionValue' | 'itemKey'>[]; nickname: string }
 type ResponseBody = { uuid: string | null }

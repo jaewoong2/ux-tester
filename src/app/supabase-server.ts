@@ -6,9 +6,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import isResultJson, { ResultJson } from '../lib/isResult'
 import { Database } from '../types/supabase'
 
-export const config = {
-  runtime: 'edge',
-}
+export const runtime = 'edge'
 
 function sleep(ms?: number) {
   return new Promise((resolve) => {
