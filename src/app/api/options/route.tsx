@@ -4,7 +4,9 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 
 import { Database } from '../../../types/supabase'
 
-export const runtime = 'edge'
+export const config = {
+  runtime: 'edge',
+}
 
 function sleep() {
   return new Promise((resolve) => {

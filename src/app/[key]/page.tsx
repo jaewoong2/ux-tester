@@ -11,7 +11,10 @@ type Props = {
     nickname?: string
   }
 }
-export const runtime = 'edge'
+
+export const config = {
+  runtime: 'edge',
+}
 
 export const metadata = {
   ...METADATA,

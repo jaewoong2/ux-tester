@@ -7,7 +7,9 @@ import ResultCards from './components/blocks/ResultCards'
 import ResultTitle from './components/blocks/ResultTitle'
 import { getArticles } from './utils'
 
-export const runtime = 'edge'
+export const config = {
+  runtime: 'edge',
+}
 
 type Props = {
   params?: {
