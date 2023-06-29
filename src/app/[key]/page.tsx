@@ -10,7 +10,6 @@ type Props = {
     nickname?: string
   }
 }
-
 export const runtime = 'edge'
 
 export const metadata = {
