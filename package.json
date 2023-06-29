@@ -39,9 +39,11 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.1.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/gtag.js": "^0.0.12",
     "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "daisyui": "^3.1.6",
     "encoding": "^0.1.13",
@@ -58,6 +60,8 @@
     "react-redux": "^8.0.5",
     "react-spring-bottom-sheet": "^3.4.1",
     "tailwind-merge": "^1.12.0",
-    "tailwindcss-animated": "^1.0.1"
+    "tailwindcss-animated": "^1.0.1",
+    "uuid": "^9.0.0",
+    "vercel": "^31.0.1"
   }
 }

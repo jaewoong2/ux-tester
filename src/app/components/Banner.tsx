@@ -41,11 +41,6 @@ const Banner = ({ children }: PropsWithChildren) => {
             </div>
             <div className='chat-bubble bg-gray-200 text-gray-800'>오~ 재밌겠다</div>
           </div>
-          <div className='chat chat-end w-full pt-5'>
-            <div className='w-[45%]'>
-              <Image src={IMAGE.main2} width={512} height={512} className='h-1/3 w-auto' alt='image' />
-            </div>
-          </div>
           <div className='chat chat-end w-full'>
             <div className='chat-header'>
               나<time className=' pl-2 text-xs opacity-50'>1초전</time>

@@ -1,10 +1,12 @@
+import React from 'react'
+import { Metadata } from 'next'
 import { getAnswer, getJsonByUuid, getNickname } from '@/app/supabase-server'
 import getOrderScore from '@/lib/getOrderScore'
-import React from 'react'
 import ResultCards from './components/blocks/ResultCards'
 import ResultTitle from './components/blocks/ResultTitle'
-import { Metadata } from 'next'
 import { getArticles } from './utils'
+
+export const runtime = 'edge'
 
 type Props = {
   params?: {

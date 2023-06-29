@@ -11,6 +11,8 @@ type Props = {
   }
 }
 
+export const runtime = 'edge'
+
 export const metadata = {
   ...METADATA,
   title: '나의 회원가입 UX 테스트 | 순서 정하기',
