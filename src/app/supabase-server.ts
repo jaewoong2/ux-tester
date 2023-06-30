@@ -1,8 +1,5 @@
-import { cache } from 'react'
 import { cookies } from 'next/headers'
-
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-
 import isResultJson, { ResultJson } from '../lib/isResult'
 import { Database } from '../types/supabase'
 
@@ -14,7 +11,7 @@ function sleep(ms?: number) {
   })
 }
 
-export const createServerSupabaseClient = cache((cache?: RequestInit['cache']) =>
+export const createServerSupabaseClient = (cache?: RequestInit['cache']) =>
   createServerComponentClient<Database>(
     { cookies },
     {
@@ -31,7 +28,6 @@ export const createServerSupabaseClient = cache((cache?: RequestInit['cache']) =
       supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
     }
   )
-)
 
 export async function getNickname(userId?: string) {
   const supabase = createServerSupabaseClient()
