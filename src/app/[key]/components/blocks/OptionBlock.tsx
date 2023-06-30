@@ -10,13 +10,14 @@ import { useAppSelector } from '../../../../store/hooks'
 import OptionBlockContents from './OptionBlockContents'
 
 import 'react-spring-bottom-sheet/dist/style.css'
+import OptionBlockFinal from './OptionBlockFinal'
 
 const OptionBlock = () => {
   const [isMobile] = useMediaQuery('(max-height: 700px)', {
     ssr: true,
     fallback: false, // return false on the server, and re-evaluate on the client side
   })
-  const { status } = useAppSelector((state) => state.signup)
+  const { status, selected, currentIndex } = useAppSelector((state) => state.signup)
   const [optionStatus, setOptionStauts] = useState<
     'normal' | 'animate-fade-out-up' | 'hidden' | 'animate-fade-in-down'
   >('normal')
@@ -63,7 +64,7 @@ const OptionBlock = () => {
       }}
     >
       <Suspense fallback={<Loading />}>
-        <OptionBlockContents />
+        {currentIndex >= selected.length ? <OptionBlockFinal /> : <OptionBlockContents />}
       </Suspense>
     </StyledBottomSheet>
   )
