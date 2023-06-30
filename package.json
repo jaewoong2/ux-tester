@@ -56,6 +56,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
+    "patch-package": "^7.0.0",
     "postcss-custom-properties-fallback": "^1.0.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
