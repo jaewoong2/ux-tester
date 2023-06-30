@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { Database } from '../../../types/supabase'
 
-export const runtime = 'edge'
 type ResponseBody = { message?: string; status: number }
 
 export async function POST(request: NextRequest): Promise<NextResponse<ResponseBody> | Response> {
