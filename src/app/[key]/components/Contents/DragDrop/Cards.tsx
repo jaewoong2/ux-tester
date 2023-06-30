@@ -3,12 +3,13 @@ import { Droppable, Draggable, DroppableProps, DraggableProps } from 'react-beau
 import { twMerge } from 'tailwind-merge'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
-import Card from '../Card/index'
+import Card from '@/app/[key]/components/atoms/Card'
 import SimpleCheckIcon from '../../Icons/SimpleCheckIcon'
 import { PrimaryItem } from '../../../../../types'
 import useScrollButton from '../../../hooks/useScrollButton'
 import { useAppDispatch } from '../../../../../store/hooks'
 import { addSelected } from '../../../../../store/slices/signupSlice'
+import { GrDrag } from 'react-icons/gr'
 
 interface Props {
   items: PrimaryItem[]
@@ -49,13 +50,19 @@ const Cards = ({ items, draggableProps, droppableProps }: Props) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className={twMerge('flex-[0_0_auto] cursor-pointer', snapshot.isDragging ? 'shadow-xl' : '')}
-                        style={{ ...provided.draggableProps.style, cursor: 'grap' }}
+                        className={twMerge('flex-[0_0_auto]', snapshot.isDragging ? 'shadow-xl' : '')}
+                        style={{ ...provided.draggableProps.style, cursor: 'default' }}
                       >
                         <Card
+                          left={
+                            <div {...provided.dragHandleProps} className='m-0 px-3 py-2'>
+                              <GrDrag />
+                            </div>
+                          }
                           title={item.title ?? 'Title'}
                           className={twMerge(
-                            'relative border-2 border-black bg-slate-50 p-3 shadow-md',
+                            'flex w-full items-start',
+                            'relative border-2 border-black bg-slate-50 shadow-md',
                             snapshot.isDragging
                               ? 'animate-wiggle border-blue-500 bg-blue-50 shadow-xl animate-infinite'
                               : ''

@@ -7,8 +7,6 @@ import ResultCards from './components/blocks/ResultCards'
 import ResultTitle from './components/blocks/ResultTitle'
 import { getArticles } from './utils'
 
-export const runtime = 'edge'
-
 type Props = {
   params?: {
     jsonId: string

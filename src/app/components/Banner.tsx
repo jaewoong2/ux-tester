@@ -38,15 +38,27 @@ const Banner = ({ children }: PropsWithChildren) => {
           </div>
           <div className='chat chat-end w-full'>
             <div className='chat-header'>
-              나<time className=' pl-2 text-xs opacity-50'>10초전</time>
+              나<time className=' pl-2 text-xs opacity-50'>30초전</time>
             </div>
             <div className='chat-bubble bg-gray-200 text-gray-800'>오~ 재밌겠다</div>
           </div>
           <div className='chat chat-end w-full'>
             <div className='chat-header'>
-              나<time className=' pl-2 text-xs opacity-50'>1초전</time>
+              나<time className=' pl-2 text-xs opacity-50'>10초전</time>
             </div>
             <div className='chat-bubble bg-gray-200 text-gray-800'>이거 점수도 매겨주네</div>
+          </div>
+          <div className='chat chat-start w-full'>
+            <div className='chat-image avatar'>
+              <div className='w-10 rounded-full border bg-blue-50 p-1'>
+                <Image src={IMAGE.favicon} width={40} height={40} className='h-auto w-auto' alt='image' />
+              </div>
+            </div>
+            <div className='chat-header'>
+              김똥
+              <time className=' pl-2 text-xs opacity-50'>1초전</time>
+            </div>
+            <div className='chat-bubble bg-blue-200 text-gray-800'>빨리 해봐 ㅋㅋ 밑에 닉네임 입력하면 돼</div>
           </div>
         </div>
         <div className='h-36 w-full rounded-xl rounded-t-none border-t bg-blue-100'>

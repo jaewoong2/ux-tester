@@ -4,8 +4,6 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 
 import { Database } from '../../../types/supabase'
 
-export const runtime = 'edge'
-
 function sleep() {
   return new Promise((resolve) => {
     setTimeout(() => {
