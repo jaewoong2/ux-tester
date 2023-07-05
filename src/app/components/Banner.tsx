@@ -4,6 +4,7 @@ import { HamburgerIcon } from '@chakra-ui/icons'
 
 import NicknameForm from './NicknameForm'
 import { IMAGE } from '../../constants'
+import { FcCollaboration } from 'react-icons/fc'
 
 const Banner = ({ children }: PropsWithChildren) => {
   return (
@@ -11,8 +12,8 @@ const Banner = ({ children }: PropsWithChildren) => {
       <div className='flex w-full flex-col overflow-y-scroll rounded-xl border bg-white'>
         <div className='h-20 w-full bg-blue-200'>
           <header className='flex w-full items-center justify-between p-4'>
-            <div className='w-10 rounded-full border bg-blue-50 p-1'>
-              <Image src={IMAGE.star} width={40} height={40} className='aspect-square h-auto w-auto' alt='image' />
+            <div className='flex aspect-square h-auto w-10 items-center justify-center rounded-full border bg-blue-50 p-1'>
+              <FcCollaboration className='text-lg' />
             </div>
             <span className='flex w-full justify-center font-semibold'>나만의 회원가입 UX 테스트</span>
             <HamburgerIcon className='cursor-pointer text-lg' />

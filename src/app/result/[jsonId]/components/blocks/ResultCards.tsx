@@ -78,7 +78,7 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
         <h1 className='text-sm font-semibold'>공유하기</h1>
         <div className='flex gap-2'>
           <Tooltip
-            label='복사 완료'
+            label='클립 보드에 복사 하였어요'
             fontSize='sm'
             hasArrow
             isOpen={copySuccess}
@@ -165,7 +165,7 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
           <h2 className='font-bold'>재밌게 즐기셨나요?</h2>
         </div>
         <strong className='w-full text-sm font-semibold text-gray-800'>
-          UI/UX 에 정답은 없으며, 사용자의 필요와 서비스에 맞게 개선하고 변화해야 해요. 재미로만 참고 해주세요 :)
+          UI/UX 에 정답은 없으며, 사용자의 필요와 서비스에 맞게 개선하고 변화해야 해요. 재미로 즐겨주세요 :)
         </strong>
       </div>
     </div>

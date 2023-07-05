@@ -5,7 +5,7 @@ export const getArticles = (score: number) => {
     return {
       image: IMAGE.fox,
       imageCaption: '금메달을 받아서 기쁜 여우',
-      description: '당신은 UX 고수! 대단 하시네요',
+      description: '회원가입 경험이 많으시네요!',
       medal: '🥇',
     }
   }
@@ -14,15 +14,15 @@ export const getArticles = (score: number) => {
     return {
       image: IMAGE.penguin,
       imageCaption: '은메달 이지만, 자신과 비슷한 색이라 신난 펭귄',
-      description: '당신은 UX 중수 잘했어요!',
+      description: '회원가입을 어디서 많이 해보셨군요?',
       medal: '🥈',
     }
   }
 
   return {
     image: IMAGE.cat,
-    imageCaption: '메달을 못받았지만 행복한 고양이',
-    description: '고생했어요',
+    imageCaption: '귀여운 아기 고양이',
+    description: '괜찮아요! 재밌게 즐기셨나요?',
     medal: '🥉',
   }
 }
