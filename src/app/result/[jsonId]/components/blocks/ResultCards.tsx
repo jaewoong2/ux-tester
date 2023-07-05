@@ -19,6 +19,7 @@ import ResultCard from '../atoms/ResultCard'
 import { ORDER_DESCRIPTION, getOrderName } from '../../utils'
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard'
 import { BASEURL } from '../../../../../constants'
+import { shareKakao } from '@/lib/shareKakao'
 
 type Props = {
   answers: (Database['public']['Tables']['answer']['Row'] | null)[]
@@ -31,9 +32,11 @@ type Props = {
   })[]
   nickname: string
   order: string[]
+  image: string
+  description: string
 }
 
-const ResultCards = ({ answers, selected, nickname, order }: Props) => {
+const ResultCards = ({ answers, selected, nickname, order, image, description }: Props) => {
   const pathname = usePathname()
   const { handleClickScrollButton, isNextButtonVisible, isPrevButtonVisible, wrapper } =
     useScrollButton<HTMLDivElement>()
@@ -101,7 +104,18 @@ const ResultCards = ({ answers, selected, nickname, order }: Props) => {
               <CgLink className='h-6 w-6 text-blue-400' />
             </button>
           </Tooltip>
-          <button className='w-fit rounded-full bg-yellow-300 p-2 shadow-md transition-transform hover:-translate-y-1'>
+          <button
+            className='w-fit rounded-full bg-yellow-300 p-2 shadow-md transition-transform hover:-translate-y-1'
+            onClick={() =>
+              shareKakao({
+                imageUrl: image,
+                title: '회원가입 UX 테스트 결과',
+                description: description,
+                width: 192,
+                height: 192,
+              })
+            }
+          >
             <KakaoIcon className='h-6 w-6 text-blue-400' />
           </button>
         </div>

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-export const BASEURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
+export const BASEURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://ux-tester.vercel.app'
 
 export const IMAGE = {
   fox: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/fox.png',
@@ -16,6 +16,7 @@ export const IMAGE = {
   thumbnail: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/thumbnail.png',
   og: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/og.png',
   main2: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/main2.png',
+  kakaoShare: 'https://ndavhlqivyieuaehsnne.supabase.co/storage/v1/object/public/image/kakao-share.png',
 }
 
 export const METADATA: Metadata = {

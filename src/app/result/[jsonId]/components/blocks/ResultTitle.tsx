@@ -3,19 +3,21 @@ import React from 'react'
 import Image from 'next/image'
 
 import useIncreseNumber from '../../../../../app/[key]/hooks/useIncreseNumber'
-import { getArticles } from '../../utils'
 
 type Props = {
   optionScore: number
   orderScore: number
   nickname?: string
+  description: string
+  image: string
+  medal: string
+  imageCaption: string
 }
 
-const ResultTitle = ({ optionScore, orderScore, nickname }: Props) => {
+const ResultTitle = ({ optionScore, orderScore, nickname, description, image, medal, imageCaption }: Props) => {
   const total = useIncreseNumber(optionScore + orderScore)
   const order = useIncreseNumber(orderScore)
   const option = useIncreseNumber(optionScore)
-  const { description, image, imageCaption, medal } = getArticles(optionScore + orderScore)
 
   return (
     <>

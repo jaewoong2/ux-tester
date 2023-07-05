@@ -62,11 +62,21 @@ const Page = async ({ params }: Props) => {
   const answers = result.flatMap((v) => v.data)
   const jsonData = json.data.flatMap((v) => JSON.parse(v.json ?? ''))
 
+  const totalScore =
+    getOrderScore(jsonData?.map(({ itemKey }) => itemKey)) +
+    answers?.map((v) => (v?.score ? v?.score * 6.25 : 0))?.reduce((a, b) => a + b)
+
+  const { description, image, imageCaption, medal } = getArticles(totalScore)
+
   return (
     <section className='flex h-full flex-col justify-center bg-slate-50'>
       {nickname?.status === 200 && (
         <>
           <ResultTitle
+            image={image}
+            description={description}
+            medal={medal}
+            imageCaption={imageCaption}
             nickname={nickname?.data.nickname ?? ''}
             orderScore={getOrderScore(jsonData.map(({ itemKey }) => itemKey))}
             optionScore={answers.map((v) => (v?.score ? v?.score * 6.25 : 0))?.reduce((a, b) => a + b)}
@@ -75,6 +85,8 @@ const Page = async ({ params }: Props) => {
             nickname={nickname?.data.nickname ?? ''}
             selected={jsonData}
             answers={answers}
+            description={description}
+            image={image}
             order={jsonData.map(({ itemKey }) => itemKey)}
           />
         </>
