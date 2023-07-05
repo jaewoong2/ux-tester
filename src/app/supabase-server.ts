@@ -2,6 +2,7 @@ import { cookies } from 'next/headers'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import isResultJson, { ResultJson } from '../lib/isResult'
 import { Database } from '../types/supabase'
+import { cache } from 'react'
 
 function sleep(ms?: number) {
   return new Promise((resolve) => {
@@ -11,7 +12,7 @@ function sleep(ms?: number) {
   })
 }
 
-export const createServerSupabaseClient = (cache?: RequestInit['cache']) =>
+export const createServerSupabaseClient = cache((cache?: RequestInit['cache']) =>
   createServerComponentClient<Database>(
     { cookies },
     {
@@ -28,6 +29,7 @@ export const createServerSupabaseClient = (cache?: RequestInit['cache']) =>
       supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
     }
   )
+)
 
 export async function getNickname(userId?: string) {
   const supabase = createServerSupabaseClient()
@@ -76,7 +78,7 @@ export async function getJsonByUuid(uuid?: string) {
 
     return response
   } catch (err) {
-    throw new Error('Error')
+    return null
   }
 }
 
@@ -110,7 +112,7 @@ export async function getAnswer(uuid?: string) {
 
     return await Promise.all(responses)
   } catch (err) {
-    throw new Error('Error')
+    return null
   }
 }
 
