@@ -21,6 +21,7 @@ export default function RootLayout({ children }: Props) {
         {process.env.NODE_ENV !== 'development' && (
           <GoogleAnalytics GA_TRACKING_ID={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ?? ''} />
         )}
+        <script src='https://developers.kakao.com/sdk/js/kakao.js' async />
         <Providers>
           <Layout>{children}</Layout>
         </Providers>
