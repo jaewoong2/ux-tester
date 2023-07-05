@@ -9,6 +9,7 @@ import FinalSetting from './FinalSetting'
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks'
 import { init, setNickName } from '../../../../store/slices/signupSlice'
 import { PrimaryItem } from '../../../../types'
+import Loading from '@/app/result/[jsonId]/loading-coponents'
 
 type Props = {
   items: PrimaryItem[] | undefined | null
@@ -38,6 +39,7 @@ const MainBlock = ({ items, nickname }: Props) => {
       {status === '순서' && <OrderSetting />}
       {status === '설정' && <OptionSetting />}
       {status === '완료' && <FinalSetting />}
+      {status === '결과' && <Loading nickname={nickname} />}
     </>
   )
 }
