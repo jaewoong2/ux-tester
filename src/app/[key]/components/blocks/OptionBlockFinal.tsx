@@ -14,7 +14,7 @@ const OptionBlockFinal = () => {
   const { selected, nickname } = useAppSelector((state) => state.signup)
   const dispatch = useAppDispatch()
 
-  const { trigger } = usePostResult()
+  const { trigger, isMutating } = usePostResult()
 
   const handleClickCTA = async () => {
     try {
@@ -64,7 +64,12 @@ const OptionBlockFinal = () => {
         </span>
       </div>
       <div className='flex animate-fade-in-left flex-col'>
-        <Button className='w-full bg-blue-500 text-white' colorScheme='twitter' onClick={handleClickCTA}>
+        <Button
+          isLoading={isMutating}
+          className='w-full bg-blue-500 text-white'
+          colorScheme='twitter'
+          onClick={handleClickCTA}
+        >
           확인
         </Button>
         <label className='flex w-full justify-end text-xs'>내가 만든 회원가입 진행 하고, 점수 확인 할까요?</label>
