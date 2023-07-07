@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import React, { PropsWithChildren } from 'react'
-import { HamburgerIcon } from '@chakra-ui/icons'
 
 import NicknameForm from './NicknameForm'
 import { IMAGE } from '../../constants'
 import { FcCollaboration } from 'react-icons/fc'
+import HambergerMenuList from './HambergerMenuList'
 
 const Banner = ({ children }: PropsWithChildren) => {
   return (
@@ -16,7 +16,7 @@ const Banner = ({ children }: PropsWithChildren) => {
               <FcCollaboration className='text-lg' />
             </div>
             <span className='flex w-full justify-center font-semibold'>나만의 회원가입 UX 테스트</span>
-            <HamburgerIcon className='cursor-pointer text-lg' />
+            <HambergerMenuList />
           </header>
         </div>
         <div className='px-4 py-5'>
