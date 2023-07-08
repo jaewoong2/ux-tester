@@ -108,6 +108,7 @@ const ResultCards = ({ answers, selected, nickname, order, image, description }:
             className='w-fit rounded-full bg-yellow-300 p-2 shadow-md transition-transform hover:-translate-y-1'
             onClick={() =>
               shareKakao({
+                route: pathname,
                 imageUrl: image,
                 title: '회원가입 UX 테스트 결과',
                 description: description,
